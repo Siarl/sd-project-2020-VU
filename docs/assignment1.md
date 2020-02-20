@@ -106,8 +106,9 @@ actions(F3).</td>
 <td>F7</td>
 <td>Combat</td>
 <td>The game shall have a simple <b>combat system.</b> If the player is able to attack a target, depending on the aggressiveness of the target, it can
-attack the player back. If the attack hits there is 50/50 chance of damage. The combat system should have a modifier mechanic on which the chance
-of hitting or damage depends on. "Stronger" enemies have higher modifiers thus will give more damage to the player. </td>
+attack the player back. If the attack hits there is 50/50 chance of damage. Desired: the combat system should have a modifier mechanic on which the chance
+of hitting or damage depends on. "Stronger" enemies have higher modifiers thus will give more damage to the player. This makes for a better playing experience, and the
+ player would need to adapt to different enemies. </td>
 </tr>
 <tr>
 <td>F8</td>
