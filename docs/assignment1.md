@@ -93,12 +93,12 @@ actions(F3).</td>
 <tr>
 <td>F6</td>
 <td>Character Attributes and Characteristics</td>
-<td>The gameshall have certain <b>attributes and characteristics</b> for the player and other characters in the game, in order to distinguish
+<td>The game shall have certain <b>attributes and characteristics</b> for the player and other characters in the game, in order to distinguish
  between the different characters in the game, be it the player or enemies. These should be:
 <ul>
 <li>Health Points</li>
 <li>Debuffs (hangover, wounds, bleeding)</li>
-<li>Aggressiveness</li>
+<li>Aggressiveness (the chance of an enemy character being aggressive to the player, e.g. engaging in combat)</li>
 </ul>
 </td>
 </tr>
