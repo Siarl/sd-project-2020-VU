@@ -129,7 +129,7 @@ Author(s): Claudia Grigoras
 | ID  | Short name  | Quality attribute | Description  |
 |---|---|---|---|
 | QR1  | Commands sanity checks | Reliability | When the player issues a command, the syntax of the command shall always get validated against the format specified in F3 |
-| QR2  | Adaptable system | Maintainability & Responsiveness | The video game shall be easily adaptable to new stories and worlds. The system should not be dependent to one story only (when changing the story or the world, only variables and actions should change) |
+| QR2  | Adaptable system | Maintainability | The video game shall be easily adaptable to new stories and worlds. The system should not be dependent to one story only (when changing the story or the world, only variables and actions should change) |
 | QR3  | Loading game state | Responsiveness | Once the player types in a command, loading the game state shall be executed in less than 5 seconds regardless of the computer capabilities |
 | QR4  | Accessing the commands | Usability & Availability | The players shall at any point within the game be able to access the available commands at that particular level in game (through the command specified at F3 – examine\) |
 | QR5  | Secured connections | Security | When playing in a multiplayer mode, the system should provide a safe network connection to both user  |
