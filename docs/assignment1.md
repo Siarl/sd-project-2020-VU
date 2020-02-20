@@ -88,12 +88,13 @@ actions(F3).</td>
 <tr>
 <td>F5</td>
 <td>Characters</td>
-<td>The game shall have characters, each with different statistics(F6) defining what they are (enemies, friendlies, etc).</td>
+<td>The game shall have characters, each with different attributes and characteristics(F6) defining what they are (enemies, friendlies, etc).</td>
 </tr>
 <tr>
 <td>F6</td>
-<td>Statistics</td>
-<td>The gameshall have <b>statistics</b> for the player and other characters in the game. Statistics will be:
+<td>Character Attributes and Characteristics</td>
+<td>The gameshall have certain <b>attributes and characteristics</b> for the player and other characters in the game, in order to distinguish
+ between the different characters in the game, be it the player or enemies. These should be:
 <ul>
 <li>Health Points</li>
 <li>Debuffs (hangover, wounds, bleeding)</li>
