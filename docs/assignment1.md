@@ -1,7 +1,7 @@
 # Assignment 1
 Maximum number of words for this document: 2500
 
-Word Count: 1548
+Word Count: 1629
 
 ## Introduction
 Author(s): Sofia Konovalova & Bogdan-Petre Cercel
@@ -120,7 +120,8 @@ Weapons are not stackable, while currency and other items are.</td>
 <td>F9</td>
 <td>Time Mechanic</td>
 <td>The game shall have a <b>time system</b> for story-telling purposes. Time will be implemented with a turn-based system, for example: every <i>x</i> turns
-<i>y</i> amount of time passes. Some actions will pass time immediately, such as sleeping.</td>
+<i>y</i> amount of time passes. Some actions will pass time immediately, such as sleeping. All actions constitute a "turn". Each action constitutes one turn. Combat
+should be turn-based too, as an attack is a turn. </td>
 </tr>
 </table>
 
@@ -134,11 +135,11 @@ Author(s): Claudia Grigoras
 | QR3  | Loading game state | Responsiveness | Once the player types in a command, loading the game state shall be executed in less than 5 seconds regardless of the computer capabilities |
 | QR4  | Accessing the commands | Usability & Availability | The players shall at any point within the game be able to access the available commands at that particular level in game (through the command specified at F3 – examine\) |
 | QR5  | Secured connections | Security | When playing in a multiplayer mode, the system should provide a safe network connection to both user  |
-| QR6  | Real-time commands multiplayer mode | Responsiveness & Reliability | The system shall have a maximum latency of 2 seconds for providing commands and loading game state between 2 players in multiplayer mode |
+| QR6  | Real-time commands multiplayer mode | Usability & Reliability | The system shall have a maximum latency of 2 seconds for providing commands and loading game state between 2 players in multiplayer mode |
 | QR7  | Un-biased game | Reliability & Responsiveness | The system shall ensure that the attributes and characteristics of the characters provided at F6 are correct and un-biased and that the combat mentioned at F7 is unbiased and always gives a 50/50 chance roll. |
 | QR8  | Reliable data  | Reliability & usability | The system shall provide correct inventory responses and storing (F7) and correct timing within the game (F8) |
 
-Word Count: 710
+Word Count: 791
 
 ### Java libraries
 Author(s): Wilkin van Roosmalen
