@@ -7,16 +7,16 @@ Word Count: 1629
 Author(s): Sofia Konovalova & Bogdan-Petre Cercel
 
 Ever since Pong was released in 1958, the video game scene has been steadily growing. Over time, technologies improved and the popularity and general interest in games have boomed, especially in the early 2000's.
-Video games are an opportunity to escape the world, and train your brain in various different activities. Games have a wide variety of genres, ranging from full on simulations of physics to simple interactive novels with branching stories.
+Video games are an opportunity to escape the sceneStore, and train your brain in various different activities. Games have a wide variety of genres, ranging from full on simulations of physics to simple interactive novels with branching stories.
 [*Zork*](https://en.wikipedia.org/wiki/Zork) is one of the first interactive computer games, released in 1980. It is a text adventure game, where the protagonist interacts with the virtual
-world and other players. These games have evolved from simple text-based games to more complex artistic games of today. Going back to the classics, this project will be a minimal version of Zork, which takes place in a post-apocalyptic world.
+sceneStore and other players. These games have evolved from simple text-based games to more complex artistic games of today. Going back to the classics, this project will be a minimal version of Zork, which takes place in a post-apocalyptic sceneStore.
 Our protagonist wakes up in the middle of the day, seeing an emergency alert on his phone of an imminent missile strike. They go on a mission to find their
 family or risks dying in the nuclear strike.
 
-The minimal game of Zork consists of a protagonist, a virtual world, and objects and virtual characters. We took inspiration from the Black Isle Studios
-game [Fallout 2](https://store.steampowered.com/app/38410/Fallout_2_A_Post_Nuclear_Role_Playing_Game/) with the post-apocalyptic world using simple objects as currency. In the *Fallout* game series, bottle caps are used as currency. In our game,
+The minimal game of Zork consists of a protagonist, a virtual sceneStore, and objects and virtual characters. We took inspiration from the Black Isle Studios
+game [Fallout 2](https://store.steampowered.com/app/38410/Fallout_2_A_Post_Nuclear_Role_Playing_Game/) with the post-apocalyptic sceneStore using simple objects as currency. In the *Fallout* game series, bottle caps are used as currency. In our game,
 sporks are used as the currency (the word rhymes with Zork). Post-apocalyptic genre games became incredibly popular in the mid-2000s to the early 2010s, so it is difficult to
-point to a specific game that inspired that world in our game.
+point to a specific game that inspired that sceneStore in our game.
 
 The project track specifies that our game be loyal to the original Zork, which will run completely in the terminal. The termainal with have color-coded text, in order
 to indicate to the player whether text describes a player, a situation, or the protagonists' health, etc. As an extension, we can create an alternative version
@@ -60,7 +60,7 @@ actions(F3).</td>
 <tr>
 <td>F3</td>
 <td>Actions</td>
-<td>Typing different commands shal result in different actions in the game world, examples of such are:
+<td>Typing different commands shal result in different actions in the game sceneStore, examples of such are:
 <ul>
 <li>Movement</li>
 <li>Attacking</li>
@@ -131,7 +131,7 @@ Author(s): Claudia Grigoras
 | ID  | Short name  | Quality attribute | Description  |
 |---|---|---|---|
 | QR1  | Commands sanity checks | Reliability | When the player issues a command, the syntax of the command shall always get validated against the format specified in F3 |
-| QR2  | Adaptable system | Maintainability | The video game shall be easily adaptable to new stories and worlds. The system should not be dependent to one story only (when changing the story or the world, only variables and actions should change) |
+| QR2  | Adaptable system | Maintainability | The video game shall be easily adaptable to new stories and worlds. The system should not be dependent to one story only (when changing the story or the sceneStore, only variables and actions should change) |
 | QR3  | Loading game state | Responsiveness | Once the player types in a command, loading the game state shall be executed in less than 5 seconds regardless of the computer capabilities |
 | QR4  | Accessing the commands | Usability & Availability | The players shall at any point within the game be able to access the available commands at that particular level in game (through the command specified at F3 – examine\) |
 | QR5  | Secured connections | Security | When playing in a multiplayer mode, the system should provide a safe network connection to both user  |
