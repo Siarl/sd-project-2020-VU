@@ -2,25 +2,76 @@
 
 Maximum number of words for this document: 9000
 
+Word Count:
+
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
 **Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
 
-### Implemented feature
+### Implemented features
 
-| ID  | Short name  | Description  |
-|---|---|---|
-| F1  | Tags | Code snippets can be tagged via freely-defined labels called tags  |
+<table>
+<tr>
+<th>ID</th>
+<th>Short Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>F1</td>
+<td>Commands</td>
+<td>Game shall have a <b>text-based option system</b>, where the player can type different commands in a command prompt which will result in different
+actions(F3).</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>Interface</td>
+<td>The game shall be played inside a <b>command prompt</b>. Everything is text. Some scenarios should have ASCII art.</td>
+</tr>
+<tr>
+<td>F3</td>
+<td>Actions</td>
+<td>Typing <b>different commands shall result in different actions</b> in the game sceneStore, examples of such are:
+    <ul>
+    <li>Movement</li>
+    <li>Attacking</li>
+    <li>Conversation</li>
+    <li>Interacting with items (doors, keys, picking up items)</li>
+    <li>Dying (restarts the game)</li>
+    <li>Healing</li>
+    <li>Examining items and surrounding</li>
+    <li>Sleeping</li>
+    </ul>
+</td>
+</tr>
+</table>
 
 ### Used modeling tool
-Add here the name of the modeling tool you are using for your project.
+Class Diagram: LucidChart
 
 ## Class diagram
-Author(s): `name of the team member(s) responsible for this section`
-
-This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
+Author(s): Sofia Konovalova
 
 `Figure representing the UML class diagram`
+
+**Game**
+
+**Scene**
+
+**SceneStore**
+
+**Player**
+
+**PlayerStats**
+
+**Stats**
+
+**Item**
+
+**ItemStore**
+
+**Effect**
+
+**Command**
 
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
@@ -37,7 +88,7 @@ In this document you have to adhere to the following formatting conventions:
 Maximum number of words for this section: 2500
 
 ## Object diagrams
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): Koen van den Burg
 
 This chapter contains the description of a "snapshot" of the status of your system during its execution.
 This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
@@ -49,7 +100,7 @@ This chapter is composed of a UML object diagram of your system, together with a
 Maximum number of words for this section: 500
 
 ## State machine diagrams
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): Claudia Grigoras
 
 This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
 
@@ -63,7 +114,7 @@ The goal of your state machine diagrams is both descriptive and prescriptive, so
 Maximum number of words for this section: 2500
 
 ## Sequence diagrams
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): Bogdan Cercel
 
 This chapter contains the specification of at least 2 UML sequence diagrams of your system, together with a textual description of all its elements. Here you have to focus on specific situations you want to describe. For example, you can describe the interaction of player when performing a key part of the videogame, during a typical execution scenario, in a special case that may happen (e.g., an error situation), when finalizing a fantasy soccer game, etc.
 
@@ -77,7 +128,7 @@ The goal of your sequence diagrams is both descriptive and prescriptive, so put 
 Maximum number of words for this section: 2500
 
 ## Implementation
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): Wilkin van Roosmalen
 
 In this chapter you will describe the following aspects of your project:
 - the strategy that you followed when moving from the UML models to the implementation code;
