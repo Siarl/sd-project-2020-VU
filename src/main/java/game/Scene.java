@@ -23,9 +23,9 @@ public class Scene implements Interactable {
     @Override
     public boolean onCommand(Command command, Callback callback) {
 
-        if (command.getAction().equals("inspect-scene")) {
+        if (command.getAction().equals("inspect")) {
 
-            StringBuilder message = new StringBuilder("inspect-scene: name = " + name + "\n items: \n");
+            StringBuilder message = new StringBuilder("inspect: scene, name = " + name + "\n items: \n");
             for (String item : items) {
                 message.append(item).append("\n");
             }
@@ -34,27 +34,15 @@ public class Scene implements Interactable {
             callback.onMessage(message.toString());
 
             return true;
-        } else if (command.getAction().equals("inspect-item") && command.hasReceiver()) {
-
+        } else if (command.hasReceiver()) {
             if (items.contains(command.getReceiver())) {
                 Item item = command.getGame().getItemStore().getItemByName(command.getReceiver());
-                List<String> commands = item.listCommands(command.getGame(), new ArrayList<>());
-
-                StringBuilder message = new StringBuilder("inspect-item: name = " + item.getName() + "\n");
-                for (String foo : commands) {
-                    message.append(foo).append("\n");
-                }
-                message.append("==========");
-
-                callback.onMessage(message.toString());
-
+                item.onCommand(command, callback);
             } else {
                 callback.onMessage("This item does not exist.");
             }
 
             return true;
-        } else {
-
         }
 
         return false;
@@ -62,8 +50,9 @@ public class Scene implements Interactable {
 
     @Override
     public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.add("inspect-scene");
-        addToThisList.add("inspect-item");
+        addToThisList.add("inspect");
+        addToThisList.add("inspect <item>"); // not actually handled by Scene object
+
 
         return addToThisList;
     }
