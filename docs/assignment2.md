@@ -53,7 +53,7 @@ Author(s): Sofia Konovalova
 
 `Figure representing the UML class diagram`
 
-###Game
+####Game
 **Game** is the most important class in the project, as it is the main controlling body of the
 game. Objects of the class are taken from JSON game files, that can be written up before starting
 up the game, making the story fully customizable and making the actual game-play mechanics separate
@@ -63,23 +63,23 @@ contains all of the scenes that are available in the game, with a scene meaning 
 being outside or using an object. **Game** also contains *currentSceneId*, which keeps track of the game state
 that the player is in, with aid of a unique ID every scene requires.
 
-**Scene**
+####Scene
 
-**SceneStore**
+####SceneStore
 
-**Player**
+####Player
 
-**PlayerStats**
+####PlayerStats
 
-**Stats**
+####Stats
 
-**Item**
+####Item
 
-**ItemStore**
+####ItemStore
 
-**Effect**
+####Effect
 
-**Command**
+####Command
 
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
@@ -94,6 +94,7 @@ In this document you have to adhere to the following formatting conventions:
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.
 
 Maximum number of words for this section: 2500
+Word Count: 132
 
 ## Object diagrams
 Author(s): Koen van den Burg
