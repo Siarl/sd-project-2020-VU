@@ -11,7 +11,7 @@ import java.io.FileReader;
 public class LocalFileTool {
 
     private static final String DEFAULT_DIR = System.getProperty("user.home") +
-            System.getProperty("file.seperator") + "software-design-vu-2020" + System.getProperty("file.seperator");
+            System.getProperty("file.separator") + "software-design-vu-2020" + System.getProperty("file.separator");
 
     public static Game fromFile(String fileName) throws FileNotFoundException {
         fileName = DEFAULT_DIR + fileName;
