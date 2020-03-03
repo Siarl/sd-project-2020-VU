@@ -1,0 +1,49 @@
+[
+  {
+    "__comment": "beginning of the game",
+    "isInitialized": true,
+    "currentSceneId": 1,
+    "player": {
+      "name": "Bogdan",
+      "inventory": [
+        "cigarettes_empty",
+        "lighter",
+        "phone"
+      ],
+      "playerStats": {
+        "healthPoints": 50,
+        "minHealthPoints": 0,
+        "maxHealthPoints": 100
+      }
+    },
+    "itemStore": {
+      "startItems": [],
+      "items": {}
+    },
+    "sceneStore": {
+      "startSceneId": 1,
+      "scenes": {
+        "1": {
+          "id": 1,
+          "name": "wakeup",
+          "items": []
+        },
+        "2": {
+          "id": 2,
+          "name": "getup",
+          "items": []
+        },
+        "4": {
+          "id": 4,
+          "name": "kitchen",
+          "items": ["noodles", "juice"]
+        },
+        "5": {
+          "id": 5,
+          "name": "bathroom",
+          "items": ["bandage"]
+        }
+      }
+    }
+  }
+]
