@@ -54,6 +54,10 @@ Author(s): Sofia Konovalova
 `Figure representing the UML class diagram`
 
 **Game**
+The Game class is the most important class in the project, as it is the main controlling body of the
+game. Objects of the class are taken from JSON game files, that can be written up before starting
+up the game, making the story fully customizable and making the actual game-play mechanics separate
+from the game story itself.
 
 **Scene**
 
