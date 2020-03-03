@@ -29,6 +29,9 @@ public class Scene implements Interactable {
             for (String item : items) {
                 message.append(item).append("\n");
             }
+            message.append("commands:\n");
+            List<String> options = listCommands(command.getGame(), new ArrayList<>());
+            options.forEach(s -> message.append(s).append("\n"));
             message.append("==========");
 
             callback.onMessage(message.toString());
