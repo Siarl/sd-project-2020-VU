@@ -105,7 +105,7 @@ Author(s): Koen van den Burg
 This chapter contains the description of a "snapshot" of the status of your system during its execution.
 This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-`Figure representing the UML class diagram`
+`Figure representing the UML object diagram`
 
 `Textual description`
 
