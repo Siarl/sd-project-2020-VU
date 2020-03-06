@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count:
+Word Count: 305
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -66,12 +66,18 @@ information the game can use. The function *makeNewGameFromFile(ClassLoader)* ma
 that are available to the user to play from.
 
 **ActionStore**, **ItemStore**, **SceneStore**\
-**Actions**\
-**Command**\
+**Actions**
+
+The **Command** class has the following attributes: *action* which is of type *String*, *receiver* which is of type *String*, and *game*, which is a *Game* object. The attribute
+*action* states the action that the user has written, e.g. "inspect", the *receiver* attributes describes the receiver of a particular action, e.g. "inspect phone" has the action "inspect" and the
+receiver "phone". The *game* attribute is the current game state.\
+The class has a constructor, *Command(Game, String)* which takes the command that the user has typed into the console, and splits it into three parts, which are the three attirbutes
+listed above. The appropriate getters and setters are used to return the *action*, *receiver* and *game* attributes.
+
 **Effect**\
-**Game**\
-**Interactable**\
-This interface defines two methods, which deal with command handling within the game. It contains a callback interface within itself
+**Game**
+
+The **Interactable** interface defines two methods, which deal with command handling within the game. It contains a callback interface within itself
 which deals with the outgoing message in the CLI when a player makes a move. The *onCommand(Command, Callback)* defines how the game deals with a certain command.
 The *listCommands(Game)*  lists the possible commands that can be written by the player at a particular game state. The classes **Player**, **Action** and
 **Item** are *realizations* of **Interactable**.
@@ -97,6 +103,8 @@ In this document you have to adhere to the following formatting conventions:
 ![](images/ClassDiagramV1.jpeg)
 
 Maximum number of words for this section: 2500
+
+Word Count: 305
 
 ## Object diagrams
 Author(s): Koen van den Burg
