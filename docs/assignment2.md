@@ -53,7 +53,6 @@ Author(s): Sofia Konovalova
 
 `Insert image here`
 
-
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
 - Brief description of the meaning of each attribute
@@ -66,8 +65,9 @@ In this document you have to adhere to the following formatting conventions:
 - the name of each **class** is in bold
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.
 
+`Insert improvied class diagram here`
+
 Maximum number of words for this section: 2500
-Word Count: 132
 
 ## Object diagrams
 Author(s): Koen van den Burg
