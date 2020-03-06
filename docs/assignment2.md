@@ -51,7 +51,7 @@ Class Diagram: LucidChart
 ## Class diagram
 Author(s): Sofia Konovalova
 
-`Insert image here`
+![](images/ClassDiagramV1.jpg)
 
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
@@ -65,7 +65,7 @@ In this document you have to adhere to the following formatting conventions:
 - the name of each **class** is in bold
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.
 
-`Insert improvied class diagram here`
+![](images/ClassDiagramV2.jpg)
 
 Maximum number of words for this section: 2500
 
