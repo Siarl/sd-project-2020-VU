@@ -51,35 +51,8 @@ Class Diagram: LucidChart
 ## Class diagram
 Author(s): Sofia Konovalova
 
-`Figure representing the UML class diagram`
+`Insert image here`
 
-####Game
-**Game** is the most important class in the project, as it is the main controlling body of the
-game. Objects of the class are taken from JSON game files, that can be written up before starting
-up the game, making the story fully customizable and making the actual game-play mechanics separate
-from the game story itself.\
-**Game** contains objects from **ItemStore**, **Player**, and **SceneStore**. The object *sceneStore*
-contains all of the scenes that are available in the game, with a scene meaning a particular game state, etc.  standing in a room,
-being outside or using an object. **Game** also contains *currentSceneId*, which keeps track of the game state
-that the player is in, with aid of a unique ID every scene requires.
-
-####Scene
-
-####SceneStore
-
-####Player
-
-####PlayerStats
-
-####Stats
-
-####Item
-
-####ItemStore
-
-####Effect
-
-####Command
 
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
