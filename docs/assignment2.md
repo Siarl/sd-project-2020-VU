@@ -84,7 +84,6 @@ The *listCommands(Game)*  lists the possible commands that can be written by the
 
 item, itemstore
 
-player, playerstats, stats\
 The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* objects, which sets
 the health points, the name and the inventory of the player. The constructor sets all these values from the information taken from the **PlayerStats** class with appropriate
 getters and setters for each of the attributes. It also has a *onCommand(Command, Callback)* function which handles all the commands that are related to health and inventory.
