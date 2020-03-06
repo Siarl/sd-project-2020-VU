@@ -17,12 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LocalFileTool {
-
+    // TODO: 06-03-2020 clean this mess
     private static final String SLASH = System.getProperty("file.separator");
     private static final String MAIN_DIR = System.getProperty("user.home") + SLASH + ".spork" + SLASH ;
     private static final String GAME_DIR = MAIN_DIR + "data" + SLASH;
     private static final String SAVE_DIR = MAIN_DIR + "saves" + SLASH;
-
 
     private static File mainItemFile = new File(GAME_DIR + "main-game.items.json");
     private static File mainSceneFile = new File(GAME_DIR + "main-game.scenes.json");
@@ -59,7 +58,7 @@ public class LocalFileTool {
         ActionStore actionStore = gson.fromJson(actionStoreReader, ActionStore.class);
 
         Game game = new Game(sceneStore.toIntegerSceneMap(),
-                actionStore.toIntegerActionMap(), itemStore.toStringItemMap());
+                actionStore.toIntegerActionMap(), itemStore.toStringItemMap(), sceneStore.getStartSceneId());
 
         return game;
     }

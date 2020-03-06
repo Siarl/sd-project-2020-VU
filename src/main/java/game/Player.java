@@ -2,6 +2,7 @@ package game;
 
 import game.stores.ItemStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements Interactable {
@@ -11,10 +12,15 @@ public class Player implements Interactable {
     private PlayerStats playerStats;
 
     public Player() {
-        //NOP
+        inventory = new ArrayList<>();
+        playerStats = new PlayerStats();
+        playerStats.setMaxHealthPoints(100);
+        playerStats.setMinHealthPoints(0);
+        playerStats.setHealthPoints(100);
     }
 
     public Player(String name) {
+        this();
         this.name = name;
     }
 

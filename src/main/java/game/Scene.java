@@ -24,13 +24,16 @@ public class Scene implements Interactable {
     @Override
     public boolean onCommand(Command command, Callback callback) {
 
-        if (command.getAction().equals("inspect")) {
+        if (command.getAction().equals("inspect") && !command.hasReceiver()) {
 
             StringBuilder message = new StringBuilder("inspect:\n");
             message.append(name).append("\n\n");
             message.append(description).append("\n\n");
-            message.append("commands:\n");
+            message.append("scene commands:\n");
             listCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
+            message.append("player commands:\n"); // TODO: 06-03-2020 handle listing player commands somewhere else, this is messy
+            command.getGame().getPlayer()
+                    .listCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
             message.append("\n\n");
 
             callback.onMessage(message.toString());
@@ -43,12 +46,15 @@ public class Scene implements Interactable {
 
             callback.onMessage(message.toString());
             return true;
-        } else if (actions.hasCommand(command.getAction())) {
+        } else if (actions != null && !command.hasReceiver() && actions.hasCommand(command.getAction())) {
             // TODO: 04-03-2020 replace with Action.onCommand()
-            Effect effect = actions.get(command.getAction());
-            effect.apply(command.getGame());
+            Effect effect = actions.getEffect(command.getAction());
+            if (effect != null) {
 
-            callback.onMessage("Effect applied... " + effect.toString());
+                effect.apply(command.getGame());
+
+                callback.onMessage("Effect applied... " + effect.toString());
+            }
             return true;
         } else if (command.hasReceiver()) {
             if (items.contains(command.getReceiver())) {
@@ -69,7 +75,6 @@ public class Scene implements Interactable {
         addToThisList.add("inspect");
         addToThisList.add("search");
         addToThisList.add("inspect <item>"); // not actually handled by Scene object
-
 
         return addToThisList;
     }

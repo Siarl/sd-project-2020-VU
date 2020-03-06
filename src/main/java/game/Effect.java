@@ -12,6 +12,7 @@ public class Effect {
 
     private Type type;
 
+    private String description;
     private int sceneIdChange;
     private Stats statsChange;
     private List<String> inventoryAddChange;
@@ -42,6 +43,10 @@ public class Effect {
     Getters
      */
 
+    public String getDescription() {
+        return description;
+    }
+
     public Type getType() {
         return type;
     }
@@ -66,6 +71,7 @@ public class Effect {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Effect{");
         sb.append("type=").append(type);
+        sb.append(", description=").append(description);
         switch (type) {
             case NAVIGATION:
                 sb.append(", sceneIdChange=").append(sceneIdChange);

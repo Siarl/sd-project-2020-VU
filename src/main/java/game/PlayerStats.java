@@ -29,8 +29,25 @@ public class PlayerStats extends Stats {
     public String toString() {
         final StringBuilder sb = new StringBuilder("PlayerStats{");
         sb.append("minHealthPoints=").append(minHealthPoints);
+        sb.append(", healthPoints=").append(healthPoints);
         sb.append(", maxHealthPoints=").append(maxHealthPoints);
         sb.append('}');
         return sb.toString();
+    }
+
+    public int getMinHealthPoints() {
+        return minHealthPoints;
+    }
+
+    public void setMinHealthPoints(int minHealthPoints) {
+        this.minHealthPoints = minHealthPoints;
+    }
+
+    public int getMaxHealthPoints() {
+        return maxHealthPoints;
+    }
+
+    public void setMaxHealthPoints(int maxHealthPoints) {
+        this.maxHealthPoints = maxHealthPoints;
     }
 }
