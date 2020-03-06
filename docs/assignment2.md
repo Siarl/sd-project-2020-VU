@@ -51,35 +51,36 @@ Class Diagram: LucidChart
 ## Class diagram
 Author(s): Sofia Konovalova
 
-`Figure representing the UML class diagram`
+![](images/ClassDiagramV2.jpeg)
 
-####Game
-**Game** is the most important class in the project, as it is the main controlling body of the
-game. Objects of the class are taken from JSON game files, that can be written up before starting
-up the game, making the story fully customizable and making the actual game-play mechanics separate
-from the game story itself.\
-**Game** contains objects from **ItemStore**, **Player**, and **SceneStore**. The object *sceneStore*
-contains all of the scenes that are available in the game, with a scene meaning a particular game state, etc.  standing in a room,
-being outside or using an object. **Game** also contains *currentSceneId*, which keeps track of the game state
-that the player is in, with aid of a unique ID every scene requires.
+The **LocalFileTool** and **Main** class are located in the same package, *applicationBase*.\
+The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class
+creates a *game* object which uses the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary
+information about the game: the scenes of the game (a.k.a. the game states), and information about the scenes: the possible actions, characters and items. \
+**LocalFileTool** has the attributes *MAIN_DIR*, *GAME_DIR*, *SAVE_DIR*, *mainItemFile*, *mainSceneFile*, and *mainActionsFile*. The first three attributes are static variables
+describing the user's main directory, the directory of where the game file is saved, and the directory of the save file of the game. This is done
+using the *System.getProperty* function of the default Java library, as this ensures that all these directories are relative to the user,
+and not relative to us, the creators of the game. The function *fromFile(String)* takes in the name of the main game file as a string, and converts that into
+information the game can use. The function *makeNewGameFromFile(ClassLoader)* makes a new game from the resource files that are included with the game.
+*makeNewGameFromFile(ClassLoader, File)* creates a new game from a json file that may be provided by the user. *listSaveFiles()* lists the save files
+that are available to the user to play from.
 
-####Scene
+**ActionStore**, **ItemStore**, **SceneStore**\
+**Actions**\
+**Command**\
+**Effect**\
+**Game**\
+**Interactable**\
+This interface defines two methods, which deal with command handling within the game. It contains a callback interface within itself
+which deals with the outgoing message in the CLI when a player makes a move. The *onCommand(Command, Callback)* defines how the game deals with a certain command.
+The *listCommands(Game)*  lists the possible commands that can be written by the player at a particular game state. The classes **Player**, **Action** and
+**Item** are *realizations* of **Interactable**.
 
-####SceneStore
-
-####Player
-
-####PlayerStats
-
-####Stats
-
-####Item
-
-####ItemStore
-
-####Effect
-
-####Command
+**Item**\
+**Player**\
+**PlayerStats**\
+**Scene**\
+**Stats**
 
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
@@ -93,8 +94,9 @@ In this document you have to adhere to the following formatting conventions:
 - the name of each **class** is in bold
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.
 
+![](images/ClassDiagramV1.jpeg)
+
 Maximum number of words for this section: 2500
-Word Count: 132
 
 ## Object diagrams
 Author(s): Koen van den Burg
