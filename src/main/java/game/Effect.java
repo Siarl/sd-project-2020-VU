@@ -66,10 +66,18 @@ public class Effect {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Effect{");
         sb.append("type=").append(type);
-        sb.append(", sceneIdChange=").append(sceneIdChange);
-        sb.append(", statsChange=").append(statsChange);
-        sb.append(", inventoryAddChange=").append(inventoryAddChange);
-        sb.append(", inventoryRemoveChange=").append(inventoryRemoveChange);
+        switch (type) {
+            case NAVIGATION:
+                sb.append(", sceneIdChange=").append(sceneIdChange);
+                break;
+            case STATS:
+                sb.append(", statsChange=").append(statsChange);
+                break;
+            case INVENTORY:
+                sb.append(", inventoryAddChange=").append(inventoryAddChange);
+                sb.append(", inventoryRemoveChange=").append(inventoryRemoveChange);
+                break;
+        }
         sb.append('}');
         return sb.toString();
     }

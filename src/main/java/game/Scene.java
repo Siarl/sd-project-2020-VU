@@ -1,13 +1,14 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Scene implements Interactable {
 
     private int id;
     private String name;
+    private String description;
     private List<String> items;
+    private Actions actions;
 
     /*
     User Interaction Methods
@@ -25,21 +26,33 @@ public class Scene implements Interactable {
 
         if (command.getAction().equals("inspect")) {
 
-            StringBuilder message = new StringBuilder("inspect: scene, name = " + name + "\n items: \n");
-            for (String item : items) {
-                message.append(item).append("\n");
-            }
+            StringBuilder message = new StringBuilder("inspect:\n");
+            message.append(name).append("\n\n");
+            message.append(description).append("\n\n");
             message.append("commands:\n");
-            List<String> options = listCommands(command.getGame(), new ArrayList<>());
-            options.forEach(s -> message.append(s).append("\n"));
-            message.append("==========");
+            listCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
+            message.append("\n\n");
 
             callback.onMessage(message.toString());
+            return true;
+        } else if (command.getAction().equals("search")) {
+            StringBuilder message = new StringBuilder("search:\n");
+            message.append("You find the following items in the scene:\n");
+            items.forEach(i -> message.append("\t").append(i).append("\n"));
+            message.append("\n\n");
 
+            callback.onMessage(message.toString());
+            return true;
+        } else if (actions.hasCommand(command.getAction())) {
+            // TODO: 04-03-2020 replace with Action.onCommand()
+            Effect effect = actions.get(command.getAction());
+            effect.apply(command.getGame());
+
+            callback.onMessage("Effect applied... " + effect.toString());
             return true;
         } else if (command.hasReceiver()) {
             if (items.contains(command.getReceiver())) {
-                Item item = command.getGame().getItemStore().getItemByName(command.getReceiver());
+                Item item = command.getGame().getItemMap().get(command.getReceiver());
                 item.onCommand(command, callback);
             } else {
                 callback.onMessage("This item does not exist.");
@@ -54,6 +67,7 @@ public class Scene implements Interactable {
     @Override
     public List<String> listCommands(Game game, List<String> addToThisList) {
         addToThisList.add("inspect");
+        addToThisList.add("search");
         addToThisList.add("inspect <item>"); // not actually handled by Scene object
 
 
@@ -61,23 +75,19 @@ public class Scene implements Interactable {
     }
 
     /*
-    Getters & Setters
+    Getters
      */
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDescription() {
+        return description;
     }
 
 }

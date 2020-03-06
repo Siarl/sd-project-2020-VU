@@ -12,10 +12,10 @@ public class Main {
 
         Game game;
         try {
-            game = LocalFileTool.fromFile("test-game.json");
+            game = LocalFileTool.fromFile("main-game.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("First add the folder \"software-design-vu-2020\" to your home folder, then add the test-game.json file!");
+            System.out.println("First add the folder \"software-design-vu-2020\" to your home folder, then add the main-game.json file!");
             return;
         }
 

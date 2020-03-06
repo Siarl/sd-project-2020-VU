@@ -3,11 +3,11 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Item implements Interactable {
 
     private String name;
+    private String description;
     private Actions actions;
 
     @Override
@@ -15,17 +15,20 @@ public class Item implements Interactable {
 
         if (command.hasReceiver() && command.getReceiver().equals(name)) {
             if (command.getAction().equals("inspect")) {
+                // TODO: 04-03-2020 replace with Action.listCommands()
                 StringBuilder message = new StringBuilder("inspect: item, name = ");
-                message.append(name).append("\n==============");
+                message.append(name).append("\n");
+                message.append(description).append("\n\n");
+                message.append("commands:").append("\n");
 
                 List<String> commands = listCommands(command.getGame(), new ArrayList<>());
-                commands.forEach(s -> message.append(s).append("\n"));
-                message.append("===============");
+                commands.forEach(s -> message.append("\t").append(s).append("\n"));
 
                 callback.onMessage(message.toString());
 
             } else if (actions.hasCommand(command.getAction())) {
-                Effect effect = actions.getEffect(command.getAction());
+                // TODO: 04-03-2020 replace with Action.onCommand()
+                Effect effect = actions.get(command.getAction());
                 effect.apply(command.getGame());
                 callback.onMessage("Effect applied... " + effect.toString());
             } else {
@@ -42,10 +45,6 @@ public class Item implements Interactable {
     public List<String> listCommands(Game game, List<String> addToThisList) {
         addToThisList.add("inspect " + name);
 
-        Set<String> commands = actions.getCommands();
-        commands.forEach(s -> s += " " + name);
-        addToThisList.addAll(commands);
-
         return addToThisList;
     }
 
@@ -57,15 +56,11 @@ public class Item implements Interactable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Actions getActions() {
         return actions;
     }
 
-    public void setActions(Actions actions) {
-        this.actions = actions;
+    public String getDescription() {
+        return description;
     }
 }

@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -12,11 +13,29 @@ public class Game {
 
     }
 
-    private SceneStore sceneStore;
-    private ItemStore itemStore;
+    private Map<Integer, Scene> sceneMap;
+    private Map<Integer, Actions> actionsMap;
+    private Map<String, Item> itemMap;
     private Player player;
     private int currentSceneId;
-    private boolean isInitialized;
+
+    public Game() {
+        //NOP
+    }
+
+    public Game(String playerName, Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap) {
+        this.sceneMap = sceneMap;
+        this.actionsMap = actionsMap;
+        this.itemMap = itemMap;
+
+        this.player = new Player(playerName);
+    }
+
+    public Game(Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap) {
+        this.sceneMap = sceneMap;
+        this.actionsMap = actionsMap;
+        this.itemMap = itemMap;
+    }
 
     private transient Set<Listener> listeners = new CopyOnWriteArraySet<>();
 
@@ -26,9 +45,6 @@ public class Game {
 
     // TODO: 02-03-2020 annotate 
     public void start(Listener listener) {
-        if (!isInitialized) {
-            initialize();
-        }
 
         subscribeListener(listener);
 
@@ -60,19 +76,13 @@ public class Game {
         boolean isCommandHandled = player.onCommand(command, callback);
 
         if (!isCommandHandled) {
-            isCommandHandled = sceneStore.getSceneById(currentSceneId).onCommand(command, callback);
+            isCommandHandled = sceneMap.get(currentSceneId).onCommand(command, callback);
         }
 
         if (!isCommandHandled) {
             listeners.forEach(l->l.onMessage("Unknown command!"));
         }
 
-    }
-
-    // TODO: 02-03-2020 annotate
-    private void initialize() {
-        // TODO: 02-03-2020 do some stuff here i guess
-        isInitialized = true;
     }
 
     public void subscribeListener(Listener listener) {
@@ -87,44 +97,36 @@ public class Game {
     Getters & Setters
      */
 
-    public SceneStore getSceneStore() {
-        return sceneStore;
+    public Map<Integer, Scene> getSceneMap() {
+        return sceneMap;
     }
 
-    public void setSceneStore(SceneStore sceneStore) {
-        this.sceneStore = sceneStore;
+    public Map<Integer, Actions> getActionsMap() {
+        return actionsMap;
     }
 
-    public ItemStore getItemStore() {
-        return itemStore;
-    }
-
-    public void setItemStore(ItemStore itemStore) {
-        this.itemStore = itemStore;
+    public Map<String, Item> getItemMap() {
+        return itemMap;
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public int getCurrentSceneId() {
         return currentSceneId;
     }
 
-    public void setCurrentSceneId(int currentSceneId) {
-        listeners.forEach(listener -> listener.onMessage("Changed scenes."));
-        this.currentSceneId = currentSceneId;
-    }
-
     public void setCurrentSceneById(int id) {
-        if (sceneStore.hasScene(id)) {
+        if (sceneMap.containsKey(id)) {
             listeners.forEach(listener -> listener.onMessage("Error: Scene deos not exist"));
         } else {
             setCurrentSceneId(id);
         }
+    }
+
+    private void setCurrentSceneId(int currentSceneId) {
+        listeners.forEach(listener -> listener.onMessage("Changed scenes."));
+        this.currentSceneId = currentSceneId;
     }
 }

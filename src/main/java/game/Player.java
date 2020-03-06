@@ -1,5 +1,7 @@
 package game;
 
+import game.stores.ItemStore;
+
 import java.util.List;
 
 public class Player implements Interactable {
@@ -7,6 +9,14 @@ public class Player implements Interactable {
     private String name;
     private List<String> inventory;
     private PlayerStats playerStats;
+
+    public Player() {
+        //NOP
+    }
+
+    public Player(String name) {
+        this.name = name;
+    }
 
     /*
     User Interaction Methods
@@ -17,10 +27,9 @@ public class Player implements Interactable {
         if (command.getAction().equals("inventory")) {
 
             StringBuilder inventoryString = new StringBuilder("Inventory:\n=============\n");
-            ItemStore itemStore = command.getGame().getItemStore();
 
             for (String itemName : inventory) {
-                inventoryString.append(itemStore.getItemByName(itemName).getName()).append("\n");
+                inventoryString.append("\t").append(itemName).append("\n");
             }
 
             inventoryString.append("================");

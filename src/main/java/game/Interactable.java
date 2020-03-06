@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Interactable {
@@ -11,4 +12,8 @@ public interface Interactable {
     boolean onCommand(Command command, Callback callback);
 
     List<String> listCommands(Game game, List<String> addToThisList);
+
+    default List<String> listCommands(Game game) {
+        return listCommands(game, new ArrayList<>());
+    }
 }

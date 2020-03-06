@@ -3,6 +3,7 @@
     "__comment": "beginning of the game",
     "isInitialized": true,
     "currentSceneId": 1,
+
     "player": {
       "name": "Bogdan",
       "inventory": [
@@ -16,21 +17,29 @@
         "maxHealthPoints": 100
       }
     },
+
     "itemStore": {
       "startItems": [],
-      "items": {}
+      "items": {
+        "phone" : {
+          "name" : "phone",
+          "description" : "An old iPhone with a cracked screen."
+        }
+      }
     },
+
     "sceneStore": {
       "startSceneId": 1,
       "scenes": {
         "1": {
           "id": 1,
-          "name": "wakeup",
-          "items": []
+          "name": "bedroom",
+          "description": "You are woken up by the sound of your phone chiming.",
+          "items": ["phone"]
         },
         "2": {
           "id": 2,
-          "name": "getup",
+          "name": "hallway",
           "items": []
         },
         "4": {
