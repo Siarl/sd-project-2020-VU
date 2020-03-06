@@ -91,7 +91,11 @@ getters and setters for each of the attributes. It also has a *onCommand(Command
 The *listCommands()* function lists all of the possible commands that are associated with the player, like "stats" and "inventory".\
 The **PlayerStats** class describes the stats that the player currently has, as well as setting them up in the beginning. The class has the following attributes:
 *minHealthPoints*, *maxHealthPoints*, *healthPoints*. Respectively, these attributes describe the minimum amount of health points the user can have in the game
-before dying, the maximum amount of health points he can have at any point in the game, and the amount of health points that the user starts in the beginning.
+before dying, the maximum amount of health points he can have at any point in the game, and the amount of health points that the user starts in the beginning. There are
+getters and setters for getting the information. There is also a *toString()* method that is overriden from the original Java function
+so that the stats can be printed on the console should the player type the command. The **PlayerStats** class inherits from the **Stats** class.
+The **Stats** class has a protected attribute *healthPoints*, the getter and setter methods for getting and setting the health points, as well as printing
+out the stats using the *toString()* method which is again, overriden. It is more a "helper" class for **PlayerStats** than an independent class.
 
 scene, scenestore
 
