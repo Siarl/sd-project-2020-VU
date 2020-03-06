@@ -9,9 +9,13 @@ public class Item implements Interactable {
     private String name;
     private String description;
     private Actions actions;
+    private int actionId;
 
     @Override
     public boolean onCommand(Command command, Callback callback) {
+        if (actions == null) {
+            actions = command.getGame().getActionsMap().get(actionId);
+        }
 
         if (command.hasReceiver() && command.getReceiver().equals(name)) {
             if (command.getAction().equals("inspect")) {
@@ -21,16 +25,19 @@ public class Item implements Interactable {
                 message.append(description).append("\n\n");
                 message.append("commands:").append("\n");
 
-                List<String> commands = listCommands(command.getGame(), new ArrayList<>());
+                List<String> commands = listCommands(command.getGame());
                 commands.forEach(s -> message.append("\t").append(s).append("\n"));
 
                 callback.onMessage(message.toString());
 
             } else if (actions.hasCommand(command.getAction())) {
                 // TODO: 04-03-2020 replace with Action.onCommand()
-                Effect effect = actions.get(command.getAction());
-                effect.apply(command.getGame());
-                callback.onMessage("Effect applied... " + effect.toString());
+                Effect effect = actions.getEffect(command.getAction());
+                if (effect != null) {
+
+                    effect.apply(command.getGame());
+                    callback.onMessage("Effect applied... " + effect.toString());
+                }
             } else {
                 callback.onMessage("This command does not exist for this item.");
             }
@@ -44,7 +51,7 @@ public class Item implements Interactable {
     @Override
     public List<String> listCommands(Game game, List<String> addToThisList) {
         addToThisList.add("inspect " + name);
-
+        actions.listCommands(game).forEach(s -> addToThisList.add(s + " " + name));
         return addToThisList;
     }
 

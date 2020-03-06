@@ -23,18 +23,16 @@ public class Game {
         //NOP
     }
 
-    public Game(String playerName, Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap) {
-        this.sceneMap = sceneMap;
-        this.actionsMap = actionsMap;
-        this.itemMap = itemMap;
-
+    public Game(String playerName, Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, int startSceneId) {
+        this(sceneMap, actionsMap, itemMap, startSceneId);
         this.player = new Player(playerName);
     }
 
-    public Game(Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap) {
+    public Game(Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, int startSceneId) {
         this.sceneMap = sceneMap;
         this.actionsMap = actionsMap;
         this.itemMap = itemMap;
+        this.currentSceneId = startSceneId;
     }
 
     private transient Set<Listener> listeners = new CopyOnWriteArraySet<>();
@@ -49,6 +47,8 @@ public class Game {
         subscribeListener(listener);
 
         listeners.forEach(l->l.onMessage("You can write commands now!"));
+
+        handleCommand("inspect");
     }
 
     // TODO: 02-03-2020 annotate
@@ -113,15 +113,19 @@ public class Game {
         return player;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public int getCurrentSceneId() {
         return currentSceneId;
     }
 
     public void setCurrentSceneById(int id) {
         if (sceneMap.containsKey(id)) {
-            listeners.forEach(listener -> listener.onMessage("Error: Scene deos not exist"));
-        } else {
             setCurrentSceneId(id);
+        } else {
+            listeners.forEach(listener -> listener.onMessage("Error: Scene does not exist"));
         }
     }
 

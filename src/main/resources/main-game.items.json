@@ -1,0 +1,35 @@
+{
+  "startItems": [],
+  "itemList":[
+    {
+      "name": "bandages",
+      "description": "Some bandages. Might be useful to heal yourself with.",
+      "actionId": 1
+    },
+    {
+      "name": "noodles",
+      "description": "A cold bowl of noodle soup. Did you not finish dinner last night?",
+      "actionId": 2
+    },
+    {
+      "name": "cigarettes",
+      "description": "A pack of luckies. You can feel the need for nicotine.",
+      "actionId": 3
+    },
+    {
+      "name": "phone",
+      "description": "An old iPhone 6. The screen is cracked.",
+      "actionId": 4
+    },
+    {
+      "name": "bathroom-door",
+      "description": "The door to the bathroom.",
+      "actionId": 5
+    },
+    {
+      "name": "living-room-door",
+      "description": "The door to the living room.",
+      "actionId": 6
+    }
+  ]
+}

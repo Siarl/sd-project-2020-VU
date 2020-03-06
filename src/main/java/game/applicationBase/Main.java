@@ -1,27 +1,58 @@
 package game.applicationBase;
 
 import game.Game;
+import game.Player;
+import jdk.vm.ci.meta.Local;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main (String[] args){
+        // TODO: 06-03-2020 rewrite this mess
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Welcome to our Software Design game.");
 
-        Game game;
-        try {
-            game = LocalFileTool.fromFile("main-game.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("First add the folder \"software-design-vu-2020\" to your home folder, then add the main-game.json file!");
+        List<File> saveFileList = LocalFileTool.listSaveFiles(Main.class.getClassLoader());
+        System.out.println("Pick an option:");
+        System.out.println("1.\tNew Game");
+        for (int i = 2; i < saveFileList.size(); i++) {
+            File file = saveFileList.get(i - 2);
+            System.out.println(i + ".\t" + file.getName());
+        }
+
+        String choiceString = scanner.nextLine();
+        int choiceInt = Integer.parseInt(choiceString);
+
+        Game game = null;
+        if (choiceInt == 1) {
+            try {
+                game = LocalFileTool.makeNewGameFromFile(Main.class.getClassLoader());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            int foo = choiceInt - 2;
+            if (foo >= 0 && foo < saveFileList.size()) {
+                try {
+                    game = LocalFileTool.makeGameFromSaveFile(Main.class.getClassLoader(), saveFileList.get(foo));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if (game == null) {
             return;
         }
 
+        game.setPlayer(new Player("Bogdan"));
         game.start(System.out::println);
 
-        Scanner scanner = new Scanner(System.in);
 
         while (true) {
             String command = scanner.nextLine();

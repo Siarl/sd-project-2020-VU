@@ -1,20 +1,23 @@
 package game;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class Actions extends HashMap<String, Effect> implements Interactable {
+public class Actions implements Interactable {
 
     private int id;
+    private Map<String, Effect> effects;
 
     @Override
     public boolean onCommand(Command command, Callback callback) {
         if (hasCommand(command.getAction())) {
-            Effect effect = get(command.getAction());
-            effect.apply(command.getGame());
+            Effect effect = getEffect(command.getAction());
+            if (effect != null) {
+                effect.apply(command.getGame());
 
-            callback.onMessage("Effect applied... " + effect.toString());
+                callback.onMessage("Effect applied... " + effect.toString());
+            }
             return true;
         }
 
@@ -23,7 +26,10 @@ public class Actions extends HashMap<String, Effect> implements Interactable {
 
     @Override
     public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.addAll(keySet());
+        Set<String> commands = getCommands();
+        if (commands != null) {
+            addToThisList.addAll(getCommands());
+        }
         return addToThisList;
     }
 
@@ -36,14 +42,16 @@ public class Actions extends HashMap<String, Effect> implements Interactable {
     }
 
     public Effect getEffect(String command) {
-        return get(command);
+        if (effects == null) return null;
+        return effects.get(command);
     }
 
     public Set<String> getCommands() {
-        return keySet();
+        if (effects == null) return null;
+        return effects.keySet();
     }
 
     public boolean hasCommand(String command) {
-        return containsKey(command);
+        return effects != null && effects.containsKey(command);
     }
 }
