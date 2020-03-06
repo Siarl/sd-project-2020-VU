@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 305
+Word Count: 597
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -65,8 +65,7 @@ information the game can use. The function *makeNewGameFromFile(ClassLoader)* ma
 *makeNewGameFromFile(ClassLoader, File)* creates a new game from a json file that may be provided by the user. *listSaveFiles()* lists the save files
 that are available to the user to play from.
 
-**ActionStore**, **ItemStore**, **SceneStore**\
-**Actions**
+actions, actionstore
 
 The **Command** class has the following attributes: *action* which is of type *String*, *receiver* which is of type *String*, and *game*, which is a *Game* object. The attribute
 *action* states the action that the user has written, e.g. "inspect", the *receiver* attributes describes the receiver of a particular action, e.g. "inspect phone" has the action "inspect" and the
@@ -74,37 +73,31 @@ receiver "phone". The *game* attribute is the current game state.\
 The class has a constructor, *Command(Game, String)* which takes the command that the user has typed into the console, and splits it into three parts, which are the three attirbutes
 listed above. The appropriate getters and setters are used to return the *action*, *receiver* and *game* attributes.
 
-**Effect**\
-**Game**
+effect
+
+game
 
 The **Interactable** interface defines two methods, which deal with command handling within the game. It contains a callback interface within itself
 which deals with the outgoing message in the CLI when a player makes a move. The *onCommand(Command, Callback)* defines how the game deals with a certain command.
 The *listCommands(Game)*  lists the possible commands that can be written by the player at a particular game state. The classes **Player**, **Action** and
 **Item** are *realizations* of **Interactable**.
 
-**Item**\
-**Player**\
-**PlayerStats**\
-**Scene**\
-**Stats**
+item, itemstore
 
-For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
-- Brief description about what it represents
-- Brief description of the meaning of each attribute
-- Brief description of the meaning of each operation
-- Brief description of the meaning of each association involving it (each association can be described only once in this deliverable)
+player, playerstats, stats\
+The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* objects, which sets
+the health points, the name and the inventory of the player. The constructor sets all these values from the information taken from the **PlayerStats** class with appropriate
+getters and setters for each of the attributes. It also has a *onCommand(Command, Callback)* function which handles all the commands that are related to health and inventory.
+The *listCommands()* function lists all of the possible commands that are associated with the player, like "stats" and "inventory".\
+The **PlayerStats** class describes the stats that the player currently has, as well as setting them up in the beginning. The class has the following attributes:
+*minHealthPoints*, *maxHealthPoints*, *healthPoints*. Respectively, these attributes describe the minimum amount of health points the user can have in the game
+before dying, the maximum amount of health points he can have at any point in the game, and the amount of health points that the user starts in the beginning.
 
-Also, you can briefly discuss fragments of previous versions of the class diagram (with figures) in order to show how you evolved from initial versions of the class diagram to the final one.
-
-In this document you have to adhere to the following formatting conventions:
-- the name of each **class** is in bold
-- the *attributes*, *operations*, *associations*, and *objects* are in italic.
-
-![](images/ClassDiagramV1.jpeg)
+scene, scenestore
 
 Maximum number of words for this section: 2500
 
-Word Count: 305
+Word Count: 597
 
 ## Object diagrams
 Author(s): Koen van den Burg
