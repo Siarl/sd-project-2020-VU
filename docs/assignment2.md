@@ -51,7 +51,24 @@ Class Diagram: LucidChart
 ## Class diagram
 Author(s): Sofia Konovalova
 
-![](images/ClassDiagramV1.jpg)
+![](images/ClassDiagramV2.jpeg)
+
+**LocalFileTool**, **Main**\
+**ActionStore**, **ItemStore**, **SceneStore**\
+**Actions**\
+**Command**\
+**Effect**\
+**Game**\
+**Interactable**\
+This interface defines two methods, which deal with command handling within the game. It contains a callback interface within itself
+which deals with the outgoing message in the CLI when a player makes a move. The *onCommand(Command, Callback)* defines how the game deals with a certain command.
+The *listCommands(Game)*  lists the possible commands that can be written by the player at a particular game state. The classes **Player**, **Action** and
+**Item** are *realizations* of **Interactable**.\
+**Item**\
+**Player**\
+**PlayerStats**\
+**Scene**\
+**Stats**\
 
 For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
 - Brief description about what it represents
@@ -65,7 +82,7 @@ In this document you have to adhere to the following formatting conventions:
 - the name of each **class** is in bold
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.
 
-![](images/ClassDiagramV2.jpg)
+![](images/ClassDiagramV1.jpeg)
 
 Maximum number of words for this section: 2500
 
