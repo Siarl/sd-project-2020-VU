@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 845
+Word Count: 1020
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -70,6 +70,8 @@ game from a json file that may be provided by the user. *listSaveFiles()* lists 
 The **LocalFileTool** class and the **Game** class have a bidirectional association, as the **Game** class looks to **LocalFileTool** to define its attributes,
 while **LocalFileTool** creates the game object, hence the *<<create>>* attribute in the line describing the relationship.
 
+The **Game** class is the most important class of the game.
+
 The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
 The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
 *action* states the action that the user has written, e.g. "inspect", the *receiver attribute describes the receiver of a particular action, e.g. "inspect phone"
@@ -82,6 +84,14 @@ the functions within the interface to handle to different commands that apply to
 The **Interactable** inteface defines two methods, which deal with command handling within the game. It contains a callback interface within itself which deals
 with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state.
+
+The **Actions** class has the attributes *commands*, which is a Set of strings of actions commands, and *id*, which is a unique id of the scene that comes
+after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *onCommand(Command, Callback)*
+and *listCommands(Game, List<String>)* which handle the commands to decide what the game should do next should the player enter an action command, and which
+prints out the list of possible action commands in a scene respectively. It also has a funciton *getEffect(String)* which returns an object of the class *Effect*,
+which is preceisly what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
+*hasCommand(String)* function checks if the command that the player has type actually exists, and returns a boolean. The **Action** class has a dependency relationship
+with *Effect*, as actions are only useful and make the game playable if there is some sort of consequence to them.
 
 The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* object, which sets
 the health points, the name and the inventory of the player. The constructor sets all these values from the information takes from the **PlayerStats** class
@@ -101,7 +111,7 @@ When these NPCs are added, those classes can inherit from the **Stats** class to
 
 Maximum number of words for this section: 2500
 
-Word Count: 845
+Word Count: 1020
 
 ## Object diagrams
 Author(s): Koen van den Burg
