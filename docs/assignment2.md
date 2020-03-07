@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 1748
+Word Count: 1956
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -75,14 +75,6 @@ the *Action*, *Item* and *Scene* objects and create their respective Maps. The c
 and *unsubscribeListener(Listener)*, which handles the commands that the player types into the console using Listeners which come with the standard Java library,
 by making use of callback functions that are provided by the *Interactable* interface.
 
-The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
-It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
-*actions*, which is an *Actions* object which specifies the actions that can be taken in the scene, the *name* string, *description* string, and the unique *id*
-integer of the scene. It has the same *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* that is also present in the **Actions** class. This is because
-actions, scenes and items are all interactable, and therefore need these functions to decide what to do when a certain command is typed in. \
-The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
-creates a hash map between the unique ID and the *Scene* object itself.
-
 The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
 The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
 *action* states the action that the user has written, e.g. "inspect", the *receiver attribute describes the receiver of a particular action, e.g. "inspect phone"
@@ -95,12 +87,6 @@ the functions within the interface to handle to different commands that apply to
 The **Interactable** interface defines two methods, which deal with command handling within the game. It has an interface named **Callback** which deals
 with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state.
-
-The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
-which determines which actions are available with this particular item. It has the functions *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
-use the **Interactable** interface as items are interactable within the game and need to be handled appropriately. \
-The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
-a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
 
 The **Actions** class has the attributes *commands*, which is a Set of strings of actions commands, and *id*, which is a unique id of the scene that comes
 after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *onCommand(Command, Callback)*
@@ -119,6 +105,31 @@ if the effect is navigation, *statsChange* which is a **Stats** object that dete
 add to the player's inventory, and *inventoryRemoveChange* which determines whic objects needs to be removed from the player's inventory, for example, if they have already used them.
 The method *apply(Game)* applies the necessary changes to the current game state, which is represented by a *Game* object.
 
+The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
+It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
+*actions*, which is an *Actions* object which specifies the actions that can be taken in the scene, the *name* string, *description* string, and the unique *id*
+integer of the scene. It has the same *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* that is also present in the **Actions** class. This is because
+actions, scenes and items are all interactable, and therefore need these functions to decide what to do when a certain command is typed in. \
+The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
+creates a hash map between the unique ID and the *Scene* object itself.
+
+The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
+which determines which actions are available with this particular item. It has the functions *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
+use the **Interactable** interface as items are interactable within the game and need to be handled appropriately. \
+The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
+a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
+
+In the first version of our class diagram, the only "store" class that we had was **ItemStore**, as it made logical sense that items are stored somewhere,
+while actions and scenes were just existing. Unfortunately, this led to a much more confusing plan, with a lot of dependencies which we knew would cause problems
+in making the gameplay independent of the actual game. Before implementing the **ActionStore** and **SceneStore** classes into our models, we had one game file.
+After implementing them, we now have three game files, one with the scenes, one with the items and one with the actions. This allows the code to be more modular
+and easy to modify in the future, should there be any future changes and improvements. There was also no real clear hierarchy, making the structure of the game
+and how classes interact with each other difficult to understand. Some of the relationships have changed since then -- for example, Game and Command don't
+have a composition relationship anymore, but rather a binary association, as a game state has commands, and commands change the game state, so they both reliant
+on each other equally. This made more sense for the structure of the game and also made more logical sense.
+
+![](images/ClassDiagramV1.png)
+
 The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* object, which sets
 the health points, the name and the inventory of the player. The constructor sets all these values from the information takes from the **PlayerStats** class
 with the approperiate getters and setters for each of the attributes. It also has a *onCommand(Command, Callback)* function which handles all the commands
@@ -135,9 +146,7 @@ The **Stats** class has a protected attribute *healthPoints*, the getter ans set
 the *toString()* method. The reason for the inheritance is the possibility of NPCs in the game sharing certain stats with the player, like health points.
 When these NPCs are added, those classes can inherit from the **Stats** class to encourage code re-usability.
 
-Maximum number of words for this section: 2500
-
-Word Count: 1748
+Word Count: 1956
 
 ## Object diagrams
 Author(s): Koen van den Burg
