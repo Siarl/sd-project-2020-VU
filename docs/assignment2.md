@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 688
+Word Count: 430
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -53,54 +53,34 @@ Author(s): Sofia Konovalova
 
 ![](images/ClassDiagramV2.jpeg)
 
-The **LocalFileTool** and **Main** class are located in the same package, *applicationBase*.\
-The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class
-creates a *game* object which uses the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary
-information about the game: the scenes of the game (a.k.a. the game states), and information about the scenes: the possible actions, characters and items. \
-**LocalFileTool** has the attributes *MAIN_DIR*, *GAME_DIR*, *SAVE_DIR*, *mainItemFile*, *mainSceneFile*, and *mainActionsFile*. The first three attributes are static variables
-describing the user's main directory, the directory of where the game file is saved, and the directory of the save file of the game. This is done
-using the *System.getProperty* function of the default Java library, as this ensures that all these directories are relative to the user,
-and not relative to us, the creators of the game. The function *fromFile(String)* takes in the name of the main game file as a string, and converts that into
-information the game can use. The function *makeNewGameFromFile(ClassLoader)* makes a new game from the resource files that are included with the game.
-*makeNewGameFromFile(ClassLoader, File)* creates a new game from a json file that may be provided by the user. *listSaveFiles()* lists the save files
-that are available to the user to play from.
+Associations described so far:
+* Bidirectional association.
+* Realization
 
-actions, actionstore
+The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class creates a *game* object which uses
+the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary information about the game: the scenes of the game
+(a.k.a. the game states), and information about the scenes: the possible actions, characters, and items. \
+**LocalFileTool** has the attributes *MAIN_DIR*, *GAME_DIR*, *SAVE_DIR*, *mainItemFile*, *mainSceneFile*, and *mainActionsFile*. The first three attributes are
+static variables describing the user's main directory, the directory of where the game file is saved, and the directory of the save file of the game.
+Th function *fromFile(String)* takes in the name of the main game file as a string, and conerts that into information the game can use. The function
+*makeNewGameFromFile(ClassLoader)* makes a new game from the resource files that are included with the game. *makeNewGameFromFile(ClassLoader, File)* creates a new
+game from a json file that may be provided by the user. *listSaveFiles()* lists the save files that are available to the user to play from. \
+The **LocalFileTool** class and the **Game** class have a bidirectional association, as the **Game** class looks to **LocalFileTool** to define its attributes,
+while **LocalFileTool** creates the game object, hence the *<<create>>* attribute in the line describing the relationship.
 
-The **Command** class has the following attributes: *action* which is of type *String*, *receiver* which is of type *String*, and *game*, which is a *Game* object. The attribute
-*action* states the action that the user has written, e.g. "inspect", the *receiver* attributes describes the receiver of a particular action, e.g. "inspect phone" has the action "inspect" and the
-receiver "phone". The *game* attribute is the current game state.\
-The class has a constructor, *Command(Game, String)* which takes the command that the user has typed into the console, and splits it into three parts, which are the three attirbutes
-listed above. The appropriate getters and setters are used to return the *action*, *receiver* and *game* attributes.
-
-effect
-
-game
-
-The **Interactable** interface defines two methods, which deal with command handling within the game. It contains a callback interface within itself
-which deals with the outgoing message in the CLI when a player makes a move. The *onCommand(Command, Callback)* defines how the game deals with a certain command.
-The *listCommands(Game)*  lists the possible commands that can be written by the player at a particular game state. The classes **Player**, **Action** and
-**Item** are *realizations* of **Interactable**.
-
-item, itemstore
-
-The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* objects, which sets
-the health points, the name and the inventory of the player. The constructor sets all these values from the information taken from the **PlayerStats** class with appropriate
-getters and setters for each of the attributes. It also has a *onCommand(Command, Callback)* function which handles all the commands that are related to health and inventory.
-The *listCommands()* function lists all of the possible commands that are associated with the player, like "stats" and "inventory".\
-The **PlayerStats** class describes the stats that the player currently has, as well as setting them up in the beginning. The class has the following attributes:
-*minHealthPoints*, *maxHealthPoints*, *healthPoints*. Respectively, these attributes describe the minimum amount of health points the user can have in the game
-before dying, the maximum amount of health points he can have at any point in the game, and the amount of health points that the user starts in the beginning. There are
-getters and setters for getting the information. There is also a *toString()* method that is overriden from the original Java function
-so that the stats can be printed on the console should the player type the command. The **PlayerStats** class inherits from the **Stats** class.
-The **Stats** class has a protected attribute *healthPoints*, the getter and setter methods for getting and setting the health points, as well as printing
-out the stats using the *toString()* method which is again, overriden. It is more a "helper" class for **PlayerStats** than an independent class.
-
-scene, scenestore
+The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
+The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
+*action* states the action that the user has written, e.g. "inspect", the *receiver attribute describes the receiver of a particular action, e.g. "inspect phone"
+has the action "inspect" and the receiver "phone". The *game* attribute is the current game state. \
+The class has a constructor, *Command(Game, String)* which takes the command that the user has typed into the console, and splits it into the three attributes
+listed above. The appropriate getters and setters for each of the attributes are used. \
+Above, we have written that the class can be thought of as a "parser" of sorts for the commands. The class that actually handles these commands
+is the interface **Interactable**. The classes **Player**, **Items** and **Actions** are all realizations of **Interactable**, as they use in some way
+the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene.
 
 Maximum number of words for this section: 2500
 
-Word Count: 688
+Word Count: 430
 
 ## Object diagrams
 Author(s): Koen van den Burg
