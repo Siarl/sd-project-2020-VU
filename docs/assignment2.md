@@ -51,13 +51,14 @@ Class Diagram: LucidChart
 ## Class diagram
 Author(s): Sofia Konovalova
 
-![](images/ClassDiagramV2.jpeg)
+![](images/ClassDiagramV2.png)
 
 Associations described so far:
 * Bidirectional association.
 * Realization
 * Composition
 * Inheritance
+* Dependency
 
 The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class creates a *game* object which uses
 the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary information about the game: the scenes of the game
@@ -70,7 +71,8 @@ game from a json file that may be provided by the user. *listSaveFiles()* lists 
 The **LocalFileTool** class and the **Game** class have a bidirectional association, as the **Game** class looks to **LocalFileTool** to define its attributes,
 while **LocalFileTool** creates the game object, hence the *<<create>>* attribute in the line describing the relationship.
 
-The **Game** class is the most important class of the game.
+The **Game** class is the most important class of the game. It determines the current game state, which has all the necessary information like the scenes,
+items in the scene, the players, and the actions available in the game state.
 
 The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
 The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
@@ -81,7 +83,7 @@ listed above. The appropriate getters and setters for each of the attributes are
 Above, we have written that the class can be thought of as a "parser" of sorts for the commands. The class that actually handles these commands
 is the interface **Interactable**. The classes **Player**, **Items** and **Actions** are all realizations of **Interactable**, as they use in some way
 the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene. \
-The **Interactable** inteface defines two methods, which deal with command handling within the game. It contains a callback interface within itself which deals
+The **Interactable** interface defines two methods, which deal with command handling within the game. It has an interface named **Callback** which deals
 with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state.
 
@@ -91,7 +93,14 @@ and *listCommands(Game, List<String>)* which handle the commands to decide what 
 prints out the list of possible action commands in a scene respectively. It also has a funciton *getEffect(String)* which returns an object of the class *Effect*,
 which is preceisly what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
 *hasCommand(String)* function checks if the command that the player has type actually exists, and returns a boolean. The **Action** class has a dependency relationship
-with *Effect*, as actions are only useful and make the game playable if there is some sort of consequence to them.
+with *Effect*, as actions are only useful and make the game playable if there is some sort of consequence to them. \
+The *Effect* class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
+the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
+navigation through the world (the player moving from one place to another), on the inventory (picking up an object), or on the stats of the player (sleeping increasing health
+points, smoking cigarettes decreasing them). The *Effect* class itself has the attributes *sceneIdChange*, which determines the unique ID of the next scene to go to
+if the effect is navigation, *statsChange* which is a **Stats** object that determines any changes to the stats of the player, *inventoryAddChange* which is a List of things to
+add to the player's inventory, and *inventoryRemoveChange* which determines whic objects needs to be removed from the player's inventory, for example, if they have already used them.
+The method *apply(Game)* applies the necessary changes to the current game state, which is represented by a *Game* object.
 
 The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* object, which sets
 the health points, the name and the inventory of the player. The constructor sets all these values from the information takes from the **PlayerStats** class
