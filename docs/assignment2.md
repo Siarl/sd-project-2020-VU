@@ -53,13 +53,6 @@ Author(s): Sofia Konovalova
 
 ![](images/ClassDiagramV2.png)
 
-Associations described so far:
-* Bidirectional association.
-* Realization
-* Composition
-* Inheritance
-* Dependency
-
 The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class creates a *game* object which uses
 the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary information about the game: the scenes of the game
 (a.k.a. the game states), and information about the scenes: the possible actions, characters, and items. \
@@ -72,7 +65,15 @@ The **LocalFileTool** class and the **Game** class have a bidirectional associat
 while **LocalFileTool** creates the game object, hence the *<<create>>* attribute in the line describing the relationship.
 
 The **Game** class is the most important class of the game. It determines the current game state, which has all the necessary information like the scenes,
-items in the scene, the players, and the actions available in the game state.
+items in the scene, the players, and the actions available in the game state. It has the following attributes: *listeners*, which is a Set of action listeners,
+*actionsMap*, which is a Map that associates an ID with an action, *currentSceneById*, which the unique ID of the current scene of the game we are in, a.k.a. the game
+state, *sceneMap* which is Map that associates the unique scene IDs with a *Scene* object, and *itemMap*, which is a Map that associates a String name of an item
+with the *Item* object. This class has constructors *Game(String, Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>)* and
+*Game(String, Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>)*, which the only difference between them being the String parameter, which determines
+the name of the player. If not included, then the default name that is included in the game files is used. These constructors use the GSON library to construct
+the *Action*, *Item* and *Scene* objects and create their respective Maps. The class also has the functions *start(Listener)*, *handleCommand(String)*, *subscribeListener(Listener)*,
+and *unsubscribeListener(Listener)*, which handles the commands that the player types into the console using Listeners which come with the standard Java library,
+by making use of callback functions that are provided by the *Interactable* interface.
 
 The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
 The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
