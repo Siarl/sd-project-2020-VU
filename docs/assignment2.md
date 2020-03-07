@@ -76,11 +76,14 @@ The class has a constructor, *Command(Game, String)* which takes the command tha
 listed above. The appropriate getters and setters for each of the attributes are used. \
 Above, we have written that the class can be thought of as a "parser" of sorts for the commands. The class that actually handles these commands
 is the interface **Interactable**. The classes **Player**, **Items** and **Actions** are all realizations of **Interactable**, as they use in some way
-the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene.
+the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene. \
+The **Interactable** inteface defines two methods, which deal with command handling within the game. It contains a callback interface within itself which deals
+with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
+game state.
 
 Maximum number of words for this section: 2500
 
-Word Count: 430
+Word Count: 478
 
 ## Object diagrams
 Author(s): Koen van den Burg
