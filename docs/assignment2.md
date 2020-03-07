@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 1020
+Word Count: 1475
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -75,6 +75,14 @@ the *Action*, *Item* and *Scene* objects and create their respective Maps. The c
 and *unsubscribeListener(Listener)*, which handles the commands that the player types into the console using Listeners which come with the standard Java library,
 by making use of callback functions that are provided by the *Interactable* interface.
 
+The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
+It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
+*actions*, which is an *Actions* object which specifies the actions that can be taken in the scene, the *name* string, *description* string, and the unique *id*
+integer of the scene. It has the same *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* that is also present in the **Actions** class. This is because
+actions, scenes and items are all interactable, and therefore need these functions to decide what to do when a certain command is typed in. \
+The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
+creates a hash map between the unique ID and the *Scene* object itself.
+
 The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
 The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
 *action* states the action that the user has written, e.g. "inspect", the *receiver attribute describes the receiver of a particular action, e.g. "inspect phone"
@@ -121,7 +129,7 @@ When these NPCs are added, those classes can inherit from the **Stats** class to
 
 Maximum number of words for this section: 2500
 
-Word Count: 1020
+Word Count: 1475
 
 ## Object diagrams
 Author(s): Koen van den Burg
