@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 430
+Word Count: 845
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -56,6 +56,8 @@ Author(s): Sofia Konovalova
 Associations described so far:
 * Bidirectional association.
 * Realization
+* Composition
+* Inheritance
 
 The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class creates a *game* object which uses
 the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary information about the game: the scenes of the game
@@ -81,9 +83,25 @@ The **Interactable** inteface defines two methods, which deal with command handl
 with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state.
 
+The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* object, which sets
+the health points, the name and the inventory of the player. The constructor sets all these values from the information takes from the **PlayerStats** class
+with the approperiate getters and setters for each of the attributes. It also has a *onCommand(Command, Callback)* function which handles all the commands
+that are related to health and inventory. The *listCommands()* function lists all of the  possible commands that the user can type to provide information about
+their progress, such as "stats" and "inventory". The **Player** and **PlayerStats** classes have a composition relationship, with **Player** being composed and contained by
+the **PlayerStats** class. As we can see in the class diagram, **Player** takes on the association with the multiplicity value of 1, and it is the same vice versa.
+This means that a player can only contain one object of *playerStats*, and vice versa, as a player cannot have multiple health points values or multiple inventories. \
+The **PlayerStats** class describes the stats that the player currently has, as well as setting them up in the beginning. The class has the following attributes:
+*minHealthPoints*, *maxHealthPoints*, and *healthPoints*. Respectively, these attributes describe the minimum amount of health points the user can have in
+the game before dying, the maximum amount of health points he can have at any point in the game, and the amount of health points that the user starts out
+with. There are getters and setters for getting this information. There is also a *toString()* method that is overriden from the origin Java function so that
+the stats can be printed on the console should the user type the correct command. The **PlayerStats** inherits from the **Stats** cass. \
+The **Stats** class has a protected attribute *healthPoints*, the getter ans setter methods for that attribute, as well as printing out the stats using
+the *toString()* method. The reason for the inheritance is the possibility of NPCs in the game sharing certain stats with the player, like health points.
+When these NPCs are added, those classes can inherit from the **Stats** class to encourage code re-usability.
+
 Maximum number of words for this section: 2500
 
-Word Count: 478
+Word Count: 845
 
 ## Object diagrams
 Author(s): Koen van den Burg
