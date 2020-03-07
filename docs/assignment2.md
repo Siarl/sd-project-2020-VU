@@ -197,7 +197,7 @@ Once the **game** passes the information to the **player**, the **player** retri
 If the **player** handle the command then it calls the **callback** function of *onMessage()* and the player's desired information is printed.
 Following that the **player** returns the value true to the **game** telling it that the command has been handled.
 
-Alternatively, if the command cannot be handled by the **player** then it returns false to the **game** object. 
+Alternatively, if the command cannot be handled by the **player** then it returns false to the **game** object.
 
 *Word count for above diagram: 215 words*
 
