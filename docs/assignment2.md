@@ -289,4 +289,4 @@ This folder can be deleted afterwards and does not hold any important informatio
 
 This video shows a quick demo of our current implementation:
 
-
+[![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
