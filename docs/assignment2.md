@@ -160,20 +160,20 @@ Word Count: 1956
 Author(s): Koen van den Burg
 
 ![](images/ObjectDiagramV1.png)
-
-This **Object diagram** captures the snapshot of the very beginning of the game. \
+     
+This Object diagram captures the snapshot of the very beginning of the game. \
 The green color means that the object is implemented in the system and the red color means the object is not implemented yet. \
-The most fundamental objects are already implemented in the system: the game, player, scene, inventory and player statistics. \
-Only the door object needs to be implemented to create the working text based adventure game which is desired. Besides the doors, more scene and items must be created in order to create a story line for the game. 
-In the diagram there are 2 scenes and one item object in red, these will be improved upon with more additional objects. 
-The game object starts the game in the studio scene, where there are a few available commands for the studio scene itself. \
-There are multiple commands which can be used to interact with certain objects inside the studio scene. There should be two doors, one to the bathroom scene and one to the outside scene, this is not implemented yet. \
-The player can use scene commands in order to navigate towards the door/item or other object and type a certain command to use/inspect/navigate towards/search the object. Depending on the type of object a different effect will occur. \
-The scenes contain certain items, which can be interacted with using commands. The player can use  the Inspect <item> command to interact with an item like picking it up and adding it to the inventory or using it which will result in a change in the player’s stats, for now it will only increase of decrease the players’ health points. \
-The doors can be used with a command, which should result in changing the current scene ID and result in the player heading into the next scene, thus progressing in the game. 
-The player can use the command Inspect Scene to receive more information about the interactable objects inside the scene they are in, in the studio scene that is the two doors and the items. \
-The player object is connected to the stats object which hold the amount of health points, which are 50 out of the maximum health points: 100.  \
-Using player commands will let the player check out their health points and what is inside their inventory. At the start of the game the player has a phone and five cigarettes inside the inventory.
+The most fundamental objects are already implemented in the system: the *game*, *player*, *scene*, *inventory* and *player statistics*. \
+Only the *door* object needs to be implemented to create the working text based adventure game which is desired. Besides the *doors*, more *scene* and *items* must be created in order to create a story line for the game.
+In the diagram there are 2 *scenes* and one *item* object in red, these will be improved upon with more additional objects.
+The *game* object starts the game in the *studio scene*, where there are a few available *commands* for the *studio scene* itself. \
+There are multiple *commands* which can be used to interact with certain objects inside the *studio scene*. There should be two *doors*, one to the *bathroom scene* and one to the *outside scene*, this is not implemented yet. \
+The player can use *scene commands* in order to navigate towards the *door*/*item* or other object and type a certain *command* to *use*/*inspect*/*navigate* towards/*search* the object. Depending on the type of object a different effect will occur. \
+The scenes contain certain *items*, which can be interacted with using *commands*. The player can use  the *Inspect <item>* command to interact with an item like picking it up and adding it to the *inventory* or using it which will result in a change in the *player’s stats*, for now it will only increase of decrease the players’ *health points*. \
+The *doors* can be used with a *command*, which should result in changing the current *scene ID* and result in the player heading into the next *scene*, thus progressing in the game.
+The player can use the *command* *Inspect Scene* to receive more information about the interactable objects inside the *scene* they are in, in the *studio scene* that is the two *doors* and the items. \
+The *player* object is connected to the *stats* object which hold the amount of *health points*, which are 50 out of the *maximum health points*: 100.  \
+Using *player commands* will let the player check out their *health points* and what is inside their *inventory*. At the start of the game the player has *a phone* and five *cigarettes* inside the *inventory*.
 
 
 
