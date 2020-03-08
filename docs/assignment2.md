@@ -227,7 +227,7 @@ Author(s): Bogdan-Petre Cercel
 <b>New Game Diagram</b>
 ![](images/SDNewGame.png)
 
-In the situation modelled aobve, the sequence of initializing the game using the option "New Game".
+In the situation modelled above, the sequence of initializing the game using the option "New Game".
 
 Firstly, **main** creates the *scanner* object in order to start a listening channel from which user input will be read one line at the time.
 **Main** also immediately tries to load any saved files through a call of **LocalFileTool** which in turn looks for any save files that could be loaded and returns them to **Main**.
