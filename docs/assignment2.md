@@ -48,7 +48,7 @@ actions(F3).</td>
 ### Used modeling tool
 Class Diagram: LucidChart \
 Sequence Diagram: LucidChart \
-Class Diagram, State Machine Diagrams: LucidChart\
+State Machine Diagrams: LucidChart\
 Object Diagrams: Draw.io\
 Implementation: Intellij IDEA
 
