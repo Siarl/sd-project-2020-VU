@@ -176,15 +176,14 @@ Word count: 399
 ## State machine diagrams
 Author(s): Claudia Grigoras
 
-This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
-
-For each state machine you have to provide:
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities, etc. in a narrative manner (you do not need to structure your description into tables in this case). We expect 3-4 lines of text for describing trivial or very simple state machines (e.g., those with one to three states), whereas you will provide longer descriptions (e.g., ~500 words) when describing more complex state machines.
-
-The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
+<b> Game Class - State Machine Diagram </b>
 ![State Machine Diagram - Game](images/SMDGame.jpeg)
+
+This diagram represents the finite number of states for the game class. This is the class that initializes the game and that ensures that the commands are read and valid and runs them. 
+
+The first state after the start state within the state machine diagram is "Initialize Game". Within this state, as it can be seen within the code as well, everything is initiated - creation of objects from all classes so that they can be called later on within other states. The main effect (activity) that will be triggered through this state is the listener, as the listener is used within the next state "Start Game". This is a composite state, whereas there are a few internal activities. First of all, at entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes within the terminal input), and the current scene id is set according to the first scene id for the game. Then at exiting this state, a command string has been read. This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as internal activity, checks this command to see whether it is valid. Therefore, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state. Here at entry, this state gets the valid command, and then runs the scene for that command (for which next state machine diagram is being provided). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g] = string command. These states will loop between them repeatedly, unless the read command reads an invalid command whereas then it goes into flow final. 
+
+
 ![State Machine Diagram - Scene](images/SMDScene.jpeg)
 
 
