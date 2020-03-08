@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 4030
+Word Count: 4075
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -152,7 +152,7 @@ The **Stats** class has a protected attribute *healthPoints*, the getter ans set
 the *toString()* method. The reason for the inheritance is the possibility of NPCs in the game sharing certain stats with the player, like health points.
 When these NPCs are added, those classes can inherit from the **Stats** class to encourage code re-usability.
 
-Word Count: 1956
+Word Count: 1977
 
 ## Object diagrams
 Author(s): Koen van den Burg
@@ -175,7 +175,7 @@ Using player commands will let the player check out their health points and what
 
 
 
-Word count: 399
+Word count: 408
 
 
 
@@ -217,7 +217,7 @@ The third alternate transition is when the command == action + item. Both action
 
 The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Inspect Item" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item was not found, then it goes into flow final state. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
 
-Word count: 860
+Word count: 866
 
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
@@ -244,8 +244,6 @@ Following that the **player** returns the value true to the **game** telling it 
 
 Alternatively, if the command cannot be handled by the **player** then it returns false to the **game** object.
 
-*Word count for above diagram: 215 words*
-
 <b>Handle Commands in Scene</b>
 ![](images/SDSceneCommand.png)
 
@@ -268,9 +266,7 @@ If the command is an effect, the same sequence is executed as the **effect** seq
 
 Following these searches for the right object with the respective command and its execution, the **scene** tells the game whether it was successful or not by returning a boolean true or false.
 
-*Word count for above diagram: 265*
-
-Total number of words for this section: 480
+Total number of words for this section: 487
 
 ## Implementation
 Author(s): Wilkin van Roosmalen
@@ -323,4 +319,4 @@ This video shows a quick demo of our current implementation:
 
 [![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
 
-Wordt count: 335 words
+Wordt count: 337 words
