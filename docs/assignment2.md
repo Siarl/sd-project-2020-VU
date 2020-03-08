@@ -47,6 +47,7 @@ actions(F3).</td>
 
 ### Used modeling tool
 Class Diagram: LucidChart
+Sequence Diagram: LucidChart
 
 ## Class diagram
 Author(s): Sofia Konovalova
@@ -220,6 +221,19 @@ Word count: 860
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
 
+<b>New Game Diagram</b>
+![](images/SDNewGame.png)
+
+In the situation modelled aobve, the sequence of initializing the game using the option "New Game".
+
+Firstly, **main** creates the *scanner* object in order to start a listening channel from which user input will be read one line at the time.
+**Main** also immediately tries to load any saved files through a call of **LocalFileTool** which in turn looks for any save files that could be loaded and returns them to **Main**.
+
+After the initial setup effectuated in the previous paragraph, **Main** displays the "Menu Options" to the actor. These options consist of either "New Game" or "Saved Game". The user inputs the integer associated with each option; 1 - for "New Game", 2 - "Save File 1" 3 - "Save File 2" .... etc.
+
+This diagram is concerned with the "New Game" option. When the actor inputs "1", it is then parsed in **main** and converted to an integer. **Main** follows through by calling *newGameFromFile()* which looks for the main .json file in order to parse and load it into a *game* object. **LocalFileTool** creates the *game* object and returns the object to main to be used in the main loop of the game later.
+
+*Word count for above diagram: 192*
 
 <b>Get Stats Command Diagram</b> 
 ![](images/SDPlayerCommand.png)
@@ -268,7 +282,7 @@ Following these searches for the right object with the respective command and it
 
 *Word count for above diagram: 265*
 
-Total number of words for this section: 480
+Total number of words for this section: 672
 
 ## Implementation
 Author(s): Wilkin van Roosmalen
