@@ -181,14 +181,37 @@ Author(s): Claudia Grigoras
 
 This diagram represents the finite number of states for the game class. This is the class that initializes the game and that ensures that the commands are read and valid and runs them. 
 
-The first state after the start state within the state machine diagram is "Initialize Game". Within this state, as it can be seen within the code as well, everything is initiated - creation of objects from all classes so that they can be called later on within other states. The main effect (activity) that will be triggered through this state is the listener, as the listener is used within the next state "Start Game". This is a composite state, whereas there are a few internal activities. First of all, at entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes within the terminal input), and the current scene id is set according to the first scene id for the game. Then at exiting this state, a command string has been read. This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as internal activity, checks this command to see whether it is valid. Therefore, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state. Here at entry, this state gets the valid command, and then runs the scene for that command (for which next state machine diagram is being provided). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g] = string command. These states will loop between them repeatedly, unless the read command reads an invalid command whereas then it goes into flow final. 
+The first state after the start state within the state machine diagram is "Initialize Game". Within this state, as it can be seen within the code as well, everything is initiated - creation of objects from all classes so that they can be called later on within other states. The main effect (activity) that will be triggered through this state is the listener, as the listener is used within the next state "Start Game". 
+
+"Start Game" is a composite state, whereas there are a few internal activities. First of all, at entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes within the terminal input), and the current scene id is set according to the first scene id for the game. Then at exiting this state, a command string has been read. 
+
+This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as internal activity, checks this command to see whether it is valid. Therefore, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state. 
+
+The state "Handle Command" gets the valid command at entry, and then runs the scene for that command (for which next state machine diagram is being provided). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g] = string command. These states will loop between them repeatedly, unless the read command reads an invalid command whereas then it goes into flow final. 
 
 
+<b> Scene Class - State Machine Diagram </b>
 ![State Machine Diagram - Scene](images/SMDScene.jpeg)
 
+The state machine diagram for the scene class is a bit more complex than the game class, as it has more states. 
 
+This class was being called to run by the previous class (game) when it was run with a command. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command". 
 
-Maximum number of words for this section: 2500
+The next state is to get this command, therefore the name "Get Command", a simple state that makes sure this string is being received. This state transitions with the same effect as it was transitioned to, which is the "command". 
+
+The next state which is transitioned to from the "Get Command" state is the Handle Command. Here, this state only has as an activity to check this string, and to then transition to a decision node. 
+
+From the Handle Command state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings. 
+
+The first alternate transition is when the condition command == "inspect" is met. Then, the following state is the "Inspect Command" composite state. Within this state, at entry, it gets the command, and as an activity it searches all the items within the scene it is in. At exit, it writes these items to the terminal, and then reaches its final state.
+
+The second alternate transition is when command == "search" is being met. Here, the machinge transitions to the state "Static Command" where at entry it receives the command string. Then, as an internal activity within the state, it looks up all the possible commands for the current scene and retrieves them. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
+
+The third alternate transition is when command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Apply Effect". Here, at entry, it gets as well the command, and then it checks both the action and the item and applies the desired effect. It then returns to the game machine with a new scene id as the effect changes the scene id, reaching the final state of the scene.
+
+The last alternate transition is when command = "inspect" + item. When this string is being matched, then the diagram transitions to "Inspect Item" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item was not found, then it goes into flow final state. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
+
+Word count: 470
 
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
