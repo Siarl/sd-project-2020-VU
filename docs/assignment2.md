@@ -184,9 +184,9 @@ For each state machine you have to provide:
 - a textual description of all its states, transitions, activities, etc. in a narrative manner (you do not need to structure your description into tables in this case). We expect 3-4 lines of text for describing trivial or very simple state machines (e.g., those with one to three states), whereas you will provide longer descriptions (e.g., ~500 words) when describing more complex state machines.
 
 The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
-
-![State Machine Diagram - Scene](images/SMDScene.jpeg)
 ![State Machine Diagram - Game](images/SMDGame.jpeg)
+![State Machine Diagram - Scene](images/SMDScene.jpeg)
+
 
 
 Maximum number of words for this section: 2500
