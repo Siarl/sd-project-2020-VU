@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 4075
+Word Count: 4602
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -236,8 +236,6 @@ After the initial setup effectuated in the previous paragraph, **Main** displays
 
 This diagram is concerned with the "New Game" option. When the actor inputs "1", it is then parsed in **main** and converted to an integer. **Main** follows through by calling *newGameFromFile()* which looks for the main .json file in order to parse and load it into a *game* object. **LocalFileTool** creates the *game* object and returns the object to main to be used in the main loop of the game later.
 
-*Word count for above diagram: 192*
-
 <b>Get Stats Command Diagram</b>
 ![](images/SDPlayerCommand.png)
 
@@ -281,7 +279,7 @@ If the command is an effect, the same sequence is executed as the *effect* seque
 
 Following these searches for the right object with the respective command and its execution, the **scene** tells the game whether it was successful or not by returning a boolean true or false.
 
-Total number of words for this section: 487
+Total number of words for this section: 698
 
 ## Implementation
 Author(s): Wilkin van Roosmalen
@@ -359,4 +357,4 @@ This video shows a quick demo of our current implementation:
 
 [![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
 
-Wordt count: 337 words
+Wordt count: 653 words
