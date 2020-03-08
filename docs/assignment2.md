@@ -40,7 +40,7 @@ actions(F3).</td>
 </table>
 
 ### Used modeling tool
-Class Diagram, State Matchine Diagrams: LucidChart\
+Class Diagram, State Machine Diagrams: LucidChart\
 Object Diagrams, Sequence Diagrams: Draw.io\
 Implementation: Intellij IDEA
 
