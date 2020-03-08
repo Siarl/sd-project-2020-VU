@@ -243,17 +243,51 @@ Total number of words for this section: 480
 ## Implementation
 Author(s): Wilkin van Roosmalen
 
-In this chapter you will describe the following aspects of your project:
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system (for example, how you implemented the syntax highlighting feature of your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+### Writing the Code
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
+After discussing and creating the first UML models, we started on the implementation.
+First, a skeleton was made. 
+All classes were created and populated with the attributes and methods defined in the Class diagram.
+We quickly found a couple points of improvement, and went back to changing the diagrams.
 
-Maximum number of words for this section: 1000
+After implementing the changes, we went on to writing the actual methods.
+The code is currently a bit messy, we plan on improving many parts for Assignment 3.
+Luckily, most methods have the same structure: 
+Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
+These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
-## References
+A major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
+Simply converting the `Game` object to JSON and back would not work.
+To solve this problem, three "Store" objects were created: `ActionStore`, `ItemStore`, and `SceneStore`.
+These objects are populated using the GSON library in `LocalFileTool`.
+Then, their contents are given to the `Game` object.
+Implementing these "Store" objects allowed us to easily get a game going.
 
-References, if needed.
+In the resources folder, three files can be found:
+
+- main-game.actions.json (ActionStore)
+- main-game.items.json (ItemStore)
+- main-game.scenes.json (SceneStore)
+
+These files contain the actual content of the game. 
+By adding and changing the values in these files, the game can be extended.
+
+### Building and Running
+To execute this system, run the game.applicationBase.Main class.
+
+The system can be build using `gradle jar`. The resulting .jar file can be found in `build/libs/`.
+
+A pre-built .jar is located in the `out/` directory.
+
+Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
+You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
+
+**NOTE:** _Running the program will create a folder in your home directory: `.spork/`. 
+This folder can be deleted afterwards and does not hold any important information (yet)._ 
+
+### Showcase
+
+This video shows a quick demo of our current implementation:
+
+[ENTER VIDEO HERE]
+
