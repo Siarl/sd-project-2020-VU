@@ -1,12 +1,6 @@
 # Assignment 2
 
-Maximum number of words for this document: 9000
-
-Word Count: 4030
-
-**IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
-
-**Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
+Word Count: 4343
 
 ### Implemented features
 
@@ -160,13 +154,13 @@ Author(s): Koen van den Burg
 This **Object diagram** captures the snapshot of the very beginning of the game. \
 The green color means that the object is implemented in the system and the red color means the object is not implemented yet. \
 The most fundamental objects are already implemented in the system: the game, player, scene, inventory and player statistics. \
-Only the door object needs to be implemented to create the working text based adventure game which is desired. Besides the doors, more scene and items must be created in order to create a story line for the game. 
-In the diagram there are 2 scenes and one item object in red, these will be improved upon with more additional objects. 
+Only the door object needs to be implemented to create the working text based adventure game which is desired. Besides the doors, more scene and items must be created in order to create a story line for the game.
+In the diagram there are 2 scenes and one item object in red, these will be improved upon with more additional objects.
 The game object starts the game in the studio scene, where there are a few available commands for the studio scene itself. \
 There are multiple commands which can be used to interact with certain objects inside the studio scene. There should be two doors, one to the bathroom scene and one to the outside scene, this is not implemented yet. \
 The player can use scene commands in order to navigate towards the door/item or other object and type a certain command to use/inspect/navigate towards/search the object. Depending on the type of object a different effect will occur. \
 The scenes contain certain items, which can be interacted with using commands. The player can use  the Inspect <item> command to interact with an item like picking it up and adding it to the inventory or using it which will result in a change in the player’s stats, for now it will only increase of decrease the players’ health points. \
-The doors can be used with a command, which should result in changing the current scene ID and result in the player heading into the next scene, thus progressing in the game. 
+The doors can be used with a command, which should result in changing the current scene ID and result in the player heading into the next scene, thus progressing in the game.
 The player can use the command Inspect Scene to receive more information about the interactable objects inside the scene they are in, in the studio scene that is the two doors and the items. \
 The player object is connected to the stats object which hold the amount of health points, which are 50 out of the maximum health points: 100.  \
 Using player commands will let the player check out their health points and what is inside their inventory. At the start of the game the player has a phone and five cigarettes inside the inventory.
@@ -180,32 +174,32 @@ Word count: 399
 ## State machine diagrams
 Author(s): Claudia Grigoras
 
-<b> Game Class - State Machine Diagram </b>
+**Game Class - State Machine Diagram**
 ![State Machine Diagram - Game](images/SMDGame.jpeg)
 
-This diagram represents the finite number of states for the game class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
+This diagram represents the finite number of states for the game class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run.
 
-The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game". 
+The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game".
 
-"Start Game" is a composite state, whereas there are a few internal activities. First of all, at the entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read. 
+"Start Game" is a composite state, whereas there are a few internal activities. First of all, at the entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read.
 
-This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state. 
+This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state.
 
-The state "Handle Command" gets the valid command at entry, and then runs the scene for that command (for which the next state machine diagram is being provided below). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command. 
+The state "Handle Command" gets the valid command at entry, and then runs the scene for that command (for which the next state machine diagram is being provided below). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command.
 
 
-<b> Scene Class - State Machine Diagram </b>
+**Scene Class - State Machine Diagram**
 ![State Machine Diagram - Scene](images/SMDScene.png)
 
-The state machine diagram for the scene class is a bit more complex than the game class, as it has more states. 
+The state machine diagram for the scene class is a bit more complex than the game class, as it has more states.
 
-This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command". 
+This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command".
 
 The next state is to make sure to store/get this string command, therefore the name "Get Command", a simple state that makes sure the string is being received. This state transitions with the same string that has received/stored to the next state.
 
 The next state is the "Handle Command". This state only has as an internal activity to check this string, and to then transition to a decision node in order to match it.
 
-From the Handle Command state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings. 
+From the Handle Command state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings.
 
 The first alternate transition is when the condition command == "inspect" is met. Then, the following state is the "Inspect Command" composite state. Within this state, at entry, it gets the command, and as an activity it searches all the items within the scene it is in. At exit, it writes these items to the terminal, and then it reaches its final state.
 
@@ -221,7 +215,7 @@ Word count: 860
 Author(s): Bogdan-Petre Cercel
 
 
-<b>Get Stats Command Diagram</b> 
+<b>Get Stats Command Diagram</b>
 ![](images/SDPlayerCommand.png)
 
 In this situation the player wishes to retrieve information from the player object, for example his statistics (a.k.a. Health) or to be displayed the current inventory.
@@ -232,7 +226,7 @@ The **Main** read line by line from the standard input and calls the function *h
 As soon as the *handleCommand()* is called the **game** object creates 2 objects: the **Command** object and the **callback** object from the *Interactable* class.
 
 In the case that the **Command** object cannot be constructed a runtime exception is thrown.
-The **Command* object hold the information to be passed to the *onCommand()* function, together with the **callback**, used by the player. 
+The **Command* object hold the information to be passed to the *onCommand()* function, together with the **callback**, used by the player.
 **callback** specifies where the message will be displayed.
 
 Once the **game** passes the information to the **player**, the **player** retrieves the command information and verifies wether it can handle the command or not.
@@ -276,21 +270,21 @@ Author(s): Wilkin van Roosmalen
 ### Writing the Code
 
 After discussing and creating the first UML models, we started on the implementation.
-First, a skeleton was made. 
+First, a skeleton was made.
 All classes were created and populated with the attributes and methods defined in the Class diagram.
 We quickly found a couple points of improvement, and went back to changing the diagrams.
 
 After implementing the changes, we went on to writing the actual methods.
 The code is currently a bit messy, we plan on improving many parts for Assignment 3.
-Luckily, most methods have the same structure: 
-Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
+Luckily, most methods have the same structure:
+Besides getters and setters, the *onCommand(Command, Callback)* methods play an important role.
 These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
-A major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
-Simply converting the `Game` object to JSON and back would not work.
-To solve this problem, three "Store" objects were created: `ActionStore`, `ItemStore`, and `SceneStore`.
-These objects are populated using the GSON library in `LocalFileTool`.
-Then, their contents are given to the `Game` object.
+A major issue we had to solve was storing the game info. The *Game* object refers to a lot of objects.
+Simply converting the *Game* object to JSON and back would not work.
+To solve this problem, three "Store" objects were created: *ActionStore*, *ItemStore*, and *SceneStore*.
+These objects are populated using the GSON library in *LocalFileTool*.
+Then, their contents are given to the *Game* object.
 Implementing these "Store" objects allowed us to easily get a game going.
 
 In the resources folder, three files can be found:
@@ -299,8 +293,33 @@ In the resources folder, three files can be found:
 - main-game.items.json (ItemStore)
 - main-game.scenes.json (SceneStore)
 
-These files contain the actual content of the game. 
+These files contain the actual content of the game.
 By adding and changing the values in these files, the game can be extended.
+
+###Implementing Features
+
+The three features that were important to implement as they were, as we believed, to be a crucial part of any text-
+based game were:
+* Commands,
+* Interface, and
+* Actions.
+
+All three of these features were implemented using a **Interactable** class, which was an interface. Using an interface
+meant that the same "template" could be used for anything within the game that was interactable. Actions are things we do with objects
+or to move around the environment, so therefore it was an interactable part of the game. Commands are an interactable part of the game,
+so therefore they used the interface. This interface did not exist in the first version of our class model, and with time we realized
+that this made our system and code easier to work with.
+
+The interface feature is a success. Our program uses the command line interface of the user's computer. The interface, in a way,
+even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
+This allows for the interface of the game to be independent from the actual game itself.
+
+###Libraries
+This product uses the Google GSON library and the Apache Commons IO library. During the implementation of oour project, we realized that most of the libraries
+we researched were either not relevant, like TextIO and TinyLogger (TextIO would bloat the game too much, as it all worked perfectly fine with the default console,
+and TinyLogger being unnecessary during the second phase of class modeling), or it was not applicable to the features we wanted to implement but was still
+possible to be used in the future, such as KryoNet. GSON and Commons IO proved to be a good match for our product as of now, making our game work simply and
+smoothly.
 
 ### Building and Running
 To execute this system, run the game.applicationBase.Main class.
@@ -312,8 +331,8 @@ A pre-built .jar is located in the `out/` directory.
 Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
 You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
 
-**NOTE:** _Running the program will create a folder in your home directory: `.spork/`. 
-This folder can be deleted afterwards and does not hold any important information (yet)._ 
+**NOTE:** _Running the program will create a folder in your home directory: `.spork/`.
+This folder can be deleted afterwards and does not hold any important information (yet)._
 
 ### Showcase
 
@@ -321,4 +340,4 @@ This video shows a quick demo of our current implementation:
 
 [![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
 
-Wordt count: 335 words
+Word count: 648 words
