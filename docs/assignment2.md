@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 1956
+Word Count: 4030
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -52,6 +52,8 @@ Class Diagram: LucidChart
 Author(s): Sofia Konovalova
 
 ![](images/ClassDiagramV2.png)
+
+This diagram represents the class diagram for this UML project.
 
 The **Main** class is self-explanatory - it is the main function of the entire program. The main method of this class creates a *game* object which uses
 the **LocalFileTool** class to load the game from a json file. The json file includes all of the necessary information about the game: the scenes of the game
@@ -128,6 +130,8 @@ and how classes interact with each other difficult to understand. Some of the re
 have a composition relationship anymore, but rather a binary association, as a game state has commands, and commands change the game state, so they both reliant
 on each other equally. This made more sense for the structure of the game and also made more logical sense.
 
+You can find the first version of our class diagram below:
+
 ![](images/ClassDiagramV1.png)
 
 The **Player** class contains all of the information about the user, and therefore, the player of the game. It contains a *playerStats* object, which sets
@@ -176,16 +180,42 @@ Word count: 399
 ## State machine diagrams
 Author(s): Claudia Grigoras
 
-This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
+<b> Game Class - State Machine Diagram </b>
+![State Machine Diagram - Game](images/SMDGame.jpeg)
 
-For each state machine you have to provide:
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities, etc. in a narrative manner (you do not need to structure your description into tables in this case). We expect 3-4 lines of text for describing trivial or very simple state machines (e.g., those with one to three states), whereas you will provide longer descriptions (e.g., ~500 words) when describing more complex state machines.
+This diagram represents the finite number of states for the game class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
 
-The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
+The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game". 
 
-Maximum number of words for this section: 2500
+"Start Game" is a composite state, whereas there are a few internal activities. First of all, at the entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read. 
+
+This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state. 
+
+The state "Handle Command" gets the valid command at entry, and then runs the scene for that command (for which the next state machine diagram is being provided below). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command. 
+
+
+<b> Scene Class - State Machine Diagram </b>
+![State Machine Diagram - Scene](images/SMDScene.png)
+
+The state machine diagram for the scene class is a bit more complex than the game class, as it has more states. 
+
+This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command". 
+
+The next state is to make sure to store/get this string command, therefore the name "Get Command", a simple state that makes sure the string is being received. This state transitions with the same string that has received/stored to the next state.
+
+The next state is the "Handle Command". This state only has as an internal activity to check this string, and to then transition to a decision node in order to match it.
+
+From the Handle Command state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings. 
+
+The first alternate transition is when the condition command == "inspect" is met. Then, the following state is the "Inspect Command" composite state. Within this state, at entry, it gets the command, and as an activity it searches all the items within the scene it is in. At exit, it writes these items to the terminal, and then it reaches its final state.
+
+The second alternate transition is when the command == "search" is being met. Here, the machinge transitions to the state "Static Command" where at entry it receives the command string. Then, as an internal activity within the state, it looks up all the possible commands for the current scene and retrieves them. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
+
+The third alternate transition is when the command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Apply Effect". Here, at entry, it gets as well the command, and then it checks both the action and the item and applies the desired effect. It then returns to the game machine with a new scene id as the effect changes the scene id, reaching the final state of the scene.
+
+The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Inspect Item" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item was not found, then it goes into flow final state. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
+
+Word count: 860
 
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
@@ -243,17 +273,52 @@ Total number of words for this section: 480
 ## Implementation
 Author(s): Wilkin van Roosmalen
 
-In this chapter you will describe the following aspects of your project:
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system (for example, how you implemented the syntax highlighting feature of your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+### Writing the Code
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
+After discussing and creating the first UML models, we started on the implementation.
+First, a skeleton was made. 
+All classes were created and populated with the attributes and methods defined in the Class diagram.
+We quickly found a couple points of improvement, and went back to changing the diagrams.
 
-Maximum number of words for this section: 1000
+After implementing the changes, we went on to writing the actual methods.
+The code is currently a bit messy, we plan on improving many parts for Assignment 3.
+Luckily, most methods have the same structure: 
+Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
+These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
-## References
+A major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
+Simply converting the `Game` object to JSON and back would not work.
+To solve this problem, three "Store" objects were created: `ActionStore`, `ItemStore`, and `SceneStore`.
+These objects are populated using the GSON library in `LocalFileTool`.
+Then, their contents are given to the `Game` object.
+Implementing these "Store" objects allowed us to easily get a game going.
 
-References, if needed.
+In the resources folder, three files can be found:
+
+- main-game.actions.json (ActionStore)
+- main-game.items.json (ItemStore)
+- main-game.scenes.json (SceneStore)
+
+These files contain the actual content of the game. 
+By adding and changing the values in these files, the game can be extended.
+
+### Building and Running
+To execute this system, run the game.applicationBase.Main class.
+
+The system can be build using `gradle jar`. The resulting .jar file can be found in `build/libs/`.
+
+A pre-built .jar is located in the `out/` directory.
+
+Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
+You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
+
+**NOTE:** _Running the program will create a folder in your home directory: `.spork/`. 
+This folder can be deleted afterwards and does not hold any important information (yet)._ 
+
+### Showcase
+
+This video shows a quick demo of our current implementation:
+
+[![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
+
+Wordt count: 335 words
