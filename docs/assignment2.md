@@ -185,6 +185,10 @@ For each state machine you have to provide:
 
 The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
 
+![State Machine Diagram - Scene](images/SMDScene.jpeg)
+![State Machine Diagram - Game](images/SMDGame.jpeg)
+
+
 Maximum number of words for this section: 2500
 
 ## Sequence diagrams
