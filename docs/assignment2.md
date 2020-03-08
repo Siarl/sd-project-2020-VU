@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 9000
 
-Word Count: 1956
+Word Count: 4030
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).
 
@@ -320,3 +320,5 @@ This folder can be deleted afterwards and does not hold any important informatio
 This video shows a quick demo of our current implementation:
 
 [![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
+
+Wordt count: 335 words
