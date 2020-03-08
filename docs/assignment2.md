@@ -46,8 +46,10 @@ actions(F3).</td>
 </table>
 
 ### Used modeling tool
-Class Diagram: LucidChart
-Object Diagrams, State Machine Diagrams, Sequence Diagrams: Draw.io
+Class Diagram: LucidChart \
+Sequence Diagram: LucidChart \
+State Machine Diagrams: LucidChart\
+Object Diagrams: Draw.io\
 Implementation: Intellij IDEA
 
 ## Class diagram
@@ -158,20 +160,20 @@ Word Count: 1977
 Author(s): Koen van den Burg
 
 ![](images/ObjectDiagramV1.png)
-
-This **Object diagram** captures the snapshot of the very beginning of the game. \
+     
+This Object diagram captures the snapshot of the very beginning of the game. \
 The green color means that the object is implemented in the system and the red color means the object is not implemented yet. \
-The most fundamental objects are already implemented in the system: the game, player, scene, inventory and player statistics. \
-Only the door object needs to be implemented to create the working text based adventure game which is desired. Besides the doors, more scene and items must be created in order to create a story line for the game. 
-In the diagram there are 2 scenes and one item object in red, these will be improved upon with more additional objects. 
-The game object starts the game in the studio scene, where there are a few available commands for the studio scene itself. \
-There are multiple commands which can be used to interact with certain objects inside the studio scene. There should be two doors, one to the bathroom scene and one to the outside scene, this is not implemented yet. \
-The player can use scene commands in order to navigate towards the door/item or other object and type a certain command to use/inspect/navigate towards/search the object. Depending on the type of object a different effect will occur. \
-The scenes contain certain items, which can be interacted with using commands. The player can use  the Inspect <item> command to interact with an item like picking it up and adding it to the inventory or using it which will result in a change in the player’s stats, for now it will only increase of decrease the players’ health points. \
-The doors can be used with a command, which should result in changing the current scene ID and result in the player heading into the next scene, thus progressing in the game. 
-The player can use the command Inspect Scene to receive more information about the interactable objects inside the scene they are in, in the studio scene that is the two doors and the items. \
-The player object is connected to the stats object which hold the amount of health points, which are 50 out of the maximum health points: 100.  \
-Using player commands will let the player check out their health points and what is inside their inventory. At the start of the game the player has a phone and five cigarettes inside the inventory.
+The most fundamental objects are already implemented in the system: the *game*, *player*, *scene*, *inventory* and *player statistics*. \
+Only the *door* object needs to be implemented to create the working text based adventure game which is desired. Besides the *doors*, more *scene* and *items* must be created in order to create a story line for the game.
+In the diagram there are 2 *scenes* and one *item* object in red, these will be improved upon with more additional objects.
+The *game* object starts the game in the *studio scene*, where there are a few available *commands* for the *studio scene* itself. \
+There are multiple *commands* which can be used to interact with certain objects inside the *studio scene*. There should be two *doors*, one to the *bathroom scene* and one to the *outside scene*, this is not implemented yet. \
+The player can use *scene commands* in order to navigate towards the *door*/*item* or other object and type a certain *command* to *use*/*inspect*/*navigate* towards/*search* the object. Depending on the type of object a different effect will occur. \
+The scenes contain certain *items*, which can be interacted with using *commands*. The player can use  the *Inspect <item>* command to interact with an item like picking it up and adding it to the *inventory* or using it which will result in a change in the *player’s stats*, for now it will only increase of decrease the players’ *health points*. \
+The *doors* can be used with a *command*, which should result in changing the current *scene ID* and result in the player heading into the next *scene*, thus progressing in the game.
+The player can use the *command* *Inspect Scene* to receive more information about the interactable objects inside the *scene* they are in, in the *studio scene* that is the two *doors* and the items. \
+The *player* object is connected to the *stats* object which hold the amount of *health points*, which are 50 out of the *maximum health points*: 100.  \
+Using *player commands* will let the player check out their *health points* and what is inside their *inventory*. At the start of the game the player has *a phone* and five *cigarettes* inside the *inventory*.
 
 
 
@@ -185,7 +187,7 @@ Author(s): Claudia Grigoras
 <b> Game Class - State Machine Diagram </b>
 ![State Machine Diagram - Game](images/SMDGame.jpeg)
 
-This diagram represents the finite number of states for the <b>game class</b>. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
+This diagram represents the finite number of states for the **game** class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
 
 The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game". 
 
@@ -199,7 +201,7 @@ The state "Handle Command" gets the valid command at entry, and then runs the sc
 <b> Scene Class - State Machine Diagram </b>
 ![State Machine Diagram - Scene](images/SMDScene.png)
 
-The state machine diagram for the <b>scene class</b> is a bit more complex than the <b>game class</b>, as it has more states. 
+The state machine diagram for the **scene class** is a bit more complex than the **game** class, as it has more states. 
 
 This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command". 
 
@@ -222,47 +224,60 @@ Word count: 866
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
 
+<b>New Game Diagram</b>
+![](images/SDNewGame.png)
 
-<b>Get Stats Command Diagram</b> 
+In the situation modelled above, the sequence of initializing the game using the option "New Game".
+
+Firstly, **main** creates the *scanner* object in order to start a listening channel from which user input will be read one line at the time.
+**Main** also immediately tries to load any saved files through a call of **LocalFileTool** which in turn looks for any save files that could be loaded and returns them to **Main**.
+
+After the initial setup effectuated in the previous paragraph, **Main** displays the "Menu Options" to the actor. These options consist of either "New Game" or "Saved Game". The user inputs the integer associated with each option; 1 - for "New Game", 2 - "Save File 1" 3 - "Save File 2" .... etc.
+
+This diagram is concerned with the "New Game" option. When the actor inputs "1", it is then parsed in **main** and converted to an integer. **Main** follows through by calling *newGameFromFile()* which looks for the main .json file in order to parse and load it into a *game* object. **LocalFileTool** creates the *game* object and returns the object to main to be used in the main loop of the game later.
+
+*Word count for above diagram: 192*
+
+<b>Get Stats Command Diagram</b>
 ![](images/SDPlayerCommand.png)
 
 In this situation the player wishes to retrieve information from the player object, for example his statistics (a.k.a. Health) or to be displayed the current inventory.
-Main function is in a loop and waits for the **Scanner** object to have available information to be read.
+Main function is in a loop and waits for the *Scanner* object to have available information to be read.
 
-The **Main** read line by line from the standard input and calls the function *handleCommand()* in the **game** object.
+The **Main** read line by line from the standard input and calls the function *handleCommand()* in the *game* object.
 
-As soon as the *handleCommand()* is called the **game** object creates 2 objects: the **Command** object and the **callback** object from the *Interactable* class.
+As soon as the *handleCommand()* is called the *game* object creates 2 objects: the *Command* object and the *callback* object from the *Interactable* class.
 
-In the case that the **Command** object cannot be constructed a runtime exception is thrown.
-The **Command* object hold the information to be passed to the *onCommand()* function, together with the **callback**, used by the player. 
-**callback** specifies where the message will be displayed.
+In the case that the *Command* object cannot be constructed a runtime exception is thrown.
+The *Command* object hold the information to be passed to the *onCommand()* function, together with the *callback*, used by the player.
+*callback* specifies where the message will be displayed.
 
-Once the **game** passes the information to the **player**, the **player** retrieves the command information and verifies wether it can handle the command or not.
+Once the *game* passes the information to the *player*, the *player* retrieves the command information and verifies wether it can handle the command or not.
 
-If the **player** handle the command then it calls the **callback** function of *onMessage()* and the player's desired information is printed.
-Following that the **player** returns the value true to the **game** telling it that the command has been handled.
+If the *player* handle the command then it calls the *callback* function of *onMessage()* and the player's desired information is printed.
+Following that the *player* returns the value true to the *game* telling it that the command has been handled.
 
-Alternatively, if the command cannot be handled by the **player** then it returns false to the **game** object.
+Alternatively, if the command cannot be handled by the *player* then it returns false to the *game* object.
 
 <b>Handle Commands in Scene</b>
 ![](images/SDSceneCommand.png)
 
-In this situation the command that was scanned through **Scanner** and passed to the **game** by the **main** was not found as a command in the **player** therefore we need to look into the current scene to discover who can execute the action.
+In this situation the command that was scanned through *Scanner* and passed to the *game* by the **main** was not found as a command in the *player* therefore we need to look into the current scene to discover who can execute the action.
 
-**Game** first retrieves the current scene by ID. Each **scene** contains a list of currently intractable objects, each with their own possible actions that affect the player.
+*Game* first retrieves the current scene by ID. Each *scene* contains a list of currently intractable objects, each with their own possible actions that affect the player.
 
-**Game** then calls the *onCommand()* passing it the command parsed by **scanner**.
+*Game* then calls the *onCommand()* passing it the command parsed by *scanner*.
 
-Just like in the first diagram with **player**, **scene** has its own actionable command which immediately call the call back displaying the results. (for example: search, inspect)
+Just like in the first diagram with *player*, *scene* has its own actionable command which immediately call the call back displaying the results. (for example: search, inspect)
 
 The difference in this situation is that if those commands are not inputted then in the ***alt actions has commands*** block, it is decided where to look for the command.
 
-Firstly, **scene** check if the action in question is effectuated by the **Effect** object.
-It created the **effect**, thereafter the **effect** applies the effects and calls on the **callback** to display the respective feedback to the player.
+Firstly, *scene* check if the action in question is effectuated by the *Effect* object.
+It created the *effect*, thereafter the *effect* applies the effects and calls on the *callback* to display the respective feedback to the player.
 
-Alternatively, if the command has an **item** receiver, then **scene** creates an **item** object.
-This object requests which item it should be from **command** and then applies the command.
-If the command is an effect, the same sequence is executed as the **effect** sequence, then **item** calls the *onMessage()* function to display the results to the player.
+Alternatively, if the command has an *item* receiver, then *scene* creates an *item* object.
+This object requests which item it should be from *command* and then applies the command.
+If the command is an effect, the same sequence is executed as the *effect* sequence, then *item* calls the *onMessage()* function to display the results to the player.
 
 Following these searches for the right object with the respective command and its execution, the **scene** tells the game whether it was successful or not by returning a boolean true or false.
 
@@ -299,6 +314,31 @@ In the resources folder, three files can be found:
 
 These files contain the actual content of the game. 
 By adding and changing the values in these files, the game can be extended.
+
+###Implementing Features
+
+The three features that were important to implement as they were, as we believed, to be a crucial part of any text-
+based game were:
+* Commands,
+* Interface, and
+* Actions.
+
+All three of these features were implemented using a **Interactable** class, which was an interface. Using an interface
+meant that the same "template" could be used for anything within the game that was interactable. Actions are things we do with objects
+or to move around the environment, so therefore it was an interactable part of the game. Commands are an interactable part of the game,
+so therefore they used the interface. This interface did not exist in the first version of our class model, and with time we realized
+that this made our system and code easier to work with.
+
+The interface feature is a success. Our program uses the command line interface of the user's computer. The interface, in a way,
+even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
+This allows for the interface of the game to be independent from the actual game itself.
+
+###Libraries
+This product uses the Google GSON library and the Apache Commons IO library. During the implementation of oour project, we realized that most of the libraries
+we researched were either not relevant, like TextIO and TinyLogger (TextIO would bloat the game too much, as it all worked perfectly fine with the default console,
+and TinyLogger being unnecessary during the second phase of class modeling), or it was not applicable to the features we wanted to implement but was still
+possible to be used in the future, such as KryoNet. GSON and Commons IO proved to be a good match for our product as of now, making our game work simply and
+smoothly.
 
 ### Building and Running
 To execute this system, run the game.applicationBase.Main class.
