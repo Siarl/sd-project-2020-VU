@@ -242,44 +242,44 @@ This diagram is concerned with the "New Game" option. When the actor inputs "1",
 ![](images/SDPlayerCommand.png)
 
 In this situation the player wishes to retrieve information from the player object, for example his statistics (a.k.a. Health) or to be displayed the current inventory.
-Main function is in a loop and waits for the **Scanner** object to have available information to be read.
+Main function is in a loop and waits for the *Scanner* object to have available information to be read.
 
-The **Main** read line by line from the standard input and calls the function *handleCommand()* in the **game** object.
+The **Main** read line by line from the standard input and calls the function *handleCommand()* in the *game* object.
 
-As soon as the *handleCommand()* is called the **game** object creates 2 objects: the **Command** object and the **callback** object from the *Interactable* class.
+As soon as the *handleCommand()* is called the *game* object creates 2 objects: the *Command* object and the *callback* object from the *Interactable* class.
 
-In the case that the **Command** object cannot be constructed a runtime exception is thrown.
-The **Command* object hold the information to be passed to the *onCommand()* function, together with the **callback**, used by the player.
-**callback** specifies where the message will be displayed.
+In the case that the *Command* object cannot be constructed a runtime exception is thrown.
+The *Command* object hold the information to be passed to the *onCommand()* function, together with the *callback*, used by the player.
+*callback* specifies where the message will be displayed.
 
-Once the **game** passes the information to the **player**, the **player** retrieves the command information and verifies wether it can handle the command or not.
+Once the *game* passes the information to the *player*, the *player* retrieves the command information and verifies wether it can handle the command or not.
 
-If the **player** handle the command then it calls the **callback** function of *onMessage()* and the player's desired information is printed.
-Following that the **player** returns the value true to the **game** telling it that the command has been handled.
+If the *player* handle the command then it calls the *callback* function of *onMessage()* and the player's desired information is printed.
+Following that the *player* returns the value true to the *game* telling it that the command has been handled.
 
-Alternatively, if the command cannot be handled by the **player** then it returns false to the **game** object.
+Alternatively, if the command cannot be handled by the *player* then it returns false to the *game* object.
 
 *Word count for above diagram: 215 words*
 
 <b>Handle Commands in Scene</b>
 ![](images/SDSceneCommand.png)
 
-In this situation the command that was scanned through **Scanner** and passed to the **game** by the **main** was not found as a command in the **player** therefore we need to look into the current scene to discover who can execute the action.
+In this situation the command that was scanned through *Scanner* and passed to the *game* by the **main** was not found as a command in the *player* therefore we need to look into the current scene to discover who can execute the action.
 
-**Game** first retrieves the current scene by ID. Each **scene** contains a list of currently intractable objects, each with their own possible actions that affect the player.
+*Game* first retrieves the current scene by ID. Each *scene* contains a list of currently intractable objects, each with their own possible actions that affect the player.
 
-**Game** then calls the *onCommand()* passing it the command parsed by **scanner**.
+*Game* then calls the *onCommand()* passing it the command parsed by *scanner*.
 
-Just like in the first diagram with **player**, **scene** has its own actionable command which immediately call the call back displaying the results. (for example: search, inspect)
+Just like in the first diagram with *player*, *scene* has its own actionable command which immediately call the call back displaying the results. (for example: search, inspect)
 
 The difference in this situation is that if those commands are not inputted then in the ***alt actions has commands*** block, it is decided where to look for the command.
 
-Firstly, **scene** check if the action in question is effectuated by the **Effect** object.
-It created the **effect**, thereafter the **effect** applies the effects and calls on the **callback** to display the respective feedback to the player.
+Firstly, *scene* check if the action in question is effectuated by the *Effect* object.
+It created the *effect*, thereafter the *effect* applies the effects and calls on the *callback* to display the respective feedback to the player.
 
-Alternatively, if the command has an **item** receiver, then **scene** creates an **item** object.
-This object requests which item it should be from **command** and then applies the command.
-If the command is an effect, the same sequence is executed as the **effect** sequence, then **item** calls the *onMessage()* function to display the results to the player.
+Alternatively, if the command has an *item* receiver, then *scene* creates an *item* object.
+This object requests which item it should be from *command* and then applies the command.
+If the command is an effect, the same sequence is executed as the *effect* sequence, then *item* calls the *onMessage()* function to display the results to the player.
 
 Following these searches for the right object with the respective command and its execution, the **scene** tells the game whether it was successful or not by returning a boolean true or false.
 
