@@ -48,6 +48,9 @@ actions(F3).</td>
 ### Used modeling tool
 Class Diagram: LucidChart
 Sequence Diagram: LucidChart
+Class Diagram, State Machine Diagrams: LucidChart\
+Object Diagrams, Sequence Diagrams: Draw.io\
+Implementation: Intellij IDEA
 
 ## Class diagram
 Author(s): Sofia Konovalova
@@ -235,7 +238,7 @@ This diagram is concerned with the "New Game" option. When the actor inputs "1",
 
 *Word count for above diagram: 192*
 
-<b>Get Stats Command Diagram</b> 
+<b>Get Stats Command Diagram</b>
 ![](images/SDPlayerCommand.png)
 
 In this situation the player wishes to retrieve information from the player object, for example his statistics (a.k.a. Health) or to be displayed the current inventory.
@@ -246,7 +249,7 @@ The **Main** read line by line from the standard input and calls the function *h
 As soon as the *handleCommand()* is called the **game** object creates 2 objects: the **Command** object and the **callback** object from the *Interactable* class.
 
 In the case that the **Command** object cannot be constructed a runtime exception is thrown.
-The **Command* object hold the information to be passed to the *onCommand()* function, together with the **callback**, used by the player. 
+The **Command* object hold the information to be passed to the *onCommand()* function, together with the **callback**, used by the player.
 **callback** specifies where the message will be displayed.
 
 Once the **game** passes the information to the **player**, the **player** retrieves the command information and verifies wether it can handle the command or not.
@@ -282,7 +285,7 @@ Following these searches for the right object with the respective command and it
 
 *Word count for above diagram: 265*
 
-Total number of words for this section: 672
+Total number of words for this section: 480
 
 ## Implementation
 Author(s): Wilkin van Roosmalen
@@ -315,6 +318,31 @@ In the resources folder, three files can be found:
 
 These files contain the actual content of the game. 
 By adding and changing the values in these files, the game can be extended.
+
+###Implementing Features
+
+The three features that were important to implement as they were, as we believed, to be a crucial part of any text-
+based game were:
+* Commands,
+* Interface, and
+* Actions.
+
+All three of these features were implemented using a **Interactable** class, which was an interface. Using an interface
+meant that the same "template" could be used for anything within the game that was interactable. Actions are things we do with objects
+or to move around the environment, so therefore it was an interactable part of the game. Commands are an interactable part of the game,
+so therefore they used the interface. This interface did not exist in the first version of our class model, and with time we realized
+that this made our system and code easier to work with.
+
+The interface feature is a success. Our program uses the command line interface of the user's computer. The interface, in a way,
+even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
+This allows for the interface of the game to be independent from the actual game itself.
+
+###Libraries
+This product uses the Google GSON library and the Apache Commons IO library. During the implementation of oour project, we realized that most of the libraries
+we researched were either not relevant, like TextIO and TinyLogger (TextIO would bloat the game too much, as it all worked perfectly fine with the default console,
+and TinyLogger being unnecessary during the second phase of class modeling), or it was not applicable to the features we wanted to implement but was still
+possible to be used in the future, such as KryoNet. GSON and Commons IO proved to be a good match for our product as of now, making our game work simply and
+smoothly.
 
 ### Building and Running
 To execute this system, run the game.applicationBase.Main class.
