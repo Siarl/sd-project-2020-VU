@@ -191,7 +191,7 @@ The state "Handle Command" gets the valid command at entry, and then runs the sc
 
 
 <b> Scene Class - State Machine Diagram </b>
-![State Machine Diagram - Scene](images/SMDScene.jpeg)
+![State Machine Diagram - Scene](images/SMDScene.png)
 
 The state machine diagram for the scene class is a bit more complex than the game class, as it has more states. 
 
