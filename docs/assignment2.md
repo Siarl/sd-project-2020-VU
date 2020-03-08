@@ -47,6 +47,8 @@ actions(F3).</td>
 
 ### Used modeling tool
 Class Diagram: LucidChart
+Object Diagrams, State Machine Diagrams, Sequence Diagrams: Draw.io
+Implementation: Intellij IDEA
 
 ## Class diagram
 Author(s): Sofia Konovalova
