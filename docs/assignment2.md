@@ -289,5 +289,4 @@ This folder can be deleted afterwards and does not hold any important informatio
 
 This video shows a quick demo of our current implementation:
 
-[ENTER VIDEO HERE]
 
