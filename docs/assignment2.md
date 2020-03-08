@@ -183,7 +183,7 @@ Author(s): Claudia Grigoras
 <b> Game Class - State Machine Diagram </b>
 ![State Machine Diagram - Game](images/SMDGame.jpeg)
 
-This diagram represents the finite number of states for the game class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
+This diagram represents the finite number of states for the <b>game class</b>. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
 
 The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game". 
 
@@ -197,7 +197,7 @@ The state "Handle Command" gets the valid command at entry, and then runs the sc
 <b> Scene Class - State Machine Diagram </b>
 ![State Machine Diagram - Scene](images/SMDScene.png)
 
-The state machine diagram for the scene class is a bit more complex than the game class, as it has more states. 
+The state machine diagram for the <b>scene class</b> is a bit more complex than the <b>game class</b>, as it has more states. 
 
 This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command". 
 
