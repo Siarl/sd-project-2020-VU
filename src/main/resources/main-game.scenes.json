@@ -1,0 +1,24 @@
+{
+  "startSceneId": 1,
+  "sceneList": [
+    {
+      "id": 1,
+      "name": "studio",
+      "description": "You are woken up by the sound of your phone chiming. You are in your studio.",
+      "items": ["phone", "noodles", "cigarettes", "bathroom-door"],
+      "actions": {
+        "id": 999
+      },
+      "_comment": "No actions for now."
+    },
+    {
+      "id": 2,
+      "name": "bathroom",
+      "description": "Your bathroom is dirty. You'll clean it tomorrow. Or next week.",
+      "items": ["bandages", "living-room-door"],
+      "actions": {
+        "id": 999
+      }
+    }
+  ]
+}

@@ -1,2 +1,7 @@
+<<<<<<< HEAD:build/tmp/jar/MANIFEST.MF
 Manifest-Version: 1.0
 
+=======
+Manifest-Version: 1.0
+
+>>>>>>> master:build/tmp/jar/MANIFEST.MF

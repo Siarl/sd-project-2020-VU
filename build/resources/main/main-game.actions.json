@@ -1,0 +1,72 @@
+{
+  "actionsList": [
+    {
+      "id": 1,
+      "effects": {
+        "use": {
+          "type": "STATS",
+          "description": "You wrap your arm in bandages. Even though you are not wounded you feel better.",
+          "statsChange": {
+            "healthPoints": 20
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "effects": {
+        "eat": {
+          "type": "STATS",
+          "description": "Cold noodles don't taste nice, but you feel better.",
+          "statsChange": {
+            "healthPoints": 10
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "effects": {
+        "smoke": {
+          "type": "STATS",
+          "description": "Smoking kills!",
+          "statsChange": {
+            "healthPoints": -5
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "effects": {
+        "check": {
+          "type": "STATS",
+          "description": "We have not yet implemented this oopsie.",
+          "statsChange": {
+            "healthPoints": 0
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "effects": {
+        "go": {
+          "type": "NAVIGATION",
+          "description": "You walk into our bathroom.",
+          "sceneIdChange": 2
+        }
+      }
+    },
+    {
+      "id": 6,
+      "effects": {
+        "go": {
+          "type": "NAVIGATION",
+          "description": "You walk back into your living room.",
+          "sceneIdChange": 1
+        }
+      }
+    }
+  ]
+}

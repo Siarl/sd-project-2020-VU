@@ -2,5 +2,9 @@
 .idea/usage.statistics.xml
 .idea/tasks.xml
 .idea/shelf/
+.idea/gradle.xml
+.idea/misc.xml
 
 *.iml
+/build/
+/.gradle/
