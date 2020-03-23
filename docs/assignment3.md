@@ -24,14 +24,19 @@ For each application of any design pattern you have to provide a table conformin
     <tr>
         <td><b>ID</b></td>
         <td><b>DP1</b></td>
+        <td><b>DP2</b></td>
     </tr>
     <tr>
         <td><b>Design Pattern</b></td>
-        <td>Name of the applied pattern</td>
+        <td>Chain of Responsibility (??)</td>
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td>With a text-based adventure game it is very important to get all the necessary information across to the player by text.
+        The problem lies with where in the program code the text is handled. Currently, most classes have a *toString()* method
+        that handles building the output to the console for the player. This is being handled by the classes and not by the client
+        itself, which creates a long chain of responsibility where every single class involved with the client has this string-building
+        method, which is not ideal. </td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
