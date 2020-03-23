@@ -20,14 +20,36 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
 
 For each application of any design pattern you have to provide a table conforming to the template below.
 
-| ID  | DP1  |
-|---|---|
-| **Design pattern**  | Name of the applied pattern |
-| **Problem**  | A paragraph describing the problem you want to solve |
-| **Solution**  | A paragraph describing why with the application of the design pattern you solve the identified problem |
-| **Intended use**  | A paragraph describing how you intend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time |
-| **Constraints**  | Any additional constraints that the application of the design pattern is imposing, if any |
-| **Additional remarks**  | Optional, only if needed |
+<table>
+    <tr>
+        <td><b>ID</b></td>
+        <td><b>DP1</b></td>
+    </tr>
+    <tr>
+        <td><b>Design Pattern</b></td>
+        <td>Name of the applied pattern</td>
+    </tr>
+    <tr>
+        <td><b>Problem</b></td>
+        <td>A paragraph describing the problem you want to solve</td>
+    </tr>
+    <tr>
+        <td><b>Solution</b></td>
+        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
+    </tr>
+    <tr>
+        <td><b>Intended use</b></td>
+        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+    </tr>
+    <tr>
+        <td><b>Constraints</b></td>
+        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+    </tr>
+    <tr>
+        <td><b>Additional remarks</b></td>
+        <td>Optional, only if needed</td>
+    </tr>
+</table>
 
 Maximum number of words for this section: 2000
 

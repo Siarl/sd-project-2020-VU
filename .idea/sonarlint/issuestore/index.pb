@@ -37,3 +37,5 @@ N
 src/main/java/game/Effect.java,2/3/23693188e2474bd6eee6f0e826fdd8535aaeb83e
 Y
 )src/main/java/game/stores/SceneStore.java,f/1/f14356b9e4a3fce5dedba681ea5af2fe7561016c
+C
+docs/assignment3.md,0/4/044d235d1825ed454feb6d172bace9a16c6c14d5
