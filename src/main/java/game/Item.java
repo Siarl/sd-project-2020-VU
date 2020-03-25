@@ -1,7 +1,6 @@
 package game;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements Interactable {
@@ -32,7 +31,7 @@ public class Item implements Interactable {
 
             } else if (actions.hasCommand(command.getAction())) {
                 // TODO: 04-03-2020 replace with Action.onCommand()
-                Effect effect = actions.getEffect(command.getAction());
+                Effects effect = actions.getEffects(command.getAction());
                 if (effect != null) {
 
                     effect.apply(command.getGame());

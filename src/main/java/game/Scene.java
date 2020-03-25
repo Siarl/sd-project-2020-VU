@@ -48,7 +48,7 @@ public class Scene implements Interactable {
             return true;
         } else if (actions != null && !command.hasReceiver() && actions.hasCommand(command.getAction())) {
             // TODO: 04-03-2020 replace with Action.onCommand()
-            Effect effect = actions.getEffect(command.getAction());
+            Effects effect = actions.getEffects(command.getAction());
             if (effect != null) {
 
                 effect.apply(command.getGame());
