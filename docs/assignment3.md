@@ -24,29 +24,43 @@ For each application of any design pattern you have to provide a table conformin
     <tr>
         <td><b>ID</b></td>
         <td><b>DP1</b></td>
+        <td><b>DP2</b></td>
+        <td><b>DP3</b></td>
     </tr>
     <tr>
         <td><b>Design Pattern</b></td>
+        <td>Name of the applied pattern</td>
+        <td>Name of the applied pattern</td>
         <td>Name of the applied pattern</td>
     </tr>
     <tr>
         <td><b>Problem</b></td>
         <td>A paragraph describing the problem you want to solve</td>
+        <td>A paragraph describing the problem you want to solve</td>
+        <td>A paragraph describing the problem you want to solve</td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
+        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
+        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
         <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
         <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
+        <td>Optional, only if needed</td>
+        <td>Optional, only if needed</td>
         <td>Optional, only if needed</td>
     </tr>
 </table>
@@ -67,10 +81,17 @@ with the actions, characters and and items of each scene. The main method also c
 from the user until they write a command to quit the game.
 
 <u>LocalFileTool</u> \
-This is the class where all of the file handling happens.
+This is the class where all of the file handling happens. It has the attributes *MAIN_DIR*, *SAVE_DIR*, and *GAME_DIR*, which are static variables
+holding the directories of the respective files. The function *fromFile(String)* takes in the name of the main game file as a string, and converts
+that into information the game can use. The function *makeNewGameFromFile(ClassLoader)* makes a new game from the resource files that are included with the
+game. *makeNewGameFromFile(ClassLoader, File)* creates a new game from the json files that may be provided by the user. *makeNewGameFromSaveFile(ClassLoader, File)*
+creates a new game from a save file that is locally stored. The three functions mentioned above return a *game* object. *listSaveFiles()* lists the save files
+that are available to the user to play from. \
+The **LocalFileTool** class and the **Game** class have a dependency association which is named "create", since the LocalFileTool creates the game from the
+json files. The **Game** class uses the information from **LocalFileTool** to define it's attributes.
 
 Maximum number of words for this section: 4000 \
-Word Count: 131
+Word Count: 282
 
 ## Object diagrams
 Author(s): Koen van den Burg
