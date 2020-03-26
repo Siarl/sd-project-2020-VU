@@ -24,19 +24,14 @@ For each application of any design pattern you have to provide a table conformin
     <tr>
         <td><b>ID</b></td>
         <td><b>DP1</b></td>
-        <td><b>DP2</b></td>
     </tr>
     <tr>
         <td><b>Design Pattern</b></td>
-        <td>Chain of Responsibility (??)</td>
+        <td>Name of the applied pattern</td>
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>With a text-based adventure game it is very important to get all the necessary information across to the player by text.
-        The problem lies with where in the program code the text is handled. Currently, most classes have a *toString()* method
-        that handles building the output to the console for the player. This is being handled by the classes and not by the client
-        itself, which creates a long chain of responsibility where every single class involved with the client has this string-building
-        method, which is not ideal. </td>
+        <td>A paragraph describing the problem you want to solve</td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
@@ -61,23 +56,21 @@ Maximum number of words for this section: 2000
 ## Class diagram
 Author(s): Sofia Konovalova
 
-This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
-
 `Figure representing the UML class diagram`
 
-For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
-- Brief description about what it represents
-- Brief description of the meaning of each attribute
-- Brief description of the meaning of each operation
-- Brief description of the meaning of each association involving it (each association can be described only once in this deliverable)
+<u>Main</u> \
+This is the main class of the program. The main method of the class creates a *game* object which uses the **LocalFileTool** class
+to load all the game information from json files. The way that the game is created depends on if there exists a save file
+for the game already, or if there needs to be a new game created. This choice is picked by the user itself.
+The json files contain all the necessary information about the game: the scenes of the game,
+with the actions, characters and and items of each scene. The main method also contains an endless while loop, which constantly takes input
+from the user until they write a command to quit the game.
 
-Also, you can briefly discuss fragments of previous versions of the class diagram (with figures) in order to show how you evolved from initial versions of the class diagram to the final one.
+<u>LocalFileTool</u> \
+This is the class where all of the file handling happens.
 
-In this document you have to adhere to the following formatting conventions:
-- the name of each **class** is in bold
-- the *attributes*, *operations*, *associations*, and *objects* are in italic.
-
-Maximum number of words for this section: 4000
+Maximum number of words for this section: 4000 \
+Word Count: 131
 
 ## Object diagrams
 Author(s): Koen van den Burg
