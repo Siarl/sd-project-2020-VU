@@ -74,16 +74,15 @@ Author(s): Sofia Konovalova
 
 `Figure representing the UML class diagram`
 
-<u>Main</u> \
-This is the main class of the program. The main method of the class creates a *game* object which uses the **LocalFileTool** class
+The class **Main** is the class that starts up the program and contains the main method of the program.
+The main method of the class creates a *game* object which uses the **LocalFileTool** class
 to load all the game information from json files. The way that the game is created depends on if there exists a save file
 for the game already, or if there needs to be a new game created. This choice is picked by the user itself.
 The json files contain all the necessary information about the game: the scenes of the game,
 with the actions, characters and and items of each scene. The main method also contains an endless while loop, which constantly takes input
 from the user until they write a command to quit the game.
 
-<u>LocalFileTool</u> \
-This is the class where all of the file handling happens. It has the attributes *MAIN_DIR*, *SAVE_DIR*, and *GAME_DIR*, which are static variables
+**LocalFileTool** is the class where all of the file handling happens. It has the attributes *MAIN_DIR*, *SAVE_DIR*, and *GAME_DIR*, which are static variables
 holding the directories of the respective files. The function *fromFile(String)* takes in the name of the main game file as a string, and converts
 that into information the game can use. The function *makeNewGameFromFile(ClassLoader)* makes a new game from the resource files that are included with the
 game. *makeNewGameFromFile(ClassLoader, File)* creates a new game from the json files that may be provided by the user. *makeNewGameFromSaveFile(ClassLoader, File)*
@@ -92,8 +91,18 @@ that are available to the user to play from. \
 The **LocalFileTool** class and the **Game** class have a dependency association which is named "create", since the LocalFileTool creates the game from the
 json files. The **Game** class uses the information from **LocalFileTool** to define it's attributes.
 
+The **Game** class is the most important class of the game. It determines the current game state, which has all the necessary information like the scenes,
+items in the scene, the players, and the actions available in the game state. It has the following attributes: *currentSceneId*, which is the unique ID
+of the scene the user is currently playing in; *actionsMap*, *sceneMap* and *itemMap* are all Maps that help allocate actions, scenes and items to a scene.
+The *actionsMap* and *sceneMap* map an integer to an action or a scene respectively, and the *itemMap* maps a string to an item. The *player* attribute is just
+an object of the class **Player**. The **Game** class makes use of constructor overloading: the constructor
+*Game(String, Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, int)* is used to create the game.
+The class also has the functions *start(Listener)*, *handleCommand(String)*, *subscribeListener(Listener)*, and *unsubscribeListener(Listener)*,
+which handles the commands that the player types into the console using Listeners which come with the standard Java library,
+by making use of the callback functions that are provided with the **Interactable** interface.
+
 Maximum number of words for this section: 4000 \
-Word Count: 282
+Word Count: 473
 
 ## Object diagrams
 Author(s): Koen van den Burg
