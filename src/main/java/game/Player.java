@@ -1,27 +1,17 @@
 package game;
 
-import game.stores.ItemStore;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements Interactable {
+public class Player extends Character {
 
-    private String name;
-    private List<String> inventory;
     private PlayerStats playerStats;
 
-    public Player() {
-        inventory = new ArrayList<>();
+    public Player(String name) {
+        super(name, 12);
         playerStats = new PlayerStats();
         playerStats.setMaxHealthPoints(100);
         playerStats.setMinHealthPoints(0);
         playerStats.setHealthPoints(100);
-    }
-
-    public Player(String name) {
-        this();
-        this.name = name;
     }
 
     /*
@@ -62,22 +52,6 @@ public class Player implements Interactable {
     /*
     Getters & Setters
      */
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<String> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(List<String> inventory) {
-        this.inventory = inventory;
-    }
 
     public PlayerStats getPlayerStats() {
         return playerStats;
