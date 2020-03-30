@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 282
+Word Count: 405
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -31,19 +31,25 @@ For each application of any design pattern you have to provide a table conformin
     </tr>
     <tr>
         <td><b>Design Pattern</b></td>
-        <td>Name of the applied pattern</td>
+        <td>Command</td>
         <td>Name of the applied pattern</td>
         <td>Name of the applied pattern</td>
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td>The problem that needs to be solved is with implementing commands with the different
+        interacable objects within the game. Actions, scenes, items and players all have commands that are
+        associated with them, that are different and have a different effect on the game. The problem is to
+        have all of these separate commands implemented, but not have to do separate command handling for
+        every single one of the objects that are interactable in the game.</td>
         <td>A paragraph describing the problem you want to solve</td>
         <td>A paragraph describing the problem you want to solve</td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
-        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
+        <td>This design pattern involves the creation of an interface, from which different encapsulated objects which behave similarly
+        can implement. This means that our interactable objects within the game can use a common interface and use the methods
+        in the interface to execute the commands appropriate to them. </td>
         <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
         <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
     </tr>
@@ -68,6 +74,7 @@ For each application of any design pattern you have to provide a table conformin
 </table>
 
 Maximum number of words for this section: 2000
+Word count: 123
 
 ## Class diagram
 Author(s): Sofia Konovalova
