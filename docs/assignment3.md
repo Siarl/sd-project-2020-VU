@@ -82,7 +82,26 @@ Word count: 201
 ## Class diagram
 Author(s): Sofia Konovalova
 
-`Figure representing the UML class diagram`
+**not the final class diagram, but needed for me to write this up for now**
+
+![](images-assignment3/ClassDiagram.png)
+
+- [x] LocalFileTool
+- [x] Main
+- [ ] ActionStore
+- [ ] ItemStore
+- [ ] SceneStore
+- [ ] Actions
+- [ ] Command
+- [x] Effect
+- [x] Effects
+- [x] Game
+- [x] Interactable
+- [ ] Item
+- [ ] Player
+- [ ] PlayerStats
+- [ ] Scene
+- [ ] Stats
 
 The class **Main** is the class that starts up the program and contains the main method of the program.
 The main method of the class creates a *game* object which uses the **LocalFileTool** class
@@ -110,6 +129,27 @@ an object of the class **Player**. The **Game** class makes use of constructor o
 The class also has the functions *start(Listener)*, *handleCommand(String)*, *subscribeListener(Listener)*, and *unsubscribeListener(Listener)*,
 which handles the commands that the player types into the console using Listeners which come with the standard Java library,
 by making use of the callback functions that are provided with the **Interactable** interface.
+
+The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
+the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
+navigation through the world (the player moving from one place to another), on the inventory (picking up an object), or on the stats of the player (sleeping increasing health
+points, smoking cigarettes decreasing them). The class has the following attributes: *description*, which is the description of the scene, printed out to the player
+once they enter the scene; *sceneIdChange* which determines to which scene the player changes to, as actions can have navigation effects, meaning a change
+of scene; *type*, which is the enumerator described above; *statsChange*, which returns an object of the class **Stats** which describes any changes that have
+been made to the player's stats based on their actions; *inventoryAddChange* and *inventoryRemoveChange* which returns a list of the inventory after a new item
+is being added or removed as a result of the player's action. \
+Now, if we focus on this part of the previous version of the class diagram: \
+![](images-assignment3/ClassDiagramEffectFocus.png)
+What happened before is when a command is entered, the *Actions* object handles it in the *onCommand(Command, Callback)* method.
+Then, the *Effect* object is retrieved and applied. What exactly happens when an *Effect* is applied depends on the *Effect.type*. We decided to improve this
+by having one command to apply multiple effect types. This is implemented using the **Effects** class. \
+The **Effects** class has two attributes: *effectList*, which is a list of *Effect* objects, and the method *apply(Game)*, to apply the effects to the game.
+Now, the **Effects** class contains a collection of effects, and the *apply(Game)* method applies all the effects at once. Instead of mapping a command to an
+*Effect* object, it is now mapped to an *Effects* object, which handles the application of the effects to the game.
+
+The **Interactable** interface defines two methods, which deal with command handling within the game. It has an interface named **Callback** which deals
+with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
+game state.
 
 Maximum number of words for this section: 4000 \
 Word Count: 473
