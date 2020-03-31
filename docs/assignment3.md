@@ -92,7 +92,7 @@ Author(s): Sofia Konovalova
 - [ ] ItemStore
 - [ ] SceneStore
 - [ ] Actions
-- [ ] Command
+- [x] Command
 - [x] Effect
 - [x] Effects
 - [x] Game
@@ -147,6 +147,15 @@ The **Effects** class has two attributes: *effectList*, which is a list of *Effe
 Now, the **Effects** class contains a collection of effects, and the *apply(Game)* method applies all the effects at once. Instead of mapping a command to an
 *Effect* object, it is now mapped to an *Effects* object, which handles the application of the effects to the game.
 
+The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
+The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
+*action* states the action that the user has written, e.g. "inspect", the *receiver attribute describes the receiver of a particular action, e.g. "inspect phone"
+has the action "inspect" and the receiver "phone". The *game* attribute is the current game state. \
+The class has a constructor, *Command(Game, String)* which takes the command that the user has typed into the console, and splits it into the three attributes
+listed above. The appropriate getters and setters for each of the attributes are used. \
+Above, we have written that the class can be thought of as a "parser" of sorts for the commands. The class that actually handles these commands
+is the interface **Interactable**. The classes **Player**, **Items** and **Actions** are all realizations of **Interactable**, as they use in some way
+the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene. \
 The **Interactable** interface defines two methods, which deal with command handling within the game. It has an interface named **Callback** which deals
 with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state.
