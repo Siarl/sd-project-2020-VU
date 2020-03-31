@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 405
+Word Count: 647
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -55,26 +55,29 @@ For each application of any design pattern you have to provide a table conformin
     </tr>
     <tr>
         <td><b>Intended use</b></td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+        <td>At run-time, the interface is used whenever a command is executed, depending on which interactable object is being used: an item, a player or a
+        scene.
+        //insert sequence diagram here</td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+        <td>One of the constraints is that commands for each of the interactable features have to be quite similar to each other, with not a lot of room
+        for difference or creativity. This is not a big problem, but if the game were to be more complicated this could be a difficulty.</td>
         <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
         <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
-        <td>Optional, only if needed</td>
+        <td>N/A</td>
         <td>Optional, only if needed</td>
         <td>Optional, only if needed</td>
     </tr>
 </table>
 
 Maximum number of words for this section: 2000
-Word count: 123
+Word count: 201
 
 ## Class diagram
 Author(s): Sofia Konovalova
