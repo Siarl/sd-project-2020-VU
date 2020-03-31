@@ -7,6 +7,7 @@ import java.util.List;
 public abstract class Character implements Interactable {
 
     protected String name;
+    protected String description;
 
     protected int inventorySize;
     protected List<String> inventory;
@@ -32,18 +33,10 @@ public abstract class Character implements Interactable {
         this.inventory = new ArrayList<>();
     }
 
-    /*
-    Character name
-     */
-
-    public String getName() {
-        return name;
-    }
 
     /*
     Character inventory
      */
-
     public int getInventorySize() {
         return inventorySize;
     }
@@ -87,5 +80,15 @@ public abstract class Character implements Interactable {
     public void removeItemFromInventory(Item item, InventoryListener listener) {
         removeItemFromInventory(item.getName(), listener);
     }
+
+    /*
+    Getters & Setters
+     */
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() { return description; }
 
 }
