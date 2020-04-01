@@ -2,6 +2,8 @@
 
 Maximum number of words for this document: 18000
 
+Word Count: 1272
+
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
 **Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
@@ -16,7 +18,7 @@ Maximum number of words for this section: 1000
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
 
-`Figure representing the UML class diagram in which all the applied design patterns are highlighted graphically (for example with a red rectangle/circle with a reference to the ID of the applied design pattern`
+![](images-assignment3/ClassDiagramAnnotated.png)
 
 For each application of any design pattern you have to provide a table conforming to the template below.
 
@@ -25,59 +27,141 @@ For each application of any design pattern you have to provide a table conformin
         <td><b>ID</b></td>
         <td><b>DP1</b></td>
         <td><b>DP2</b></td>
+        <td><b>DP3</b></td>
     </tr>
     <tr>
         <td><b>Design Pattern</b></td>
-        <td>Chain of Responsibility (??)</td>
+        <td>Command</td>
+        <td>Name of the applied pattern</td>
+        <td>Name of the applied pattern</td>
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>With a text-based adventure game it is very important to get all the necessary information across to the player by text.
-        The problem lies with where in the program code the text is handled. Currently, most classes have a *toString()* method
-        that handles building the output to the console for the player. This is being handled by the classes and not by the client
-        itself, which creates a long chain of responsibility where every single class involved with the client has this string-building
-        method, which is not ideal. </td>
+        <td>The problem that needs to be solved is with implementing commands with the different
+        interacable objects within the game. Actions, scenes, items and players all have commands that are
+        associated with them, that are different and have a different effect on the game. The problem is to
+        have all of these separate commands implemented, but not have to do separate command handling for
+        every single one of the objects that are interactable in the game.</td>
+        <td>A paragraph describing the problem you want to solve</td>
+        <td>A paragraph describing the problem you want to solve</td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
+        <td>This design pattern involves the creation of an interface, from which different encapsulated objects which behave similarly
+        can implement. This means that our interactable objects within the game can use a common interface and use the methods
+        in the interface to execute the commands appropriate to them. </td>
+        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
         <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
+        <td>At run-time, the interface is used whenever a command is executed, depending on which interactable object is being used: an item, a player or a
+        scene.
+        //insert sequence diagram here</td>
+        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
+        <td>One of the constraints is that commands for each of the interactable features have to be quite similar to each other, with not a lot of room
+        for difference or creativity. This is not a big problem, but if the game were to be more complicated this could be a difficulty.</td>
+        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
         <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
+        <td>N/A</td>
+        <td>Optional, only if needed</td>
         <td>Optional, only if needed</td>
     </tr>
 </table>
 
 Maximum number of words for this section: 2000
+Word count: 201
 
 ## Class diagram
 Author(s): Sofia Konovalova
 
-This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
+**not the final class diagram, but needed for me to write this up for now**
 
-`Figure representing the UML class diagram`
+![](images-assignment3/ClassDiagram.png)
 
-For each class (and data type) in the class diagram you have to provide a paragraph providing the following information:
-- Brief description about what it represents
-- Brief description of the meaning of each attribute
-- Brief description of the meaning of each operation
-- Brief description of the meaning of each association involving it (each association can be described only once in this deliverable)
+- [x] LocalFileTool
+- [x] Main
+- [ ] ActionStore
+- [ ] ItemStore
+- [ ] SceneStore
+- [ ] Actions
+- [x] Command
+- [x] Effect
+- [x] Effects
+- [x] Game
+- [x] Interactable
+- [ ] Item
+- [ ] Player
+- [ ] PlayerStats
+- [ ] Scene
+- [ ] Stats
 
-Also, you can briefly discuss fragments of previous versions of the class diagram (with figures) in order to show how you evolved from initial versions of the class diagram to the final one.
+The class **Main** is the class that starts up the program and contains the main method of the program.
+The main method of the class creates a *game* object which uses the **LocalFileTool** class
+to load all the game information from json files. The way that the game is created depends on if there exists a save file
+for the game already, or if there needs to be a new game created. This choice is picked by the user itself.
+The json files contain all the necessary information about the game: the scenes of the game,
+with the actions, characters and and items of each scene. The main method also contains an endless while loop, which constantly takes input
+from the user until they write a command to quit the game.
 
-In this document you have to adhere to the following formatting conventions:
-- the name of each **class** is in bold
-- the *attributes*, *operations*, *associations*, and *objects* are in italic.
+**LocalFileTool** is the class where all of the file handling happens. It has the attributes *MAIN_DIR*, *SAVE_DIR*, and *GAME_DIR*, which are static variables
+holding the directories of the respective files. The function *fromFile(String)* takes in the name of the main game file as a string, and converts
+that into information the game can use. The function *makeNewGameFromFile(ClassLoader)* makes a new game from the resource files that are included with the
+game. *makeNewGameFromFile(ClassLoader, File)* creates a new game from the json files that may be provided by the user. *makeNewGameFromSaveFile(ClassLoader, File)*
+creates a new game from a save file that is locally stored. The three functions mentioned above return a *game* object. *listSaveFiles()* lists the save files
+that are available to the user to play from. \
+The **LocalFileTool** class and the **Game** class have a dependency association which is named "create", since the LocalFileTool creates the game from the
+json files. The **Game** class uses the information from **LocalFileTool** to define it's attributes.
 
-Maximum number of words for this section: 4000
+The **Game** class is the most important class of the game. It determines the current game state, which has all the necessary information like the scenes,
+items in the scene, the players, and the actions available in the game state. It has the following attributes: *currentSceneId*, which is the unique ID
+of the scene the user is currently playing in; *actionsMap*, *sceneMap* and *itemMap* are all Maps that help allocate actions, scenes and items to a scene.
+The *actionsMap* and *sceneMap* map an integer to an action or a scene respectively, and the *itemMap* maps a string to an item. The *player* attribute is just
+an object of the class **Player**. The **Game** class makes use of constructor overloading: the constructor
+*Game(String, Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, int)* is used to create the game.
+The class also has the functions *start(Listener)*, *handleCommand(String)*, *subscribeListener(Listener)*, and *unsubscribeListener(Listener)*,
+which handles the commands that the player types into the console using Listeners which come with the standard Java library,
+by making use of the callback functions that are provided with the **Interactable** interface.
+
+The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
+the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
+navigation through the world (the player moving from one place to another), on the inventory (picking up an object), or on the stats of the player (sleeping increasing health
+points, smoking cigarettes decreasing them). The class has the following attributes: *description*, which is the description of the scene, printed out to the player
+once they enter the scene; *sceneIdChange* which determines to which scene the player changes to, as actions can have navigation effects, meaning a change
+of scene; *type*, which is the enumerator described above; *statsChange*, which returns an object of the class **Stats** which describes any changes that have
+been made to the player's stats based on their actions; *inventoryAddChange* and *inventoryRemoveChange* which returns a list of the inventory after a new item
+is being added or removed as a result of the player's action. \
+Now, if we focus on this part of the previous version of the class diagram: \
+![](images-assignment3/ClassDiagramEffectFocus.png)
+What happened before is when a command is entered, the *Actions* object handles it in the *onCommand(Command, Callback)* method.
+Then, the *Effect* object is retrieved and applied. What exactly happens when an *Effect* is applied depends on the *Effect.type*. We decided to improve this
+by having one command to apply multiple effect types. This is implemented using the **Effects** class. \
+The **Effects** class has two attributes: *effectList*, which is a list of *Effect* objects, and the method *apply(Game)*, to apply the effects to the game.
+Now, the **Effects** class contains a collection of effects, and the *apply(Game)* method applies all the effects at once. Instead of mapping a command to an
+*Effect* object, it is now mapped to an *Effects* object, which handles the application of the effects to the game.
+
+The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
+The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
+*action* states the action that the user has written, e.g. "inspect", the *receiver attribute describes the receiver of a particular action, e.g. "inspect phone"
+has the action "inspect" and the receiver "phone". The *game* attribute is the current game state. \
+The class has a constructor, *Command(Game, String)* which takes the command that the user has typed into the console, and splits it into the three attributes
+listed above. The appropriate getters and setters for each of the attributes are used. \
+Above, we have written that the class can be thought of as a "parser" of sorts for the commands. The class that actually handles these commands
+is the interface **Interactable**. The classes **Player**, **Items** and **Actions** are all realizations of **Interactable**, as they use in some way
+the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene. \
+The **Interactable** interface defines two methods, which deal with command handling within the game. It has an interface named **Callback** which deals
+with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
+game state.
+
+Maximum number of words for this section: 4000 \
+Word Count: 1071
 
 ## Object diagrams
 Author(s): Koen van den Burg
