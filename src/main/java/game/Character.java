@@ -8,6 +8,7 @@ public abstract class Character implements Interactable {
 
     protected String name;
     protected String description;
+    protected CharacterStats stats;
 
     protected int inventorySize;
     protected List<String> inventory;
@@ -27,8 +28,9 @@ public abstract class Character implements Interactable {
     Constructors
      */
 
-    public Character(String name, int inventorySize) {
+    public Character(String name, String description, int inventorySize) {
         this.name = name;
+        this.description = description;
         this.inventorySize = inventorySize;
         this.inventory = new ArrayList<>();
     }
@@ -91,4 +93,7 @@ public abstract class Character implements Interactable {
 
     public String getDescription() { return description; }
 
+    public CharacterStats getCharacterStats() {
+        return stats;
+    }
 }

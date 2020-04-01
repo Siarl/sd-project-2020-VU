@@ -2,25 +2,21 @@ package game;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Game {
-
-    // TODO: 02-03-2020 this is a PoC, should be replaced by more detailed and specific methods
-    public interface Listener {
-
-        void onMessage(String message);
-
-    }
 
     private Map<Integer, Scene> sceneMap;
     private Map<Integer, Actions> actionsMap;
     private Map<String, Item> itemMap;
     private Player player;
     private int currentSceneId;
+    private Stack<View> viewBackStack;
+    private transient Set<Client> clients = new CopyOnWriteArraySet<>();
 
     public Game() {
-        //NOP
+        viewBackStack = new Stack<>();
     }
 
     public Game(String playerName, Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, int startSceneId) {
@@ -29,26 +25,23 @@ public class Game {
     }
 
     public Game(Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, int startSceneId) {
+        this();
         this.sceneMap = sceneMap;
         this.actionsMap = actionsMap;
         this.itemMap = itemMap;
         this.currentSceneId = startSceneId;
     }
 
-    private transient Set<Listener> listeners = new CopyOnWriteArraySet<>();
-
     /*
     User Interaction Methods
      */
 
     // TODO: 02-03-2020 annotate 
-    public void start(Listener listener) {
+    public void start(Client client) {
 
-        subscribeListener(listener);
+        addClient(client);
 
-        listeners.forEach(l->l.onMessage("You can write commands now!"));
-
-        handleCommand("inspect");
+        clients.forEach(l->l.onMessage("You can write commands now!"));
     }
 
     // TODO: 02-03-2020 annotate
@@ -57,40 +50,55 @@ public class Game {
         try {
             command = new Command(this, commandString);
         } catch (Command.InvalidCommandException e) {
-            listeners.forEach(l->l.onMessage("Invalid command! " + e.getMessage()));
+            clients.forEach(l->l.onMessage("Invalid command! " + e.getMessage()));
             return;
         }
 
         /*
         First check if player can handle this command
-        Second check if scene can handle this command (scene also checks its items)
+        Second check if current view can handle this command (scene also checks its items)
          */
 
         Interactable.Callback callback =  new Interactable.Callback() {
             @Override
             public void onMessage(String message) {
-                listeners.forEach(listener -> listener.onMessage(message));
+                clients.forEach(listener -> listener.onMessage(message));
             }
         };
 
         boolean isCommandHandled = player.onCommand(command, callback);
 
         if (!isCommandHandled) {
-            isCommandHandled = sceneMap.get(currentSceneId).onCommand(command, callback);
+            isCommandHandled = viewBackStack.peek().onCommand(command, callback);
         }
 
         if (!isCommandHandled) {
-            listeners.forEach(l->l.onMessage("Unknown command!"));
+            clients.forEach(l->l.onMessage("Unknown command!"));
         }
 
     }
 
-    public void subscribeListener(Listener listener) {
-        listeners.add(listener);
+    public void addClient(Client client) {
+        clients.add(client);
     }
 
-    public void unsubscribeListener(Listener listener) {
-        listeners.remove(listener);
+    public void removeClient(Client client) {
+        clients.remove(client);
+    }
+
+    public void enterView(View view, Interactable.Callback callback) {
+        view.onEnter(this, callback);
+        viewBackStack.push(view);
+    }
+
+    public void exitView(Interactable.Callback callback) {
+        View view = viewBackStack.peek();
+        view.onLeave(callback);
+        viewBackStack.pop();
+    }
+
+    public View getCurrentView() {
+        return viewBackStack.peek();
     }
 
     /*
@@ -121,16 +129,23 @@ public class Game {
         return currentSceneId;
     }
 
-    public void setCurrentSceneById(int id) {
+    public void setCurrentSceneById(int id, Interactable.Callback callback) {
         if (sceneMap.containsKey(id)) {
-            setCurrentSceneId(id);
+            setCurrentSceneId(id, callback);
         } else {
-            listeners.forEach(listener -> listener.onMessage("Error: Scene does not exist"));
+            clients.forEach(listener -> listener.onMessage("Error: Scene does not exist"));
         }
     }
 
-    private void setCurrentSceneId(int currentSceneId) {
-        listeners.forEach(listener -> listener.onMessage("Changed scenes."));
+    private void setCurrentSceneId(int currentSceneId, Interactable.Callback callback) {
+        // pop all views until a scene is reached
+        while (!(viewBackStack.peek() instanceof Scene)) {
+            exitView(callback);
+        }
+
+        exitView(callback); // once more to remove the scene
         this.currentSceneId = currentSceneId;
+        enterView(sceneMap.get(currentSceneId), callback);
     }
+
 }

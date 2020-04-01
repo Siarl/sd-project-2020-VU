@@ -4,14 +4,13 @@ import java.util.List;
 
 public class Player extends Character {
 
-    private PlayerStats playerStats;
-
     public Player(String name) {
-        super(name, 12);
-        playerStats = new PlayerStats();
-        playerStats.setMaxHealthPoints(100);
-        playerStats.setMinHealthPoints(0);
-        playerStats.setHealthPoints(100);
+        super(name, "", 12);
+        stats = new CharacterStats();
+        stats.setMaxHealthPoints(100);
+        stats.setHealthPoints(100);
+        stats.setBaseDamage(20);
+        stats.setBaseLuck(1);
     }
 
     /*
@@ -35,7 +34,7 @@ public class Player extends Character {
             return true;
         } else if (command.getAction().equals("stats")) {
 
-            callback.onMessage(playerStats.toString());
+            callback.onMessage(stats.toString());
             return true;
         }
 
@@ -49,15 +48,4 @@ public class Player extends Character {
         return addToThisList;
     }
 
-    /*
-    Getters & Setters
-     */
-
-    public PlayerStats getPlayerStats() {
-        return playerStats;
-    }
-
-    public void setPlayerStats(PlayerStats playerStats) {
-        this.playerStats = playerStats;
-    }
 }

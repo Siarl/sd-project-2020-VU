@@ -2,6 +2,7 @@ package game;
 
 import java.util.List;
 
+// TODO: 28-03-2020 extend View and rework some parts
 public class Conversation implements Interactable {
 
     private List<String> lines;

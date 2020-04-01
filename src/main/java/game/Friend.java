@@ -7,8 +7,8 @@ public class Friend extends Character {
 
     private Conversation conversation;
 
-    public Friend(String name, int inventorySize) {
-        super(name, inventorySize);
+    public Friend(String name, String description, int inventorySize) {
+        super(name, description, inventorySize);
     }
 
     @Override

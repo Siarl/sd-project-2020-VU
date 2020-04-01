@@ -31,11 +31,11 @@ public class Item implements Interactable {
 
             } else if (actions.hasCommand(command.getAction())) {
                 // TODO: 04-03-2020 replace with Action.onCommand()
-                Effects effect = actions.getEffects(command.getAction());
-                if (effect != null) {
+                Effects effects = actions.getEffects(command.getAction());
+                if (effects != null) {
 
-                    effect.apply(command.getGame());
-                    callback.onMessage("Effect applied... " + effect.toString());
+                    effects.apply(command.getGame(), callback);
+                    callback.onMessage("Effect applied... " + effects.toString());
                 }
             } else {
                 callback.onMessage("This command does not exist for this item.");

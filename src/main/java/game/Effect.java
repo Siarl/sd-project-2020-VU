@@ -22,19 +22,19 @@ public class Effect {
      * Applies the changes specified effect to the game.
      * @param game the Game object to apply this effect on
      */
-    public void apply(Game game) {
+    public void apply(Game game, Interactable.Callback callback) {
         if (game == null) throw new IllegalArgumentException("game is null");
 
         switch (type) {
             case NAVIGATION:
-                game.setCurrentSceneById(sceneIdChange);
+                game.setCurrentSceneById(sceneIdChange, callback);
                 break;
             case INVENTORY:
                 game.getPlayer().getInventory().addAll(inventoryAddChange);
                 game.getPlayer().getInventory().removeAll(inventoryRemoveChange);
                 break;
             case STATS:
-                game.getPlayer().getPlayerStats().applyChange(statsChange);
+                game.getPlayer().getCharacterStats().applyChange(statsChange);
                 break;
         }
     }

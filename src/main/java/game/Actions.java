@@ -14,7 +14,7 @@ public class Actions implements Interactable {
         if (hasCommand(command.getAction())) {
             Effects effects = getEffects(command.getAction());
             if (effects != null) {
-                effects.apply(command.getGame());
+                effects.apply(command.getGame(), callback);
 
                 callback.onMessage("Effect applied... " + effects.toString());
             }
