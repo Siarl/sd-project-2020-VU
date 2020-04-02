@@ -128,11 +128,12 @@ that the player inputs that are game-specific. It makes use of the Interactable 
 
 The **Client** interface...
 
-There are also three "store" classes: **ActionStore**, **ItemStore**, **SceneStore**.  These three classes store the actions in the game, the items in the game
+There are also four "store" classes: **ActionStore**, **ItemStore**, **SceneStore** and **CharacterStore**.  These three classes store the actions in the game, the items in the game
 and the scenes in the game respectively. The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
 creates a hash map between the unique ID and the *Scene* object itself. The **ActionStore** acts similarly to the **SceneStore** class, containing only the *actionsList* attribute which is a List of *Actions* objects, and the function
 *toIntegerActionMap()*, which creates a hash map between a unique ID of the scene and the actions that are available in that scene. The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
-a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
+a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object. The **CharacterStore** class has an attribute *characterList*, which is a list of objects of class
+**Character** in the game, and a method *toStringCharacterMap()* where each of the characters are mapped to their name.
 
 The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
 which determines which actions are available with this particular item. It has the functions *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
