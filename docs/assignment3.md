@@ -74,29 +74,11 @@ Author(s): Sofia Konovalova
 
 ![](images-assignment3/ClassDiagram.png)
 
-- [x] LocalFileTool
-- [x] Main
-- [x] ActionStore
-- [x] ItemStore
-- [x] SceneStore
-- [x] Actions
-- [x] Battle
-- [x] Character
+What is left to write:
 - [ ] CharacterStats
 - [ ] Client
-- [x] Command
 - [ ] Conversation
-- [x] Effect
-- [x] Effects
-- [x] Enemy
-- [x] Friend
-- [x] Game
-- [x] Interactable
-- [x] Item
-- [x] Player
-- [x] Scene
 - [ ] Stats
-- [x] View
 
 The class **Main** is the class that starts up the program and contains the main method of the program.
 The main method of the class creates a *game* object which uses the **LocalFileTool** class
