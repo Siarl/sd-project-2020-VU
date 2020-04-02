@@ -1,12 +1,6 @@
 # Assignment 3
 
-Max number of words for this document: 18000
-
-Word Count: 6940
-
-**IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
-
-**Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
+Word Count: 7022
 
 ### Summary of changes of Assignment 2
 Author(s): Everyone
@@ -123,8 +117,6 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
 </table>
 
-
-Maximum number of words for this section: 2000
 Word Count: 840
 
 ## Class diagram
@@ -362,7 +354,6 @@ The third alternate transition is when the command == action + item. Both action
 The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Item inspected" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
 
 Word count: 1050
-Maximum number of words for this section: 4000
 
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
