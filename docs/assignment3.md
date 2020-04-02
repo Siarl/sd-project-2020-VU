@@ -338,7 +338,7 @@ That part has not changed for the new system. However, the initialization of thi
 
 ![Final State Machine Diagram - Scene](images/scenestateass3.png)
 
-Thus, the first major change within the new state machine diagram is the fact that two new states have been added. The first state is “Scene initialized”, a state that is reached upon initializing all the variables. 
+ Thus, the first major change within the new state machine diagram is the fact that two new states have been added. The first state is “Scene initialized”, a state that is reached upon initializing all the variables. 
 
 Then, the event of entering a command triggers a new state, which is “Command Determined”. Here the state checks the command whether it can be handled or not by this scene. If it is determined that it cannot, then the class reaches its final state. However, in the event that this scene can handle this command, then same as in the previous state machine diagram, a new state “Command matched” is entered. 
 
