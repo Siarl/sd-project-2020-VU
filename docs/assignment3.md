@@ -13,7 +13,6 @@ Author(s): Bogdan Cercel
 
 <li>I guess i ll do this after you finish? idk what you did wilkin.</li>
 
-<br>
 
 Maximum number of words for this section: 1000
 
