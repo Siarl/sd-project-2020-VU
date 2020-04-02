@@ -1,6 +1,5 @@
 package game.applicationBase;
 
-import com.esotericsoftware.jsonbeans.Json;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import game.Game;
@@ -15,7 +14,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class LocalFileTool {
@@ -30,12 +31,29 @@ public class LocalFileTool {
     private static File mainActionsFile = new File(GAME_DIR + "main-game.actions.json");
     private static File mainCharactersFile = new File(GAME_DIR + "main-game.characters.json");
 
-    public static Game fromFile(String fileName) throws FileNotFoundException {
-        fileName = MAIN_DIR + fileName;
+    public static Game fromFile(File file) throws FileNotFoundException {
         Gson gson = new Gson();
-        JsonReader jsonReader = new JsonReader(new FileReader(fileName));
+        JsonReader jsonReader = new JsonReader(new FileReader(file));
 
         return gson.fromJson(jsonReader, Game.class);
+    }
+
+    public static void toFile(Game game, ClassLoader classLoader) throws IOException {
+        setupDirectories(classLoader);
+        File saveDir = new File(SAVE_DIR);
+
+        if (saveDir.exists() && saveDir.isDirectory()) {
+            String path = saveDir.getPath();
+            path += "/" + game.getPlayer().getName() + "_";
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+            path += simpleDateFormat.format(calendar.getTime());
+            File saveFile = new File(path);
+            saveFile.createNewFile();
+
+            Gson gson = new Gson();
+            gson.toJson(saveFile);
+        }
     }
 
     public static List<File> listSaveFiles(ClassLoader classLoader) {

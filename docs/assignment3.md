@@ -312,17 +312,85 @@ Maximum number of words for this section: 4000
 ## Implementation
 Author(s): Wilkin van Roosmalen
 
-In this chapter you will describe the following aspects of your project:
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system (for example, how you implemented the syntax highlighting feature of your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+### Writing the Code
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
+After discussing and creating the first UML models, we started on the implementation.
+First, a skeleton was made.
+All classes were created and populated with the attributes and methods defined in the Class diagram.
+We quickly found a couple points of improvement, and went back to changing the diagrams.
 
-Maximum number of words for this section: 2000
+After implementing the changes, we went on to writing the actual methods.
+For Assignment 3, we cleaned up some of the code. Although there are always improvements to be made.
+Luckily, most methods have the same structure:
+Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
+These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
-## References
+For Assignment 2, a major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
+Simply converting the `Game` object to JSON and back would not work.
+To solve this problem, three "Store" objects were created: `ActionStore`, `ItemStore`, `CharacterStore`, and `SceneStore`.
+These objects are populated using the GSON library in `LocalFileTool`.
+Then, their contents are given to the `Game` object.
+Implementing these "Store" objects allowed us to easily get a game going.
 
-References, if needed.
+In the resources folder, three files can be found:
+
+- main-game.actions.json (ActionStore)
+- main-game.items.json (ItemStore)
+- main-game.scenes.json (SceneStore)
+- main-game.characters.json (CharacterStore)
+
+These files contained the actual content of the game, but are now outdated and should either be replaced or removed.
+By adding and changing the values in these files, the game can be extended.
+
+For Assignment 3, the main game files are redundant. Instead, we chose to build an example Game in **GameFactory**.
+
+We also automatically save the game, using the methods in **LocalFileTool**.
+A lot of attributes throughout the code use the `transient` keyword, to avoid these attributes from being serialized by GSON when the Game is saved.
+
+### Implementing Features
+
+The three features that were important to implement as they were, as we believed, to be a crucial part of any text-
+based game were:
+- Commands
+- Interface
+- Actions
+
+All three of these features were implemented using a **Interactable** interface. 
+Using an interface meant that the same "template" could be used for anything within the game that was interactable. 
+Actions are things we do with objects or to move around the environment, so therefore it was an interactable part of the game. 
+Commands are an interactable part of the game, so therefore they used the interface. 
+This interface did not exist in the first version of our class model, and with time we realized
+that this made our system and code easier to work with.
+
+The interface feature is a success. 
+Our program uses the command line interface of the user's computer. 
+The interface, in a way, even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
+This allows for the interface of the game to be independent from the actual game itself.
+
+### Libraries
+This product uses the Google GSON library and the Apache Commons IO library. During the implementation of oour project, we realized that most of the libraries
+we researched were either not relevant, like TextIO and TinyLogger (TextIO would bloat the game too much, as it all worked perfectly fine with the default console,
+and TinyLogger being unnecessary during the second phase of class modeling), or it was not applicable to the features we wanted to implement but was still
+possible to be used in the future, such as KryoNet. GSON and Commons IO proved to be a good match for our product as of now, making our game work simply and
+smoothly.
+
+### Building and Running
+To execute this system, run the game.applicationBase.Main class.
+
+The system can be build using `gradle jar`. The resulting .jar file can be found in `build/libs/`.
+
+A pre-built .jar is located in the `out/` directory.
+
+Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
+You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
+
+**NOTE:** _Running the program will create a folder in your home directory: `.spork/`.
+This folder can be deleted afterwards and does not hold any important information (yet)._
+
+### Showcase
+
+This video shows a quick demo of our current implementation:
+
+[![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
+
+Wordt count: 653 words
