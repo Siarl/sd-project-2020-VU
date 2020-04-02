@@ -1,6 +1,6 @@
 # Assignment 3
 
-Maximum number of words for this document: 18000
+Max number of words for this document: 18000
 
 Word Count: 4407
 
