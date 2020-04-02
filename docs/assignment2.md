@@ -185,17 +185,17 @@ Word count: 408
 Author(s): Claudia Grigoras
 
 <b> Game Class - State Machine Diagram </b>
-![State Machine Diagram - Game](images/SMDGame.jpeg)
+![State Machine Diagram - Game](images/statemachine2.png)
 
 This diagram represents the finite number of states for the **game** class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run.
 
-The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game".
+The first state after the initial state within the state machine diagram is the "Initializing". Within the system reaches this state, as it can be seen within the code as well, everything is initialized and thus an instance of the objects of all other classes have been created to be called later on when triggering other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Starting".
 
-"Start Game" is a composite state, whereas there are a few internal activities. First of all, at the entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read.
+"Starting" is a composite state, whereas there are a few internal activities. First of all, when entering this state, the listener is being received in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read.
 
-This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state.
+This string is received when entering the next state which is "Reading". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handling" state, again, a composite state.
 
-The state "Handle Command" gets the valid command at entry, and then runs the scene for that command (for which the next state machine diagram is being provided below). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command.
+The state "Handling" receives the valid command when entering, and then runs the scene for that command, thus entering the states of that scene (for which the next state machine diagram is being provided below). The state exists when a new scene has been received from the last state of the run scene, and the user can write commands again. Therefore, the state transitions back to "Reading" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command.
 
 
 <b> Scene Class - State Machine Diagram </b>
