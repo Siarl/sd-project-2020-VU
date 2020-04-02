@@ -57,7 +57,7 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         too, as you need to interact with a scene to achieve things in the game. We wanted to move the implementation of the command handling as far away
         from the separate "interactive" classes as possible, while keeping all of the command handling that would possibly be needed all in the same place,
         to be used by any class that could be "interacted" with by the user.</td>
-        <td>A lot of things happen in the game. Each command the player enters has a different result, and the client needs to keep track of what is happening.</td>
+        <td></td>
         <td>One of the problems that we had during the planning of the implementation of the game is that we had multiple classes that needed to implement
         very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
         different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
@@ -77,7 +77,7 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
         Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
         any number of objects in the game that need it.</td>
-        <td>By using the Observable design pattern, we can monitor changes of values in objects with ease. By either attaching observers to the object or passing observers with method calls, the client can observer and display certain events.</td>
+        <td></td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
         a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
         **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
@@ -90,8 +90,8 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
     <tr>
         <td><b>Intended use</b></td>
-        <td>When a command is entered by the player, the *handleCommand(Command, Callback)* method is called on the current **View**. The current View then either handles this command, or finds the next **Interactable** that knows how to handle this command. (Again by calling *handleCommand()*). This Interactable can again pass the command over to the next one in the chain.</td>
-        <td>The **Game** object keeps track of attached **Client** instances, and sends them information about what is happening in the game. This method is applied in other areas as well.</td>
+        <td><b>I am bad with words</b></td>
+        <td></td>
         <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
         non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
         is back to where they were in the game before engaging in combat. </td>
@@ -102,14 +102,14 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     <tr>
         <td><b>Constraints</b></td>
         <td>N/A</td>
-        <td>N/A</td>
+        <td></td>
         <td>N/A</td>
         <td>N/A</td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
         <td>N/A</td>
-        <td>The observable pattern is not fully implemented throughout our system.</td>
+        <td>N/A</td>
         <td>N/A</td>
         <td>N/A</td>
     </tr>
@@ -356,18 +356,65 @@ Word count: 1050
 Maximum number of words for this section: 4000
 
 ## Sequence diagrams
-Author(s): Bogdan Cercel
+Author(s): Bogdan-Petre Cercel
 
-This chapter contains the specification of at least 2 UML sequence diagrams of your system, together with a textual description of all its elements. Here you have to focus on specific situations you want to describe. For example, you can describe the interaction of player when performing a key part of the videogame, during a typical execution scenario, in a special case that may happen (e.g., an error situation), when finalizing a fantasy soccer game, etc.
+<b>New Game Diagram</b>
+![](images/SDNewGame.png)
 
-For each sequence diagram you have to provide:
-- a title representing the specific situation you want to describe;
-- a figure representing the sequence diagram;
-- a textual description of all its elements in a narrative manner (you do not need to structure your description into tables in this case). We expect a detailed description of all the interaction partners, their exchanged messages, and the fragments of interaction where they are involved. For each sequence diagram we expect a description of about 300-500 words.
+In the situation modelled above, the sequence of initializing the game using the option "New Game".
 
-The goal of your sequence diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
+Firstly, **main** creates the *scanner* object in order to start a listening channel from which user input will be read one line at the time.
+**Main** also immediately tries to load any saved files through a call of **LocalFileTool** which in turn looks for any save files that could be loaded and returns them to **Main**.
 
-Maximum number of words for this section: 4000
+After the initial setup effectuated in the previous paragraph, **Main** displays the "Menu Options" to the actor. These options consist of either "New Game" or "Saved Game". The user inputs the integer associated with each option; 1 - for "New Game", 2 - "Save File 1" 3 - "Save File 2" .... etc.
+
+This diagram is concerned with the "New Game" option. When the actor inputs "1", it is then parsed in **main** and converted to an integer. **Main** follows through by calling *createExamplle()* which looks for the standard .json files in order to parse and load it into a *game* object constructor. **GameFactory** creates the **game** object and returns the object to main to be used in the main loop of the game later.
+
+<b>Get Stats Command Diagram</b>
+![](images/SDPlayerCommand.png)
+
+In this situation the player wishes to retrieve information from the player object, for example his statistics (a.k.a. Health) or to be displayed the current inventory.
+Main function is in a loop and waits for the *Scanner* object to have available information to be read.
+
+The **Main** read line by line from the standard input and calls the function *handleCommand()* in the *game* object.
+
+As soon as the *handleCommand()* is called the *game* object creates 2 objects: the *Command* object and the *callback* object from the *Interactable* class.
+
+In the case that the *Command* object cannot be constructed a runtime exception is thrown.
+The *Command* object hold the information to be passed to the *onCommand()* function, together with the *callback*, used by the player.
+*callback* specifies where the message will be displayed.
+
+Once the *game* passes the information to the *player*, the *player* retrieves the command information and verifies wether it can handle the command or not.
+
+If the *player* handle the command then it calls the *callback* function of *onMessage()* and the player's desired information is printed.
+Following that the *player* returns the value true to the *game* telling it that the command has been handled.
+
+Alternatively, if the command cannot be handled by the *player* then it returns false to the *game* object.
+
+<b>Handle Commands in Scene</b>
+![](images/SDSceneCommand.png)
+
+In this situation the command that was scanned through *Scanner* and passed to the *game* by the **main** was not found as a command in the *player* therefore we need to look into the current scene to discover who can execute the action.
+
+*Game* first retrieves the current scene by ID. Each *scene* contains a list of currently intractable objects, each with their own possible actions that affect the player.
+
+*Game* then calls the *onCommand()* passing it the command parsed by *scanner*.
+
+Just like in the first diagram with *player*, *scene* has its own actionable command which immediately call the call back displaying the results. (for example: search, inspect)
+
+The difference in this situation is that if those commands are not inputted then in the ***alt actions has commands*** block, it is decided where to look for the command.
+
+Firstly, *scene* check if the action in question is effectuated by the *Effect* object.
+It created the *effect*, thereafter the *effect* applies the effects and calls on the *callback* to display the respective feedback to the player.
+
+Alternatively, if the command has an *item* receiver, then *scene* creates an *item* object.
+This object requests which item it should be from *command* and then applies the command.
+If the command is an effect, the same sequence is executed as the *effect* sequence, then *item* calls the *onMessage()* function to display the results to the player.
+
+Following these searches for the right object with the respective command and its execution, the **scene** tells the game whether it was successful or not by returning a boolean true or false.
+
+Total number of words for this section: 698
+
 
 ## Implementation
 Author(s): Wilkin van Roosmalen
@@ -382,7 +429,7 @@ We quickly found a couple points of improvement, and went back to changing the d
 After implementing the changes, we went on to writing the actual methods.
 For Assignment 3, we cleaned up some of the code. Although there are always improvements to be made.
 Luckily, most methods have the same structure:
-Besides getters and setters, the `handleCommand(Command, Callback)` (previously `onCommand`) methods play an important role.
+Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
 These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
 For Assignment 2, a major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
@@ -453,4 +500,4 @@ This video shows a quick demo of our current implementation:
 
 [![Demo Video](http://img.youtube.com/vi/lwd2aol_pZE/0.jpg)](http://www.youtube.com/watch?v=lwd2aol_pZE )
 
-Wordt count: 735 words
+Wordt count: 653 words
