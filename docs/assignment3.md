@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 1272
+Word Count: 1671
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -90,18 +90,25 @@ Author(s): Sofia Konovalova
 - [x] Main
 - [ ] ActionStore
 - [ ] ItemStore
-- [ ] SceneStore
+- [x] SceneStore
 - [ ] Actions
+- [x] Battle
+- [ ] Character
+- [ ] CharacterStats
+- [ ] Client
 - [x] Command
+- [ ] Conversation
 - [x] Effect
 - [x] Effects
+- [ ] Enemy
+- [ ] Friend
 - [x] Game
 - [x] Interactable
 - [ ] Item
 - [ ] Player
-- [ ] PlayerStats
-- [ ] Scene
+- [x] Scene
 - [ ] Stats
+- [x] View
 
 The class **Main** is the class that starts up the program and contains the main method of the program.
 The main method of the class creates a *game* object which uses the **LocalFileTool** class
@@ -129,6 +136,28 @@ an object of the class **Player**. The **Game** class makes use of constructor o
 The class also has the functions *start(Listener)*, *handleCommand(String)*, *subscribeListener(Listener)*, and *unsubscribeListener(Listener)*,
 which handles the commands that the player types into the console using Listeners which come with the standard Java library,
 by making use of the callback functions that are provided with the **Interactable** interface.
+
+The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
+It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
+*actions*, which is an *Actions* object which specifies the actions that can be taken in the scene, the *name* string, *description* string, and the unique *id*
+integer of the scene. It has the same *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* that is also present in the **Actions** class. This is because
+actions, scenes and items are all interactable, and therefore need these functions to decide what to do when a certain command is typed in. \
+The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
+creates a hash map between the unique ID and the *Scene* object itself. The class also has the methods *onEnter(Game, Callback)* and *onLeave(Callback)*, which are
+methods extended from the **View** class.
+
+The class **Battle** extends the class **View**. This is the class that handles the battles between the player and the enemy characters in the game.
+It has the attributes *player*, which is an object of class **Player**, *enemy*, which is an object of class **Enemy**, *winner*, which is an object of class
+**Character**, and *whoBeatsWhoMap*, which is maps a name of an attack to an attack that it beats. The constructor *Battle(Player, Enemy)* sets the player and the
+enemy for the battle that is about the happen. The methods *onEnter(Game, Callback)* amd *onLeave(Callback)* are inherited from the **View** class, which is
+explained further below. It also implements methods from the **Interactable** interface -- *onCommand(Command, Callback)* and *listCommands(Game, List<String)*. The last
+method is the *challenge(String, Callback)*, which handles the actual battle happening, a.k.a. one character challenging another one,
+and then informing the player on the CLI of the result.
+
+The abstract class **View** handles the "view" of the game -- meaning, handling the player entering game scenes and battles.
+It has a *game* object of the class **Game**, and it has the methods *onEnter(Game, Callback)*, which handles the player entering the game scene/battle,
+and the method *onLeave(Callback)*, which handles the player leaving a scene/battle. These methods output messages to the CLI, and handle
+any further commands from there.
 
 The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
 the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
@@ -161,7 +190,7 @@ with outgoing messages in the CLI during gameplay. The *listCommands(Game)* list
 game state.
 
 Maximum number of words for this section: 4000 \
-Word Count: 1071
+Word Count: 1470
 
 ## Object diagrams
 Author(s): Koen van den Burg

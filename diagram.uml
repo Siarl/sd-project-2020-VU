@@ -3,90 +3,109 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="689.0" y="1122.0">game.Command.InvalidCommandException</node>
-    <node x="100.99999999999977" y="425.5">game.Effects</node>
-    <node x="1141.8926351095988" y="414.0">game.Interactable</node>
-    <node x="1106.8569208238846" y="858.0">game.Item</node>
-    <node x="1154.7069208238845" y="1426.0">game.Game</node>
-    <node x="1176.0" y="746.0">game.Interactable.Callback</node>
-    <node x="201.0" y="420.0">game.Game.Listener</node>
-    <node x="1618.903864323507" y="1105.0">game.Player</node>
-    <node x="1038.886111111111" y="1153.5">game.stores.ItemStore</node>
-    <node x="988.6181500377925" y="1846.0">game.applicationBase.LocalFileTool</node>
-    <node x="0.0" y="130.0">game.Effect</node>
-    <node x="1604.1235874905512" y="2240.0">game.applicationBase.Main</node>
-    <node x="691.8569208238846" y="597.0">game.Actions</node>
-    <node x="1459.1060326908537" y="165.5">game.Command</node>
-    <node x="1039.0560326908537" y="0.0">game.Stats</node>
-    <node x="751.0" y="274.0">game.Effect.Type</node>
-    <node x="337.6111111111111" y="906.5">game.stores.ActionStore</node>
-    <node x="1768.903864323507" y="870.5">game.PlayerStats</node>
-    <node x="495.3181500377925" y="1558.5">game.stores.SceneStore</node>
-    <node x="536.5130716175354" y="1105.0">game.Scene</node>
+    <node x="1130.0" y="681.5">game.Enemy</node>
+    <node x="2576.0" y="249.5">game.Item</node>
+    <node x="392.0" y="597.0">game.Battle</node>
+    <node x="679.0" y="1709.0">game.Client</node>
+    <node x="2442.0" y="939.0">game.stores.ItemStore</node>
+    <node x="1027.0" y="939.0">game.applicationBase.LocalFileTool</node>
+    <node x="1455.0" y="939.0">game.Effect</node>
+    <node x="1252.0" y="153.0">game.Character</node>
+    <node x="1792.0" y="939.0">game.Command</node>
+    <node x="4.5" y="1117.0">game.CharacterStats</node>
+    <node x="0.0" y="573.0">game.Scene</node>
+    <node x="1914.0" y="669.0">game.Friend</node>
+    <node x="2184.0" y="274.0">game.Conversation</node>
+    <node x="0.0" y="1513.0">game.CharacterStats.Listener</node>
+    <node x="0.0" y="1709.0">game.Effects</node>
+    <node x="1792.0" y="0.0">game.Interactable</node>
+    <node x="368.0" y="939.0">game.Game</node>
+    <node x="256.5" y="250.0">game.View</node>
+    <node x="1522.0" y="681.5">game.Player</node>
+    <node x="936.0" y="1709.0">game.applicationBase.Main</node>
+    <node x="1792.0" y="237.5">game.Actions</node>
+    <node x="81.0" y="939.0">game.Stats</node>
+    <node x="277.0" y="1709.0">game.stores.ActionStore</node>
+    <node x="784.0" y="670.0">game.Character.InventoryListener</node>
+    <node x="2057.0" y="939.0">game.stores.SceneStore</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="game.Effect.Type" target="game.Effect">
-      <point x="0.0" y="-51.5" />
-      <point x="0.0" y="112.0" />
+    <edge source="game.CharacterStats.Listener" target="game.CharacterStats">
+      <point x="0.0" y="-75.5" />
+      <point x="0.0" y="173.0" />
     </edge>
-    <edge source="game.Interactable.Callback" target="game.Interactable">
-      <point x="0.0" y="-27.5" />
-      <point x="1282.0" y="653.0" />
-      <point x="1044.4" y="653.0" />
-      <point x="74.39999999999998" y="51.5" />
+    <edge source="game.Character" target="game.Interactable">
+      <point x="0.0" y="-185.0" />
+      <point x="1512.0" y="133.0" />
+      <point x="1903.6" y="133.0" />
+      <point x="-74.39999999999998" y="51.5" />
     </edge>
-    <edge source="game.Game.Listener" target="game.Game">
-      <point x="0.0" y="-27.5" />
-      <point x="0.0" y="185.0" />
+    <edge source="game.Battle" target="game.View">
+      <point x="0.0" y="-136.5" />
+      <point x="578.0" y="553.0" />
+      <point x="444.75" y="553.0" />
+      <point x="62.75" y="88.0" />
     </edge>
-    <edge source="game.PlayerStats" target="game.Stats">
-      <point x="54.0" y="-76.0" />
-      <point x="1930.903864323507" y="838.0" />
-      <point x="1863.3560326908537" y="838.0" />
-      <point x="1863.3560326908537" y="100.0" />
-      <point x="1179.9310326908537" y="100.0" />
-      <point x="60.375" y="40.0" />
+    <edge source="game.Scene" target="game.View">
+      <point x="0.0" y="-160.5" />
+      <point x="186.0" y="553.0" />
+      <point x="319.25" y="553.0" />
+      <point x="-62.75" y="88.0" />
+    </edge>
+    <edge source="game.CharacterStats" target="game.Stats">
+      <point x="0.0" y="-173.0" />
+      <point x="0.0" y="64.0" />
+    </edge>
+    <edge source="game.Character.InventoryListener" target="game.Character">
+      <point x="0.0" y="-63.5" />
+      <point x="947.0" y="543.0" />
+      <point x="1317.0" y="543.0" />
+      <point x="-195.0" y="185.0" />
     </edge>
     <edge source="game.Item" target="game.Interactable">
-      <point x="31.0" y="-88.5" />
-      <point x="1323.8569208238846" y="838.0" />
-      <point x="1319.3569208238846" y="838.0" />
-      <point x="1319.3569208238846" y="577.0" />
-      <point x="1327.8926351095988" y="577.0" />
-      <point x="0.0" y="51.5" />
+      <point x="-1.1368683772161603E-13" y="-88.5" />
+      <point x="2762.0" y="123.0" />
+      <point x="2126.8" y="123.0" />
+      <point x="148.79999999999995" y="51.5" />
     </edge>
-    <edge source="game.Command.InvalidCommandException" target="game.Command">
-      <point x="0.0" y="-27.5" />
-      <point x="0.0" y="76.5" />
+    <edge source="game.View" target="game.Interactable">
+      <point x="2.8421709430404007E-14" y="-88.0" />
+      <point x="382.0" y="123.0" />
+      <point x="1829.2" y="123.0" />
+      <point x="-148.79999999999995" y="51.5" />
+    </edge>
+    <edge source="game.Enemy" target="game.Character">
+      <point x="0.0" y="-52.0" />
+      <point x="1316.0" y="553.0" />
+      <point x="1447.0" y="553.0" />
+      <point x="-65.0" y="185.0" />
     </edge>
     <edge source="game.Actions" target="game.Interactable">
-      <point x="139.5" y="-100.5" />
-      <point x="1017.3569208238846" y="557.0" />
-      <point x="1168.4640636810275" y="557.0" />
-      <point x="-159.42857142857144" y="51.5" />
+      <point x="0.0" y="-100.5" />
+      <point x="0.0" y="51.5" />
     </edge>
-    <edge source="game.Player" target="game.Interactable">
-      <point x="-148.79999999999995" y="-100.5" />
-      <point x="1656.103864323507" y="1085.0" />
-      <point x="1540.3681500377925" y="1085.0" />
-      <point x="1540.3681500377925" y="567.0" />
-      <point x="1487.3212065381704" y="567.0" />
-      <point x="159.42857142857142" y="51.5" />
+    <edge source="game.Conversation" target="game.Interactable">
+      <point x="0.0" y="-64.0" />
+      <point x="2370.0" y="133.0" />
+      <point x="2052.3999999999996" y="133.0" />
+      <point x="74.39999999999986" y="51.5" />
     </edge>
-    <edge source="game.Scene" target="game.Interactable">
-      <point x="31.0" y="-100.5" />
-      <point x="753.5130716175354" y="1055.0" />
-      <point x="1085.3569208238846" y="1055.0" />
-      <point x="1085.3569208238846" y="567.0" />
-      <point x="1221.6069208238846" y="567.0" />
-      <point x="-106.28571428571433" y="51.5" />
+    <edge source="game.Player" target="game.Character">
+      <point x="0.0" y="-52.0" />
+      <point x="1708.0" y="553.0" />
+      <point x="1577.0" y="553.0" />
+      <point x="65.0" y="185.0" />
+    </edge>
+    <edge source="game.Friend" target="game.Character">
+      <point x="0.0" y="-64.5" />
+      <point x="2100.0" y="543.0" />
+      <point x="1707.0" y="543.0" />
+      <point x="195.0" y="185.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="825.0" y="2031.0" />
-  <SelectedNodes>
-    <node>game.Command.InvalidCommandException</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="825.0" y="1021.5714285714286" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
