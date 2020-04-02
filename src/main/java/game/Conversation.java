@@ -14,7 +14,7 @@ public class Conversation implements Interactable {
     }
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (hasTalked) {
             callback.onMessage(lines.get(lines.size() - 1));
         } else {
@@ -31,7 +31,7 @@ public class Conversation implements Interactable {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
+    public List<String> listHandledCommands(Game game) {
         return null;
     }
 }

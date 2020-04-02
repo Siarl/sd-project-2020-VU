@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class Actions implements Interactable {
     }
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (hasCommand(command.getAction())) {
             Effects effects = getEffects(command.getAction());
             if (effects != null) {
@@ -30,12 +31,13 @@ public class Actions implements Interactable {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
         Set<String> commands = getCommandSet();
         if (commands != null) {
-            addToThisList.addAll(getCommandSet());
+            result.addAll(getCommandSet());
         }
-        return addToThisList;
+        return result;
     }
 
     /*

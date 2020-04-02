@@ -75,10 +75,10 @@ public class Game {
             }
         };
 
-        boolean isCommandHandled = player.onCommand(command, callback);
+        boolean isCommandHandled = player.handleCommand(command, callback);
 
         if (!isCommandHandled) {
-            isCommandHandled = viewBackStack.peek().onCommand(command, callback);
+            isCommandHandled = viewBackStack.peek().handleCommand(command, callback);
         }
 
         if (!isCommandHandled) {

@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Character {
@@ -14,7 +15,7 @@ public class Player extends Character {
      */
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (command.getAction().equals("inventory")) {
 
             StringBuilder inventoryString = new StringBuilder("Inventory:\n=============\n");
@@ -38,10 +39,11 @@ public class Player extends Character {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.add("inventory");
-        addToThisList.add("stats");
-        return addToThisList;
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
+        result.add("inventory");
+        result.add("stats");
+        return result;
     }
 
 }
