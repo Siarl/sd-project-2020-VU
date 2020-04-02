@@ -199,27 +199,25 @@ The state "Command handling" receives the valid command when entering, and then 
 
 
 <b> Scene Class - State Machine Diagram </b>
-![State Machine Diagram - Scene](images/SMDScene.png)
+![State Machine Diagram - Scene](images/scenestate2.png)
 
 The state machine diagram for the **scene class** is a bit more complex than the **game** class, as it has more states.
 
-This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command".
+This class is being called by the previous class (game) within the "Command handling" state. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has an activity "get command" in order to enter the following state.
 
-The next state is to make sure to store/get this string command, therefore the name "Get Command", a simple state that makes sure the string is being received. This state transitions with the same string that has received/stored to the next state.
+Upon receiving/getting the command, the new state is entered, which is Command Checked. This state only has as an internal activity to check this string, and to then transition to a decision node in order to match it.
 
-The next state is the "Handle Command". This state only has as an internal activity to check this string, and to then transition to a decision node in order to match it.
+From the "Command checked" state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings.
 
-From the Handle Command state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings.
+The first alternate transition is when the condition command == "inspect" is met, and nothing else follows this string. Then, the following state is the "Items searched" composite state. The event "search items" triggers this state, which in turn performs this search as an internal activitiy. At exit, it writes these items to the terminal, and then it reaches its final state.
 
-The first alternate transition is when the condition command == "inspect" is met. Then, the following state is the "Inspect Command" composite state. Within this state, at entry, it gets the command, and as an activity it searches all the items within the scene it is in. At exit, it writes these items to the terminal, and then it reaches its final state.
+The second alternate transition is when the command == "search" is being met. Here, the activity "provide commands" triggers this state, which in turn it searches these commands as part of its internal activity. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
 
-The second alternate transition is when the command == "search" is being met. Here, the machinge transitions to the state "Static Command" where at entry it receives the command string. Then, as an internal activity within the state, it looks up all the possible commands for the current scene and retrieves them. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
+The third alternate transition is when the command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Effect applied". The activity that triggers this state, is to apply effect. It performs this as an internal activity, and then at exit it then returns to the game machine with a new scene id as the effect changes the scene id, and then reaches the final state of the scene.
 
-The third alternate transition is when the command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Apply Effect". Here, at entry, it gets as well the command, and then it checks both the action and the item and applies the desired effect. It then returns to the game machine with a new scene id as the effect changes the scene id, reaching the final state of the scene.
+The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Item inspected" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
 
-The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Inspect Item" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item was not found, then it goes into flow final state. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
-
-Word count: 866
+Word count: 825
 
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
