@@ -2,7 +2,7 @@
 
 Max number of words for this document: 18000
 
-Word Count: 4957
+Word Count: 6940
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -24,11 +24,18 @@ the class is the plural **Actions** with multiplicity 1 as should be in a conven
 attribute *actionsList* is easier to understand what it is, as it is a list of Actions that are possible: List&lt;Actions>
 
 **UML State Machine Diagram:** 
-
 From the feedback given by the TA, the biggest flaw that the state machine diagrams had, because of the naming of the states and other variables, these did not represent a state machine diagram anymore but an activity diagram. Upon reading, it became obvious that this is true and that this is a very common mistake within UML as the diagrams are fairly similar. Thus, the new diagrams tried to follow the state machine diagrams rules whereas the states should be represented by nouns. 
 
-Maximum number of words for this section: 1000
-Word Count: 240
+**Object Diagram**
+In the improved object diagram, consistency was improved with adding values to attributes, as well as separating items into 
+different objects in the diagram. There is now consistency with objects being instances of the correct classes, as this
+was a source of confusion in the first version of the object diagram. Some of the feedback, I feel, does not apply anymore
+as the game changed so much as a whole due to addition of new features that the object diagram changed drastically as well. 
+
+**Sequence Diagram, Implementation**
+There wasn't any TA or peer feedback in order to make any changes. Changes were made according to changes made to the game itself. The same is for Implementation -- some coding mistakes were fixed from peer review feedback, but otherwise any other changes were made due to new features being added as the game expanded.
+
+Word Count: 379
 
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
@@ -413,7 +420,7 @@ If the command is an effect, the same sequence is executed as the *effect* seque
 
 Following these searches for the right object with the respective command and its execution, the **scene** tells the game whether it was successful or not by returning a boolean true or false.
 
-Total number of words for this section: 698
+Word Count: 698
 
 
 ## Implementation
