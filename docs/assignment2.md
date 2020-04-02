@@ -55,7 +55,7 @@ Implementation: Intellij IDEA
 ## Class diagram
 Author(s): Sofia Konovalova
 
-![](images/ClassDiagramV2.png)
+![](images/ClassDiagramV3.png)
 
 This diagram represents the class diagram for this UML project.
 

@@ -13,6 +13,16 @@ Author(s): Bogdan Cercel
 
 Provide a bullet list summarizing all the changes you performed in Assignment 2 for addressing our feedback.
 
+**UML Class Diagram:** \
+From the feedback given by the TA, the following has been changed in the class diagram:
+- Compositions were fixed -- if there was a composition and the encapsulated class was shared, this was fixed and removed.
+This was mostly due to a misunderstanding of class diagrams and compositions in the beginning of the project, but now progress
+in both of those areas was made.
+- Missing features have been added: F6, F7, and F8 were added. The time mechanic feature (F9) was scrapped.
+- Naming conventions were kept, because the convention made the code easier to read in some cases; for example,
+the class is the plural **Actions** with multiplicity 1 as should be in a convention, but in the **ActionStore** class, the
+attribute *actionsList* is easier to understand what it is, as it is a list of Actions that are possible: List&lt;Actions>
+
 Maximum number of words for this section: 1000
 
 ### Application of design patterns
