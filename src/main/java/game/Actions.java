@@ -7,7 +7,12 @@ import java.util.Set;
 public class Actions implements Interactable {
 
     private int id;
-    private Map<String, Effects> commandEffectMap;
+    private Map<String, Effects> commandEffectsMap;
+
+    public Actions(int id, Map<String, Effects> commandEffectsMap) {
+        this.id = id;
+        this.commandEffectsMap = commandEffectsMap;
+    }
 
     @Override
     public boolean onCommand(Command command, Callback callback) {
@@ -42,16 +47,16 @@ public class Actions implements Interactable {
     }
 
     public Effects getEffects(String command) {
-        if (commandEffectMap == null) return null;
-        return commandEffectMap.get(command);
+        if (commandEffectsMap == null) return null;
+        return commandEffectsMap.get(command);
     }
 
     public Set<String> getCommandSet() {
-        if (commandEffectMap == null) return null;
-        return commandEffectMap.keySet();
+        if (commandEffectsMap == null) return null;
+        return commandEffectsMap.keySet();
     }
 
     public boolean hasCommand(String command) {
-        return commandEffectMap != null && commandEffectMap.containsKey(command);
+        return commandEffectsMap != null && commandEffectsMap.containsKey(command);
     }
 }

@@ -1,9 +1,11 @@
 package game.applicationBase;
 
+import com.esotericsoftware.jsonbeans.Json;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import game.Game;
 import game.stores.ActionStore;
+import game.stores.CharacterStore;
 import game.stores.ItemStore;
 import game.stores.SceneStore;
 import org.apache.commons.io.FileUtils;
@@ -26,6 +28,7 @@ public class LocalFileTool {
     private static File mainItemFile = new File(GAME_DIR + "main-game.items.json");
     private static File mainSceneFile = new File(GAME_DIR + "main-game.scenes.json");
     private static File mainActionsFile = new File(GAME_DIR + "main-game.actions.json");
+    private static File mainCharactersFile = new File(GAME_DIR + "main-game.characters.json");
 
     public static Game fromFile(String fileName) throws FileNotFoundException {
         fileName = MAIN_DIR + fileName;
@@ -52,13 +55,16 @@ public class LocalFileTool {
         JsonReader actionStoreReader = new JsonReader(new FileReader(mainActionsFile));
         JsonReader itemStoreReader = new JsonReader(new FileReader(mainItemFile));
         JsonReader sceneStoreReader = new JsonReader(new FileReader(mainSceneFile));
+        JsonReader characterStoreReader = new JsonReader(new FileReader(mainCharactersFile));
 
         SceneStore sceneStore = gson.fromJson(sceneStoreReader, SceneStore.class);
         ItemStore itemStore = gson.fromJson(itemStoreReader, ItemStore.class);
         ActionStore actionStore = gson.fromJson(actionStoreReader, ActionStore.class);
+        CharacterStore characterStore = gson.fromJson(characterStoreReader, CharacterStore.class);
 
         Game game = new Game(sceneStore.toIntegerSceneMap(),
-                actionStore.toIntegerActionMap(), itemStore.toStringItemMap(), sceneStore.getStartSceneId());
+                actionStore.toIntegerActionMap(), itemStore.toStringItemMap(),
+                characterStore.toStringCharacterMap(), sceneStore.getStartSceneId());
 
         return game;
     }

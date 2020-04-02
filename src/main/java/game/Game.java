@@ -7,29 +7,31 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Game {
 
-    private Map<Integer, Scene> sceneMap;
-    private Map<Integer, Actions> actionsMap;
-    private Map<String, Item> itemMap;
+    private transient Map<Integer, Scene> sceneMap;
+    private transient Map<Integer, Actions> actionsMap;
+    private transient Map<String, Item> itemMap;
+    private transient Map<String, Character> characterMap;
+    private transient Set<Client> clients = new CopyOnWriteArraySet<>();
     private Player player;
     private int currentSceneId;
     private Stack<View> viewBackStack;
-    private transient Set<Client> clients = new CopyOnWriteArraySet<>();
 
     public Game() {
         viewBackStack = new Stack<>();
     }
 
-    public Game(String playerName, Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, int startSceneId) {
-        this(sceneMap, actionsMap, itemMap, startSceneId);
-        this.player = new Player(playerName);
-    }
-
-    public Game(Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, int startSceneId) {
+    public Game(Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, Map<String, Character> characterMap, int startSceneId) {
         this();
         this.sceneMap = sceneMap;
         this.actionsMap = actionsMap;
         this.itemMap = itemMap;
+        this.characterMap = characterMap;
         this.currentSceneId = startSceneId;
+    }
+
+    public Game(String playerName, Map<Integer, Scene> sceneMap, Map<Integer, Actions> actionsMap, Map<String, Item> itemMap, Map<String, Character> characterMap, int startSceneId) {
+        this(sceneMap, actionsMap, itemMap, characterMap, startSceneId);
+        this.player = new Player(playerName);
     }
 
     /*
@@ -41,7 +43,14 @@ public class Game {
 
         addClient(client);
 
-        clients.forEach(l->l.onMessage("You can write commands now!"));
+        enterView(sceneMap.get(currentSceneId), new Interactable.Callback() {
+            @Override
+            public void onMessage(String message) {
+                clients.forEach(c -> c.onMessage(message));
+            }
+        });
+
+        clients.forEach(l->l.onMessage("You can write commands now! Try: inspect"));
     }
 
     // TODO: 02-03-2020 annotate
@@ -62,7 +71,7 @@ public class Game {
         Interactable.Callback callback =  new Interactable.Callback() {
             @Override
             public void onMessage(String message) {
-                clients.forEach(listener -> listener.onMessage(message));
+                clients.forEach(client -> client.onMessage(message));
             }
         };
 
@@ -87,13 +96,13 @@ public class Game {
     }
 
     public void enterView(View view, Interactable.Callback callback) {
-        view.onEnter(this, callback);
+        view.enter(this, callback);
         viewBackStack.push(view);
     }
 
     public void exitView(Interactable.Callback callback) {
         View view = viewBackStack.peek();
-        view.onLeave(callback);
+        view.exit(callback);
         viewBackStack.pop();
     }
 
@@ -115,6 +124,10 @@ public class Game {
 
     public Map<String, Item> getItemMap() {
         return itemMap;
+    }
+
+    public Map<String, Character> getCharacterMap() {
+        return characterMap;
     }
 
     public Player getPlayer() {

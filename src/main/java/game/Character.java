@@ -28,11 +28,12 @@ public abstract class Character implements Interactable {
     Constructors
      */
 
-    public Character(String name, String description, int inventorySize) {
+    public Character(String name, String description, int inventorySize, CharacterStats characterStats) {
         this.name = name;
         this.description = description;
         this.inventorySize = inventorySize;
         this.inventory = new ArrayList<>();
+        this.stats = characterStats;
     }
 
 

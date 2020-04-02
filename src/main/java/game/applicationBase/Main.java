@@ -15,6 +15,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to our Software Design game.");
+        System.out.println("Type \"quit\" to exit");
 
         List<File> saveFileList = LocalFileTool.listSaveFiles(Main.class.getClassLoader());
         System.out.println("Pick an option:");
@@ -29,11 +30,12 @@ public class Main {
 
         Game game = null;
         if (choiceInt == 1) {
-            try {
-                game = LocalFileTool.makeNewGameFromFile(Main.class.getClassLoader());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                game = LocalFileTool.makeNewGameFromFile(Main.class.getClassLoader());
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+            game = GameFactory.createExample();
         } else {
             int foo = choiceInt - 2;
             if (foo >= 0 && foo < saveFileList.size()) {

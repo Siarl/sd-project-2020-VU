@@ -18,12 +18,16 @@ public class CharacterStats extends Stats {
     private int minHealthPoints;
     private int maxHealthPoints;
 
-    public CharacterStats() {
+    public CharacterStats(int maxHealthPoints, int baseDamage, int baseLuck) {
+        super(maxHealthPoints, baseDamage, baseLuck);
         this.minHealthPoints = 0;
+        this.maxHealthPoints = maxHealthPoints;
     }
 
     public void applyChange(Stats playerStats) {
         setHealthPoints(playerStats.healthPoints);
+        setBaseLuck(playerStats.baseLuck);
+        setBaseDamage(playerStats.baseDamage);
     }
 
 

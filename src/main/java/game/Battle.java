@@ -28,7 +28,8 @@ public class Battle extends View {
 
     @Override
     void onEnter(Game game, Callback callback) {
-        callback.onMessage("You enter the fight with Enemy " + enemy.getName() + ", " + enemy.getDescription());
+        callback.onMessage("You enter the fight with Enemy " + enemy.getName());
+        callback.onMessage("Pick rock, paper or scissors!");
     }
 
     @Override
@@ -73,7 +74,7 @@ public class Battle extends View {
 
         int damage = winner.getCharacterStats().getBaseDamage();
         int hp = loser.getCharacterStats().getHealthPoints();
-        loser.getCharacterStats().setHealthPoints(hp - damage);
+        loser.getCharacterStats().setHealthPoints(-damage);
 
         callback.onMessage(player.getName() + " picks " + playerChoice + ", " + enemy.getName() + " picks " + enemyChoice);
         callback.onMessage(winner.getName() + " won that round!");
