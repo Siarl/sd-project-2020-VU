@@ -374,7 +374,7 @@ The system can be build using `gradle jar`. The resulting .jar file can be found
 
 A pre-built .jar is located in the `out/` directory.
 
-Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
+Run the program by calling `java -jar out/sofware-design-vu-2020-1.1.jar`. Make sure to at least use java 11.
 You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
 
 **NOTE:** _Running the program will create a folder in your home directory: `.spork/`.
@@ -384,6 +384,6 @@ This folder can be deleted afterwards and does not hold any important informatio
 
 This video shows a quick demo of our current implementation:
 
-[![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
+[![Demo Video](http://img.youtube.com/vi/lwd2aol_pZE /0.jpg)](http://www.youtube.com/watch?v=lwd2aol_pZE )
 
 Wordt count: 653 words
