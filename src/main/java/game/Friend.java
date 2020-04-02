@@ -13,13 +13,13 @@ public class Friend extends Character {
     }
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (command.getAction().equals("talk")) {
-            conversation.onCommand(command, callback);
+            conversation.handleCommand(command, callback);
             return true;
         } else if (command.getAction().equals("inspect")) {
             StringBuilder message = new StringBuilder("inspect: friend " + name + ", " + description + "\n");
-            listCommands(command.getGame(), new ArrayList<>()).forEach(s -> message.append("\t").append(s).append("\n"));
+            listHandledCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
             callback.onMessage(message.toString());
 
             return true;
@@ -28,10 +28,11 @@ public class Friend extends Character {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.add("inspect");
-        addToThisList.add("talk");
-        return addToThisList;
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
+        result.add("inspect");
+        result.add("talk");
+        return result;
     }
 
 }

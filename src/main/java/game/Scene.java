@@ -1,7 +1,6 @@
 package game;
 
-import com.esotericsoftware.minlog.Log;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +51,7 @@ public class Scene extends View {
      * @return true if command has been handled, false if not.
      */
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
 
         if (command.getAction().equals("inspect")) { // handles inspect command
 
@@ -60,7 +59,7 @@ public class Scene extends View {
                 if (characters.contains(command.getReceiver())) {
                     Character character = command.getGame().getCharacterMap().get(command.getReceiver());
                     if (character != null) {
-                        character.onCommand(command, callback);
+                        character.handleCommand(command, callback);
                     }
                 } else if (nextScenes.containsKey(command.getReceiver())) {
                     Integer next = nextScenes.get(command.getReceiver());
@@ -71,7 +70,7 @@ public class Scene extends View {
                     }
                 } else if (items.contains(command.getReceiver())) {
                     Item item = command.getGame().getItemMap().get(command.getReceiver());
-                    item.onCommand(command, callback);
+                    item.handleCommand(command, callback);
                 } else {
                     callback.onMessage("This item does not exist.");
                 }
@@ -104,22 +103,23 @@ public class Scene extends View {
 
             return true;
         } else if (command.hasReceiver() && items.contains(command.getReceiver())) { // handles item action
-            return command.getGame().getItemMap().get(command.getReceiver()).onCommand(command, callback);
+            return command.getGame().getItemMap().get(command.getReceiver()).handleCommand(command, callback);
         } else if (command.hasReceiver() && characters.contains(command.getReceiver())) { // handles character action
-            return command.getGame().getCharacterMap().get(command.getReceiver()).onCommand(command, callback);
+            return command.getGame().getCharacterMap().get(command.getReceiver()).handleCommand(command, callback);
         }
 
         return false;
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.add("inspect");
-        addToThisList.add("search");
-        addToThisList.add("inspect <item>"); // not actually handled by Scene object
-        addToThisList.add("inspect <north|east|south|west");
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
+        result.add("search");
+        result.add("inspect");
+        result.add("inspect <item>"); // not actually handled by Scene object
+        result.add("inspect <north|east|south|west");
 
-        return addToThisList;
+        return result;
     }
 
     private String inspect(Command command) {
@@ -127,10 +127,10 @@ public class Scene extends View {
         message.append(name).append("\n\n");
         message.append(description).append("\n\n");
         message.append("scene commands:\n");
-        listCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
+        listHandledCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
         message.append("player commands:\n"); // TODO: 06-03-2020 handle listing player commands somewhere else, this is messy
         command.getGame().getPlayer()
-                .listCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
+                .listHandledCommands(command.getGame()).forEach(s -> message.append("\t").append(s).append("\n"));
 
         return message.toString();
     }
