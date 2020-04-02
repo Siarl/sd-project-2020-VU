@@ -22,6 +22,8 @@ in both of those areas was made.
 - Naming conventions were kept, because the convention made the code easier to read in some cases; for example,
 the class is the plural **Actions** with multiplicity 1 as should be in a convention, but in the **ActionStore** class, the
 attribute *actionsList* is easier to understand what it is, as it is a list of Actions that are possible: List&lt;Actions>
+**UML State Machine Diagram:** \
+From the feedback given by the TA, the biggest flaw that the state machine diagrams had, because of the naming of the states and other variables, these did not represent a state machine diagram anymore but an activity diagram. Upon reading, it became obvious that this is true and that this is a very common mistake within UML as the diagrams are fairly similar. Thus, the new diagrams tried to follow the state machine diagrams rules whereas the states should be represented by nouns. 
 
 Maximum number of words for this section: 1000
 Word Count: 144
