@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 2448
+Word Count: 2808
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -79,13 +79,7 @@ Maximum number of words for this section: 2000
 ## Class diagram
 Author(s): Sofia Konovalova
 
-![](images-assignment3/ClassDiagram.png)
-
-What is left to write:
-- [ ] CharacterStats
-- [ ] Client
-- [ ] Conversation
-- [ ] Stats
+`insert class diagram here`
 
 The class **Main** is the class that starts up the program and contains the main method of the program.
 The main method of the class creates a *game* object which uses the **LocalFileTool** class
@@ -126,7 +120,7 @@ conversation with a friendly. *setCurrentSceneById(int, Callback)* has a public 
 two is that the private method sets the game state to another scene, using the ID of the next scene that the game needs to move to. The method *handleCommand(String)* handles the commands
 that the player inputs that are game-specific. It makes use of the Interactable interface's Callback interface to handle the commands.
 
-The **Client** interface...
+The **Client** interface has only one method, which is *onMessage(String)*, which handles messages for clients.
 
 There are also four "store" classes: **ActionStore**, **ItemStore**, **SceneStore** and **CharacterStore**.  These three classes store the actions in the game, the items in the game
 and the scenes in the game respectively. The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
@@ -151,9 +145,19 @@ we need to remove multiple items from the Character's inventory. The methods mak
 *onItemAdded(Character, String)*, *onItemAddFailed(Character, String)*, *onItemRemoved(Character, String)* and *onSizeChanged(Character, int, int)* which
 deal with the handling of items being inserted and taken out of the inventories of certain characters.
 
-The **CharacterStats** class...
+The **CharacterStats** class describes the stats a particular character has. The class has the following attributes: *maxHealthPoints* and *minHealthPoints*,
+which describes the maximum and minimum amount of health points a character can have, respectively; *baseLuck*, *baseDamage* and *healthPoints* have the
+same function as in the **Stats** class, described below. The constructor *CharacterStats(int, int, int)* initializes the stats of the character.
+*setHealthPoints(int, Listener)*, *setBaseDamage(int, Listener)*, *setBaseLuck(int, Listener)* and *setMaxHealthPoints(int, Listener)* are all setters of the attributes
+described above, that use an inner class **Listener** to handle any consequences that might come from the different stats changing
+throughout the game. The inner class **Listener** has methods *onDeath()*, which handles the consequences if a character dies; *onMaxHealthChange(int, int, int)*,
+*onMaxHealthChange(int, int, int)*, *onBaseDamageChange(int, int, int)* and *onBaseLuckChange(int, int, int)* are all handlers of the different changes that could be
+made to the attributes in the class **CharacterStats**. The **CharacterStats** class also has the method *applyChange(Stats)*, which applies any changes
+that have been made to the character's stats to the appropriate object of the class **Stats**.
 
-The **Stats** class...
+The **Stats** class is a sort of template for all of the stats that are possible in the game. It has the following attributes: *baseLuck*, which describes the luck of the
+character when attacking, for example; *healthPoints*, which is the amount of health points any character can have; *baseDamage*, which the amount of damage
+a character can give. The constructor *Stats(int, int, int)* uses the three attributes to create the stats of the character.
 
 The **Player**, **Enemy** and **Friend** class are very similar to each other, with some differences. All three of them have constructors: *Player(String)*, which creates
 a player with a certain name; *Enemy(String, String, int)* which creates an enemy with a name, description and inventory size; *Friend(String, String, int)*
@@ -162,7 +166,10 @@ which works the same name as the **Enemy** constructor. All three of them use th
 of the class **Conversation** -- this is to enable conversation between the player and friendlies, as you cannot engage in battle with them, but you can maybe
 extract some information from them during the game.
 
-The **Conversation** class...
+The **Conversation** class has two attributes: *lines*, which is a list of lines that the friendly character says, and *hasTalked*, which is a boolean indicating
+if there have been previous interactions with the friendly character before, which would make them say a different line. The constructor *Conversation(List<String> lines)*
+initializes the attributes, and hence the conversation. The class implements the **Interactable** interface, which means it has command handling with the
+operations *onCommand(Command, Callback)* and *listCommands(Game, List&lt;String>)*.
 
 The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
 It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
@@ -218,8 +225,7 @@ The **Interactable** interface defines two methods, which deal with command hand
 with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state.
 
-Maximum number of words for this section: 4000 \
-Word Count: 2448
+Word Count: 2808
 
 ## Object diagrams
 Author(s): Koen van den Burg
