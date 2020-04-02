@@ -53,12 +53,12 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         too, as you need to interact with a scene to achieve things in the game. We wanted to move the implementation of the command handling as far away
         from the separate "interactive" classes as possible, while keeping all of the command handling that would possibly be needed all in the same place,
         to be used by any class that could be "interacted" with by the user.</td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td></td>
         <td>One of the problems that we had during the planning of the implementation of the game is that we had multiple classes that needed to implement
         very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
         different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
         where the player has to directly interact with another character. Both of these environments are different, but similar in a way.</td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td></td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
@@ -81,8 +81,8 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
     <tr>
         <td><b>Intended use</b></td>
+        <td><b>I am bad with words</b></td>
         <td></td>
-        <td>A paragraph describing how you intend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
         <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
         non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
         is back to where they were in the game before engaging in combat. </td>
