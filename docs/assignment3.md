@@ -11,7 +11,9 @@ Word Count: 2448
 ### Summary of changes of Assignment 2
 Author(s): Bogdan Cercel
 
-Provide a bullet list summarizing all the changes you performed in Assignment 2 for addressing our feedback.
+<li>I guess i ll do this after you finish? idk what you did wilkin.</li>
+
+<br>
 
 Maximum number of words for this section: 1000
 
