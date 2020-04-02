@@ -28,36 +28,30 @@ For each application of any design pattern you have to provide a table conformin
         <td><b>DP1</b></td>
         <td><b>DP2</b></td>
         <td><b>DP3</b></td>
+        <td><b>DP4</b></td>
     </tr>
     <tr>
         <td><b>Design Pattern</b></td>
-        <td>Command</td>
+        <td>Command/Chain of Responsibility</td>
         <td>Observer</td>
-        <td>Name of the applied pattern</td>
+        <td>Template</td>
+        <td>Decorator</td>
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>The problem that needs to be solved is with implementing commands with the different
-        interacable objects within the game. Actions, scenes, items and players all have commands that are
-        associated with them, that are different and have a different effect on the game. The problem is to
-        have all of these separate commands implemented, but not have to do separate command handling for
-        every single one of the objects that are interactable in the game.</td>
+        <td></td>
         <td>A paragraph describing the problem you want to solve</td>
         <td>A paragraph describing the problem you want to solve</td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
-        <td>This design pattern involves the creation of an interface, from which different encapsulated objects which behave similarly
-        can implement. This means that our interactable objects within the game can use a common interface and use the methods
-        in the interface to execute the commands appropriate to them. </td>
+        <td></td>
         <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
         <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
-        <td>At run-time, the interface is used whenever a command is executed, depending on which interactable object is being used: an item, a player or a
-        scene.
-        //insert sequence diagram here</td>
+        <td></td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
     </tr>
@@ -77,8 +71,6 @@ For each application of any design pattern you have to provide a table conformin
 </table>
 
 Maximum number of words for this section: 2000
-Word count: 202
-
 ## Class diagram
 Author(s): Sofia Konovalova
 
