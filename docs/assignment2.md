@@ -185,7 +185,7 @@ Word count: 408
 Author(s): Claudia Grigoras
 
 <b> Game Class - State Machine Diagram </b>
-![State Machine Diagram - Game](images/gamestate2.png)
+![State Machine Diagram - Game](images/gamestate2.jpeg)
 
 This diagram represents the finite number of states for the **game** class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run.
 
