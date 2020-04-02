@@ -121,8 +121,8 @@ The **Game** class is the most important class of the game. It has the following
 state; *sceneMap* which is a Map that associates the unique scene IDs with a *Scene* object; *itemMap*, which is a Map that associates a String name of an item
 with the *Item* object; and finally, *player*, which is an object of class **Player**, which is the player in the game. \
 There is usage of constructor overloading in this class, depending on what is available for the game to be made. The default constructor, *Game()*,
-initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map<Integer, Scene>,
-Map<Integer, Actions>, Map<String, Item>, Map<String, Character>, int)* and *Game(Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, Map<String, Character>, int)* create a game from
+initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map&lt;Integer, Scene>,
+Map&lt;Integer, Actions>, Map&lt;String, Item>, Map&lt;String, Character>, int)* and *Game(Map&lt;Integer, Scene>, Map&lt;Integer, Actions>, Map&lt;String, Item>, Map&lt;String, Character>, int)* create a game from
 the available information from the mapped actions, scenes and items, but they only differ in if the player name is available; otherwise the default name that is
 hardcoded is used. The method *start(Client)* creates a "client" for the game, a.k.a. the player of the game; *addClient(Client)* adds a new client to the game -- even though
 this method is not applicable at the current game version, it can be used to add a multiplayer function to the game. *removeClient(Client)* removes a client
@@ -141,7 +141,7 @@ a function *toStringItemMap()* which creates a hash map of the name of the objec
 **Character** in the game, and a method *toStringCharacterMap()* where each of the characters are mapped to their name.
 
 The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
-which determines which actions are available with this particular item. It has the functions *handleCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
+which determines which actions are available with this particular item. It has the functions *handleCommand(Command, Callback)* and *listCommands(Game, List&lt;String>)* which
 use the **Interactable** interface as items are interactable within the game and need to be handled appropriately. \
 
 The **Character** abstract class defines everything in common between the different characters in the game. There are three kinds of Characters: the player, enemies
@@ -150,7 +150,7 @@ of all the items that the character has in their inventory; *name*, which the na
 *inventorySize*, which an integer describing how many objects can be held in the inventory of the character; and *characterStats*, which is an object of the class
 **CharacterStats**, which describes stats of the characters such as health points. The constructor *Character(String, String, int)* creates the character
 with the name of the character, their description and their inventory size as parameters. The methods *setInventorySize(int, InventoryListener)*,
-*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection<String>, InventoryListener)*, *removeAllFromInventory(Collection<String>,
+*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection&lt;String>, InventoryListener)*, *removeAllFromInventory(Collection&lt;String>,
 InventoryListener)* are all methods that deal with the character's inventory. The method names speak for themselves, but a Collection data type is used when
 we need to remove multiple items from the Character's inventory. The methods make use of the class' inner InventoryListener interface, which has methods
 *onItemAdded(Character, String)*, *onItemAddFailed(Character, String)*, *onItemRemoved(Character, String)* and *onSizeChanged(Character, int, int)* which
@@ -203,7 +203,7 @@ The **Actions** class has the attributes *commands*, which is a Set of strings o
 after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *handleCommand(Command, Callback)*
 and *listHandledCommands(Game)* which handle the commands to decide what the game should do next should the player enter an action command, and which
 prints out the list of possible action commands in a scene respectively. It also has a function *getEffect(String)* which returns an object of the class *Effect*,
-which is preceisly what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
+which is precisely what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
 *hasCommand(String)* function checks if the command that the player has type actually exists, and returns a boolean. \
 The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
 the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
