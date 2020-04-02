@@ -79,7 +79,7 @@ Maximum number of words for this section: 2000
 ## Class diagram
 Author(s): Sofia Konovalova
 
-`insert class diagram here`
+![](images-assignment3/ClassDiagram.png)
 
 The class **Main** is the class that starts up the program and contains the main method of the program.
 The main method of the class creates a *game* object which uses the **LocalFileTool** class
