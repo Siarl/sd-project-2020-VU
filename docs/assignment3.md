@@ -234,14 +234,28 @@ Word Count: 2903
 ## Object diagrams
 Author(s): Koen van den Burg
 
-This chapter contains the description of a "snapshot" of the status of your system during its execution.
-This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-`Figure representing the UML class diagram`
+![](images/ObjectDiagramV3.png)
 
-`Textual description`
+This Object diagram captures the snapshot of the very beginning of the game. 
+Everything shown in the object diagram is implemented into our system.
+The master object is the **Game** object which holds the *CurrentSceneId* which is 1.
+The **game** object is connected to the **Player** object and the **Scene** object.
+The **Player** object has one attribute, the *name* which is “Bogdan” and is connected with the **CharacterStats** objects which holds the current *HealthPoints* (at this time 50), the *MaxHealthPoints*(100), the *MinHealthPoints*(0), the *BaseDamage*(20) and the *BaseLuck* (7).
 
-Maximum number of words for this section: 1000
+The second object connected to the game object is the **Scene** object which is connected to the first scene of the game, the “Studio scene”. The **Scene** object is connected with the **SceneActions** object that holds the commands which can be carried out by the player. The available actions are: *Inspect<**item**>*(for interacting with items in the scene), *Inspect scene*(for giving the player more information about the current scene he is in) and the *Navigation* action for moving around in the scene.
+
+The **StudioScene** contains the following objects: The **Brother** of type **Friend**, The **Bully** of type **Enemy**, **OutsideDoor** and **Noodles** both of type **Item**. 
+The bully has its own **CharacterStats**, same as the player has, only with different values. 
+
+The **Bully** object is connected to an object called **BullyBattle** of type **Battle**, which, when a fight command is used, initiates a battle between the bully and the player, which has effect on the players’ **CharacterStats**, mainly the *HealthPoints*. 
+
+The **Brother** object is connected to an object **Conversation** with a few dialog options, stored in the *Lines* attribute* along with a Boolean *hasTalked* which is False at the start of the game.  
+
+The **door** item named “**OutsideDoor**” will lead to a chain of objects being used in order to progress into another scene. For this particular door, what happen is when the **OutsideDoorEffect** “open” is used on the item **OutsideDoor** the **OutsideDoorOpenEffect** object is created which leads to the object **OutsideNavigationEffect** of type **Effect**, this object has a *type* attribute which holds *NAVIGATION*, this will set the **Game** objects’ current **SceneId** to “3”. 
+The item **Noodles** is connected to an Action object called **NoodleActions**. With the command “eat” it will instantiate an object **NoodleEatEffect** of **Effects** type, which then will lead to an object **HealEffect** of type **Effect** with *Type* attribute *STATS*. This object is connected to the players’ **CharacterStats** object and will add HealthPoints to the players’ statistics. 
+
+Word count: 406
 
 ## State machine diagrams
 Author(s): Claudia Grigoras
