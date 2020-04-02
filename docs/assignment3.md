@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 1306
+Word Count: 1977
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -80,8 +80,8 @@ Author(s): Sofia Konovalova
 
 - [x] LocalFileTool
 - [x] Main
-- [ ] ActionStore
-- [ ] ItemStore
+- [x] ActionStore
+- [x] ItemStore
 - [x] SceneStore
 - [ ] Actions
 - [x] Battle
@@ -93,7 +93,7 @@ Author(s): Sofia Konovalova
 - [x] Effect
 - [x] Effects
 - [x] Enemy
-- [ ] Friend
+- [x] Friend
 - [x] Game
 - [x] Interactable
 - [ ] Item
@@ -119,15 +119,47 @@ that are available to the user to play from. \
 The **LocalFileTool** class and the **Game** class have a dependency association which is named "create", since the LocalFileTool creates the game from the
 json files. The **Game** class uses the information from **LocalFileTool** to define it's attributes.
 
-The **Game** class...
+The abstract class **View** handles the "view" of the game -- meaning, handling the player entering game scenes and battles.
+It has a *game* object of the class **Game**, and it has the methods *onEnter(Game, Callback)*, which handles the player entering the game scene/battle,
+and the method *onLeave(Callback)*, which handles the player leaving a scene/battle. These methods output messages to the CLI, and handle
+any further commands from there. This class is necessary, as there can be different "views" of the game by the player -- exploring a scene, being in a battle
+or a conversation with a friendly character is a different view of the environment.
+
+The **Game** class is the most important class of the game. It has the following attributes: *viewBackStack*, which is a stack which keeps track of the different
+**View** class objects we are in; *client* which is a Set of objects of class **Client**; *currentView*, which is the environment view we are currently in;
+*actionsMap*, which is a Map that associates an ID with an action; *currentSceneById*, which the unique ID of the current scene of the game we are in, a.k.a. the game
+state; *sceneMap* which is a Map that associates the unique scene IDs with a *Scene* object; *itemMap*, which is a Map that associates a String name of an item
+with the *Item* object; and finally, *player*, which is an object of class **Player**, which is the player in the game. \
+There is usage of constructor overloading in this class, depending on what is available for the game to be made. The default constructor, *Game()*,
+initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map<Integer, Scene>,
+Map<Integer, Actions>, Map<String, Item>, int)* and *Game(Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, int)* create a game from
+the available information from the mapped actions, scenes and items, but they only differ in if the player name is available; otherwise the default name that is
+hardcoded is used. The method *start(Client)* creates a "client" for the game, a.k.a. the player of the game; *addClient(Client)* adds a new client to the game -- even though
+this method is not applicable at the current game version, it can be used to add a multiplayer function to the game. *removeClient(Client)* removes a client
+from the client Set. *enterView(View, Callback)* is a method that enters a specific view of the game -- as explained before, a battle with an enemy or a
+conversation with a friendly. *setCurrentSceneById(int, Callback)* has a public and private version, and make use of overloading. The difference between the
+two is that the private method sets the game state to another scene, using the ID of the next scene that the game needs to move to. The method *handleCommand(String)* handles the commands
+that the player inputs that are game-specific. It makes use of the Interactable interface's Callback interface to handle the commands.
+
+There are also three "store" classes: **ActionStore**, **ItemStore**, **SceneStore**.  These three classes store the actions in the game, the items in the game
+and the scenes in the game respectively. The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
+creates a hash map between the unique ID and the *Scene* object itself. The **ActionStore** acts similarly to the **SceneStore** class, containing only the *actionsList* attribute which is a List of *Actions* objects, and the function
+*toIntegerActionMap()*, which creates a hash map between a unique ID of the scene and the actions that are available in that scene. The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
+a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
 
 The **Client** interface...
 
-The **Character** abstract class...
+The **Character** abstract class defines everything in common between the different characters in the game. There are three kinds of Characters: the player, enemies
+and friendlies. Therefore, the **Player**, **Enemy** and **Friend** class are subclasses of **Character**. The class has the following attributes: *inventory*, which is a list
+of all the items that the character has in their inventory; *name*, which the name of the character; *description*, which a description of the character;
+*inventorySize*, which an integer describing how many objects can be held in the inventory of the character; and *characterStats*, which is an object of the class
+**CharacterStats**, which describes stats of the characters such as health points.
 
 The **Player** class...
 
 The **Enemy** class...
+
+The **Friend** class...
 
 The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
 It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
@@ -145,11 +177,6 @@ enemy for the battle that is about the happen. The methods *onEnter(Game, Callba
 explained further below. It also implements methods from the **Interactable** interface -- *onCommand(Command, Callback)* and *listCommands(Game, List<String)*. The last
 method is the *challenge(String, Callback)*, which handles the actual battle happening, a.k.a. one character challenging another one,
 and then informing the player on the CLI of the result.
-
-The abstract class **View** handles the "view" of the game -- meaning, handling the player entering game scenes and battles.
-It has a *game* object of the class **Game**, and it has the methods *onEnter(Game, Callback)*, which handles the player entering the game scene/battle,
-and the method *onLeave(Callback)*, which handles the player leaving a scene/battle. These methods output messages to the CLI, and handle
-any further commands from there.
 
 The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
 the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
@@ -182,7 +209,7 @@ with outgoing messages in the CLI during gameplay. The *listCommands(Game)* list
 game state.
 
 Maximum number of words for this section: 4000 \
-Word Count: 1306
+Word Count: 1977
 
 ## Object diagrams
 Author(s): Koen van den Burg
