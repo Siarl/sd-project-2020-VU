@@ -3,6 +3,7 @@ package game;
 import org.apache.commons.rng.UniformRandomProvider;
 import org.apache.commons.rng.simple.RandomSource;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class Battle extends View {
     }
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (command.getAction().equals("rock")
                 || command.getAction().equals("paper")
                 || command.getAction().equals("scissors")) {
@@ -50,11 +51,12 @@ public class Battle extends View {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.add("rock");
-        addToThisList.add("paper");
-        addToThisList.add("scissors");
-        return null;
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
+        result.add("rock");
+        result.add("paper");
+        result.add("scissors");
+        return result;
     }
 
     private void challenge(String playerChoice, Callback callback) {

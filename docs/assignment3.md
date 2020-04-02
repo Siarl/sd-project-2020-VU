@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 2448
+Word Count: 3297
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -18,12 +18,23 @@ Author(s): Bogdan Cercel
 
 Number of words for this section: 55
 
+**UML Class Diagram:** \
+From the feedback given by the TA, the following has been changed in the class diagram:
+- Compositions were fixed -- if there was a composition and the encapsulated class was shared, this was fixed and removed.
+This was mostly due to a misunderstanding of class diagrams and compositions in the beginning of the project, but now progress
+in both of those areas was made.
+- Missing features have been added: F6, F7, and F8 were added. The time mechanic feature (F9) was scrapped.
+- Naming conventions were kept, because the convention made the code easier to read in some cases; for example,
+the class is the plural **Actions** with multiplicity 1 as should be in a convention, but in the **ActionStore** class, the
+attribute *actionsList* is easier to understand what it is, as it is a list of Actions that are possible: List&lt;Actions>
+
 Maximum number of words for this section: 1000
+Word Count: 144
 
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
 
-For each application of any design pattern you have to provide a table conforming to the template below.
+![](images-assignment3/ClassDiagramAnnotated.png)
 
 <table>
     <tr>
@@ -42,55 +53,69 @@ For each application of any design pattern you have to provide a table conformin
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td>One of the problems that was found early in the planning of the game was how to implement the commands typed by the user during gameplay.
+        The game has multiple things that can be interacted with, such as items and other characters. Actions and scenes could be thought of as interactive
+        too, as you need to interact with a scene to achieve things in the game. We wanted to move the implementation of the command handling as far away
+        from the separate "interactive" classes as possible, while keeping all of the command handling that would possibly be needed all in the same place,
+        to be used by any class that could be "interacted" with by the user.</td>
+        <td></td>
+        <td>One of the problems that we had during the planning of the implementation of the game is that we had multiple classes that needed to implement
+        very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
+        different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
+        where the player has to directly interact with another character. Both of these environments are different, but similar in a way.</td>
+        <td></td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
         <td>The Chain of Responsibility pattern allows for data that can't be used by certain objects to be sent to a number of any other
         object that can use it. In the command pattern, an object encapsulates and represents all information needed to call a method
-        at a later time. <b>to be continued</b></td>
+        at a later time. The Command design pattern is used to represent and encapsulate all the information needed to call a method at a later time.
+        Our **Interactable** interface implements both of these design patterns. The **Interactable** interface also has an inner **Callback** class and a
+        dependency to the **Command** class, so the command handling is moved even further away from the client. Since the **Interactable** interface is implemented
+        by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
+        Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
+        any number of objects in the game that need it.</td>
         <td>The Observer design pattern is used when multiple objects need to receive an update about another object's change. <b>to be continued</b></td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
-        a method that contains a series of method calls that each subclass will call. <b>to be continued</b></td>
+        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
+        **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
+        when there were no different environments, the **Scene** class implemented the **Interactable** interface directly, but with more environments added, there
+        needed to be a "middle man", not only to have these multiple classes call similar methods but also to keep track of which environment the game is in, and how to
+        get back to the environment it was previously in.</td>
         <td>The Decorator design pattern allows you to modify an object at run-time -- like inheritance. <b>to be continued</b></td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
+        <td><b>I am bad with words</b></td>
         <td></td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+        <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
+        non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
+        is back to where they were in the game before engaging in combat. </td>
         <td></td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
         <td></td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+        <td></td>
+        <td>N/A</td>
         <td></td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
         <td>N/A</td>
-        <td>Optional, only if needed</td>
-        <td>Optional, only if needed</td>
-        <td></td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
     </tr>
 </table>
 
 Maximum number of words for this section: 2000
+Word Count: 329
+
 ## Class diagram
 Author(s): Sofia Konovalova
 
 ![](images-assignment3/ClassDiagram.png)
-
-What is left to write:
-- [ ] CharacterStats
-- [ ] Client
-- [ ] Conversation
-- [ ] Stats
 
 The class **Main** is the class that starts up the program and contains the main method of the program.
 The main method of the class creates a *game* object which uses the **LocalFileTool** class
@@ -117,12 +142,13 @@ or a conversation with a friendly character is a different view of the environme
 
 The **Game** class is the most important class of the game. It has the following attributes: *viewBackStack*, which is a stack which keeps track of the different
 **View** class objects we are in; *client* which is a Set of objects of class **Client**; *currentView*, which is the environment view we are currently in;
-*actionsMap*, which is a Map that associates an ID with an action; *currentSceneById*, which the unique ID of the current scene of the game we are in, a.k.a. the game
+*actionsMap*, which is a Map that associates an ID with an action; *characterMap*, which is a Map that associates a name with a object of class
+**Character**; *currentSceneById*, which the unique ID of the current scene of the game we are in, a.k.a. the game
 state; *sceneMap* which is a Map that associates the unique scene IDs with a *Scene* object; *itemMap*, which is a Map that associates a String name of an item
 with the *Item* object; and finally, *player*, which is an object of class **Player**, which is the player in the game. \
 There is usage of constructor overloading in this class, depending on what is available for the game to be made. The default constructor, *Game()*,
-initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map<Integer, Scene>,
-Map<Integer, Actions>, Map<String, Item>, int)* and *Game(Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, int)* create a game from
+initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map&lt;Integer, Scene>,
+Map&lt;Integer, Actions>, Map&lt;String, Item>, Map&lt;String, Character>, int)* and *Game(Map&lt;Integer, Scene>, Map&lt;Integer, Actions>, Map&lt;String, Item>, Map&lt;String, Character>, int)* create a game from
 the available information from the mapped actions, scenes and items, but they only differ in if the player name is available; otherwise the default name that is
 hardcoded is used. The method *start(Client)* creates a "client" for the game, a.k.a. the player of the game; *addClient(Client)* adds a new client to the game -- even though
 this method is not applicable at the current game version, it can be used to add a multiplayer function to the game. *removeClient(Client)* removes a client
@@ -131,16 +157,17 @@ conversation with a friendly. *setCurrentSceneById(int, Callback)* has a public 
 two is that the private method sets the game state to another scene, using the ID of the next scene that the game needs to move to. The method *handleCommand(String)* handles the commands
 that the player inputs that are game-specific. It makes use of the Interactable interface's Callback interface to handle the commands.
 
-The **Client** interface...
+The **Client** interface has only one method, which is *onMessage(String)*, which handles messages for clients.
 
-There are also three "store" classes: **ActionStore**, **ItemStore**, **SceneStore**.  These three classes store the actions in the game, the items in the game
+There are also four "store" classes: **ActionStore**, **ItemStore**, **SceneStore** and **CharacterStore**.  These three classes store the actions in the game, the items in the game
 and the scenes in the game respectively. The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
 creates a hash map between the unique ID and the *Scene* object itself. The **ActionStore** acts similarly to the **SceneStore** class, containing only the *actionsList* attribute which is a List of *Actions* objects, and the function
 *toIntegerActionMap()*, which creates a hash map between a unique ID of the scene and the actions that are available in that scene. The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
-a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
+a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object. The **CharacterStore** class has an attribute *characterList*, which is a list of objects of class
+**Character** in the game, and a method *toStringCharacterMap()* where each of the characters are mapped to their name.
 
 The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
-which determines which actions are available with this particular item. It has the functions *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
+which determines which actions are available with this particular item. It has the functions *handleCommand(Command, Callback)* and *listCommands(Game, List&lt;String>)* which
 use the **Interactable** interface as items are interactable within the game and need to be handled appropriately. \
 
 The **Character** abstract class defines everything in common between the different characters in the game. There are three kinds of Characters: the player, enemies
@@ -149,29 +176,42 @@ of all the items that the character has in their inventory; *name*, which the na
 *inventorySize*, which an integer describing how many objects can be held in the inventory of the character; and *characterStats*, which is an object of the class
 **CharacterStats**, which describes stats of the characters such as health points. The constructor *Character(String, String, int)* creates the character
 with the name of the character, their description and their inventory size as parameters. The methods *setInventorySize(int, InventoryListener)*,
-*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection<String>, InventoryListener)*, *removeAllFromInventory(Collection<String>,
+*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection&lt;String>, InventoryListener)*, *removeAllFromInventory(Collection&lt;String>,
 InventoryListener)* are all methods that deal with the character's inventory. The method names speak for themselves, but a Collection data type is used when
 we need to remove multiple items from the Character's inventory. The methods make use of the class' inner InventoryListener interface, which has methods
 *onItemAdded(Character, String)*, *onItemAddFailed(Character, String)*, *onItemRemoved(Character, String)* and *onSizeChanged(Character, int, int)* which
 deal with the handling of items being inserted and taken out of the inventories of certain characters.
 
-The **CharacterStats** class...
+The **CharacterStats** class describes the stats a particular character has. The class has the following attributes: *maxHealthPoints* and *minHealthPoints*,
+which describes the maximum and minimum amount of health points a character can have, respectively; *baseLuck*, *baseDamage* and *healthPoints* have the
+same function as in the **Stats** class, described below. The constructor *CharacterStats(int, int, int)* initializes the stats of the character.
+*setHealthPoints(int, Listener)*, *setBaseDamage(int, Listener)*, *setBaseLuck(int, Listener)* and *setMaxHealthPoints(int, Listener)* are all setters of the attributes
+described above, that use an inner class **Listener** to handle any consequences that might come from the different stats changing
+throughout the game. The inner class **Listener** has methods *onDeath()*, which handles the consequences if a character dies; *onMaxHealthChange(int, int, int)*,
+*onMaxHealthChange(int, int, int)*, *onBaseDamageChange(int, int, int)* and *onBaseLuckChange(int, int, int)* are all handlers of the different changes that could be
+made to the attributes in the class **CharacterStats**. The **CharacterStats** class also has the method *applyChange(Stats)*, which applies any changes
+that have been made to the character's stats to the appropriate object of the class **Stats**.
 
-The **Stats** class...
+The **Stats** class is a sort of template for all of the stats that are possible in the game. It has the following attributes: *baseLuck*, which describes the luck of the
+character when attacking, for example; *healthPoints*, which is the amount of health points any character can have; *baseDamage*, which the amount of damage
+a character can give. The constructor *Stats(int, int, int)* uses the three attributes to create the stats of the character.
 
 The **Player**, **Enemy** and **Friend** class are very similar to each other, with some differences. All three of them have constructors: *Player(String)*, which creates
-a player with a certain name; *Enemy(String, String, int)* which creates an enemy with a name, description and inventory size; *Friend(String, String, int)*
-which works the same name as the **Enemy** constructor. All three of them use the methods *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* from the
+a player with a certain name; *Enemy(String, String, int)* which creates an enemy with a name, description and inventory size; *Friend(String, String, int, Conversation)*
+which works the same name as the **Enemy** constructor. All three of them use the methods *handleCommand(Command, Callback)* and *listCommands(Game, List<String>)* from the
 **Interactable** interface, for the game to handle commands that are specific to those three characters. The **Friend** class has an attribute *conversation* which is an object
 of the class **Conversation** -- this is to enable conversation between the player and friendlies, as you cannot engage in battle with them, but you can maybe
 extract some information from them during the game.
 
-The **Conversation** class...
+The **Conversation** class has two attributes: *lines*, which is a list of lines that the friendly character says, and *hasTalked*, which is a boolean indicating
+if there have been previous interactions with the friendly character before, which would make them say a different line. The constructor *Conversation(List<String> lines)*
+initializes the attributes, and hence the conversation. The class implements the **Interactable** interface, which means it has command handling with the
+operations *handleCommand(Command, Callback)* and *listCommands(Game, List&lt;String>)*.
 
 The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
 It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
 *actions*, which is an *Actions* object which specifies the actions that can be taken in the scene, the *name* string, *description* string, and the unique *id*
-integer of the scene. It has the same *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* that is also present in the **Actions** class. This is because
+integer of the scene. It has the same *handleCommand(Command, Callback)* and *listCommands(Game, List<String>)* that is also present in the **Actions** class. This is because
 actions, scenes and items are all interactable, and therefore need these functions to decide what to do when a certain command is typed in. \
 The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
 creates a hash map between the unique ID and the *Scene* object itself. The class also has the methods *onEnter(Game, Callback)* and *onLeave(Callback)*, which are
@@ -181,15 +221,15 @@ The class **Battle** extends the class **View**. This is the class that handles 
 It has the attributes *player*, which is an object of class **Player**, *enemy*, which is an object of class **Enemy**, *winner*, which is an object of class
 **Character**, and *whoBeatsWhoMap*, which is maps a name of an attack to an attack that it beats. The constructor *Battle(Player, Enemy)* sets the player and the
 enemy for the battle that is about the happen. The methods *onEnter(Game, Callback)* amd *onLeave(Callback)* are inherited from the **View** class, which is
-explained further below. It also implements methods from the **Interactable** interface -- *onCommand(Command, Callback)* and *listCommands(Game, List<String)*. The last
+explained further below. It also implements methods from the **Interactable** interface -- *handleCommand(Command, Callback)* and *listCommands(Game, List<String)*. The last
 method is the *challenge(String, Callback)*, which handles the actual battle happening, a.k.a. one character challenging another one,
 and then informing the player on the CLI of the result.
 
 The **Actions** class has the attributes *commands*, which is a Set of strings of actions commands, and *id*, which is a unique id of the scene that comes
-after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *onCommand(Command, Callback)*
-and *listCommands(Game, List<String>)* which handle the commands to decide what the game should do next should the player enter an action command, and which
+after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *handleCommand(Command, Callback)*
+and *listHandledCommands(Game)* which handle the commands to decide what the game should do next should the player enter an action command, and which
 prints out the list of possible action commands in a scene respectively. It also has a function *getEffect(String)* which returns an object of the class *Effect*,
-which is preceisly what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
+which is precisely what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
 *hasCommand(String)* function checks if the command that the player has type actually exists, and returns a boolean. \
 The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
 the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
@@ -198,10 +238,13 @@ points, smoking cigarettes decreasing them). The class has the following attribu
 once they enter the scene; *sceneIdChange* which determines to which scene the player changes to, as actions can have navigation effects, meaning a change
 of scene; *type*, which is the enumerator described above; *statsChange*, which returns an object of the class **Stats** which describes any changes that have
 been made to the player's stats based on their actions; *inventoryAddChange* and *inventoryRemoveChange* which returns a list of the inventory after a new item
-is being added or removed as a result of the player's action. \
+is being added or removed as a result of the player's action. The class makes use of constructor overloading, with the following constructors:
+*Effect(String), which is initializes the description of the effect; *Effect(String, int)* which initializes the description with the ID of the scene that
+we are changing to; *Effect(String, Stats)* which initializes the description the effect to the stats of a character; and *Effect(String, List<String>, List<String>)* which
+initializes the description of the effect along with the changes to the inventory.\
 Now, if we focus on this part of the previous version of the class diagram: \
 ![](images-assignment3/ClassDiagramEffectFocus.png)
-What happened before is when a command is entered, the *Actions* object handles it in the *onCommand(Command, Callback)* method.
+What happened before is when a command is entered, the *Actions* object handles it in the *handleCommand(Command, Callback)* method.
 Then, the *Effect* object is retrieved and applied. What exactly happens when an *Effect* is applied depends on the *Effect.type*. We decided to improve this
 by having one command to apply multiple effect types. This is implemented using the **Effects** class. \
 The **Effects** class has two attributes: *effectList*, which is a list of *Effect* objects, and the method *apply(Game)*, to apply the effects to the game.
@@ -219,11 +262,10 @@ Above, we have written that the class can be thought of as a "parser" of sorts f
 is the interface **Interactable**. The classes **Player**, **Items** and **Actions** are all realizations of **Interactable**, as they use in some way
 the functions within the interface to handle to different commands that apply to the player, items in the game, and actions that a player can take in a scene. \
 The **Interactable** interface defines two methods, which deal with command handling within the game. It has an interface named **Callback** which deals
-with outgoing messages in the CLI during gameplay. The *listCommands(Game)* lists the possible commands that can be written by the player at a particular
-game state.
+with outgoing messages in the CLI during gameplay. The *listHandledCommands(Game)* lists the possible commands that can be written by the player at a particular
+game state. The *handleCommand(Command, Callback)* actually handles the command.
 
-Maximum number of words for this section: 4000 \
-Word Count: 2448
+Word Count: 2914
 
 ## Object diagrams
 Author(s): Koen van den Burg

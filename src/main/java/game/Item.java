@@ -1,6 +1,7 @@
 package game;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements Interactable {
@@ -17,7 +18,7 @@ public class Item implements Interactable {
     }
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (actions == null) {
             actions = command.getGame().getActionsMap().get(actionId);
         }
@@ -30,7 +31,7 @@ public class Item implements Interactable {
                 message.append(description).append("\n\n");
                 message.append("commands:").append("\n");
 
-                List<String> commands = listCommands(command.getGame());
+                List<String> commands = listHandledCommands(command.getGame());
                 commands.forEach(s -> message.append("\t").append(s).append("\n"));
 
                 callback.onMessage(message.toString());
@@ -54,10 +55,11 @@ public class Item implements Interactable {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
-        addToThisList.add("inspect " + name);
-        actions.listCommands(game).forEach(s -> addToThisList.add(s + " " + name));
-        return addToThisList;
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
+        result.add("inspect " + name);
+        actions.listHandledCommands(game).forEach(s -> result.add(s + " " + name));
+        return result;
     }
 
     /*
