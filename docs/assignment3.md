@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 1671
+Word Count: 1672
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -32,7 +32,7 @@ For each application of any design pattern you have to provide a table conformin
     <tr>
         <td><b>Design Pattern</b></td>
         <td>Command</td>
-        <td>Name of the applied pattern</td>
+        <td>Observer</td>
         <td>Name of the applied pattern</td>
     </tr>
     <tr>
@@ -77,7 +77,7 @@ For each application of any design pattern you have to provide a table conformin
 </table>
 
 Maximum number of words for this section: 2000
-Word count: 201
+Word count: 202
 
 ## Class diagram
 Author(s): Sofia Konovalova
@@ -93,19 +93,19 @@ Author(s): Sofia Konovalova
 - [x] SceneStore
 - [ ] Actions
 - [x] Battle
-- [ ] Character
+- [x] Character
 - [ ] CharacterStats
-- [ ] Client
+- [x] Client
 - [x] Command
 - [ ] Conversation
 - [x] Effect
 - [x] Effects
-- [ ] Enemy
+- [x] Enemy
 - [ ] Friend
 - [x] Game
 - [x] Interactable
 - [ ] Item
-- [ ] Player
+- [x] Player
 - [x] Scene
 - [ ] Stats
 - [x] View
@@ -127,15 +127,15 @@ that are available to the user to play from. \
 The **LocalFileTool** class and the **Game** class have a dependency association which is named "create", since the LocalFileTool creates the game from the
 json files. The **Game** class uses the information from **LocalFileTool** to define it's attributes.
 
-The **Game** class is the most important class of the game. It determines the current game state, which has all the necessary information like the scenes,
-items in the scene, the players, and the actions available in the game state. It has the following attributes: *currentSceneId*, which is the unique ID
-of the scene the user is currently playing in; *actionsMap*, *sceneMap* and *itemMap* are all Maps that help allocate actions, scenes and items to a scene.
-The *actionsMap* and *sceneMap* map an integer to an action or a scene respectively, and the *itemMap* maps a string to an item. The *player* attribute is just
-an object of the class **Player**. The **Game** class makes use of constructor overloading: the constructor
-*Game(String, Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, int)* is used to create the game.
-The class also has the functions *start(Listener)*, *handleCommand(String)*, *subscribeListener(Listener)*, and *unsubscribeListener(Listener)*,
-which handles the commands that the player types into the console using Listeners which come with the standard Java library,
-by making use of the callback functions that are provided with the **Interactable** interface.
+The **Game** class...
+
+The **Client** interface...
+
+The **Character** abstract class...
+
+The **Player** class...
+
+The **Enemy** class...
 
 The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
 It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
