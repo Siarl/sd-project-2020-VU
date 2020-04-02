@@ -199,7 +199,7 @@ The state "Command handling" receives the valid command when entering, and then 
 
 
 <b> Scene Class - State Machine Diagram </b>
-![State Machine Diagram - Scene](images/scenestate2.png)
+![State Machine Diagram - Scene](images/scenestate3.png)
 
 The state machine diagram for the **scene class** is a bit more complex than the **game** class, as it has more states.
 
