@@ -18,7 +18,7 @@ Maximum number of words for this section: 1000
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
 
-For each application of any design pattern you have to provide a table conforming to the template below.
+![](images-assignment3/ClassDiagramAnnotated.png)
 
 <table>
     <tr>
