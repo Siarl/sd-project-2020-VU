@@ -298,14 +298,56 @@ Word count: 406
 ## State machine diagrams
 Author(s): Claudia Grigoras
 
-This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
+<b> Game Class - State Machine Diagram </b>
 
-For each state machine you have to provide:
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities, etc. in a narrative manner (you do not need to structure your description into tables in this case). We expect 3-4 lines of text for describing trivial or very simple state machines (e.g., those with one to three states), whereas you will provide longer descriptions (e.g., ~500 words) when describing more complex state machines.
+The state machine diagrams, same as the whole design and the implementation has been through quite some changes. First of all, within a previous version, a very common design mistake has been made whereas the state machine diagrams became activity diagrams, due to the naming of states and of the events. This has been updated upon feedback and the diagram has become as follows (for the previous version).
 
-The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
+![State Machine Diagram - Game](images/gamestate2.jpeg)
+
+
+Within this diagram, it can be seen that the **game** class has four finite states which are “Game initialized”, “Game starting”, “Command reading” and “Command handling”. The initialization process within this state machine is represented by a simple state, and the other states are triggered through activities and events. The “Game initialized” is triggered by “start listener”, the “Command reading” is triggered by “read command string”, in both cases as, and the “Command Handling” has to trigger within this diagram.
+
+Not only the naming had to be further adjusted, but the initialization and the triggers changed as the whole design changed. This led to a new state machine diagram for the class **game** as it can be found below.
+
+![Final State Machine Diagram – Game ](images/Gamestateass3.png)
+
+As it can be seen, the names of the states have been more appropriately named here in order to point out that these are states, and the names are nouns. 
+
+The “Game initialized” state, is no longer a simple state but it became a composite state, whereas the internal activities performed within this state are as follows: it initializes an instance of all needed classes, initializes the stack for the views, set the first and current scene id and initializes the listener. 
+
+The next state is triggered by the activity to get all these variables. This state is called “Game started”. When entering this scene, all the variables are received. Then, as internal activities, this state adds a client to the environment, runs the listener and makes sure that a view can be entered. 
+
+The next state is triggered by the event of reading input from the terminal, and then the activity of checking the string that has been read. Then the system enters the state “Command Read”. Here, the state receives the input, and then checks and verifies whether it is a valid input. 
+
+The next state is triggered by the handle command activity. Here the command is read, and as an internal activity the state enters the scene corresponding to that command. Through here, the system will go through a number of states that belong to the **scene** class. Then, at exiting those states, the “Command Handling” exits with a new scene. The listener is still active throughout this class, and if it is triggered by new input, then the “Command Read” state will be reached again. Therefore the **game** class can reach these two states in a continuous loop. 
+
+
+<b> Scene Class - State Machine Diagram </b>
+
+Same as with the state machine diagram for the **game** class, the state machine diagram for the **scene** class needed quite some relevant changes in naming but also states and triggers wise. The design of the system and the implementation have changed for this class as well. The previous state machine (already corrected in naming for the last assignment) is as follows:
+
+![State Machine Diagram - Scene](images/scenestate2.png)
+
+Within this diagram, it can be seen that most of the states for this class are triggered by matching a command string to a specific string. Then a new state is entered. 
+
+That part has not changed for the new system. However, the initialization of this class and how the commands are being read have changed. The new state machine diagram is as follows:
+
+![Final State Machine Diagram - Scene](images/scenestateass3.png)
+
+Thus, the first major change within the new state machine diagram is the fact that two new states have been added. The first state is “Scene initialized”, a state that is reached upon initializing all the variables. 
+
+Then, the event of entering a command triggers a new state, which is “Command Determined”. Here the state checks the command whether it can be handled or not by this scene. If it is determined that it cannot, then the class reaches its final state. However, in the event that this scene can handle this command, then same as in the previous state machine diagram, a new state “Command matched” is entered. 
+
+Within this state, the system is evaluating the command received. From the "Command checked" state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings.
+
+The first alternate transition is when the condition command == "inspect" is met, and nothing else follows this string. Then, the following state is the "Items searched" composite state. The event "search items" triggers this state, which in turn performs this search as an internal activitiy. At exit, it writes these items to the terminal, and then it reaches its final state.
+
+The second alternate transition is when the command == "search" is being met. Here, the activity "provide commands" triggers this state, which in turn it searches these commands as part of its internal activity. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
+
+The third alternate transition is when the command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Effect applied". The activity that triggers this state, is to apply effect. It performs this as an internal activity, and then at exit it then returns to the game machine with a new scene id as the effect changes the scene id, and then reaches the final state of the scene.
+
+The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Item inspected" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
+
 
 Maximum number of words for this section: 4000
 
