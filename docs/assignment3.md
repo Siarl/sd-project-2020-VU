@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 1977
+Word Count: 2210
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -220,7 +220,7 @@ with outgoing messages in the CLI during gameplay. The *listCommands(Game)* list
 game state.
 
 Maximum number of words for this section: 4000 \
-Word Count: 1977
+Word Count: 2210
 
 ## Object diagrams
 Author(s): Koen van den Burg
