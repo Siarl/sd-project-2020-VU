@@ -507,4 +507,4 @@ This video shows a quick demo of our current implementation:
 
 [![Demo Video](http://img.youtube.com/vi/lwd2aol_pZE/0.jpg)](http://www.youtube.com/watch?v=lwd2aol_pZE )
 
-Wordt count: 653 words
+Wordt count: 735 words
