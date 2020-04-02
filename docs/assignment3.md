@@ -57,7 +57,7 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         too, as you need to interact with a scene to achieve things in the game. We wanted to move the implementation of the command handling as far away
         from the separate "interactive" classes as possible, while keeping all of the command handling that would possibly be needed all in the same place,
         to be used by any class that could be "interacted" with by the user.</td>
-        <td></td>
+        <td>A lot of things happen in the game. Each command the player enters has a different result, and the client needs to keep track of what is happening.</td>
         <td>One of the problems that we had during the planning of the implementation of the game is that we had multiple classes that needed to implement
         very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
         different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
@@ -77,7 +77,7 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
         Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
         any number of objects in the game that need it.</td>
-        <td></td>
+        <td>By using the Observable design pattern, we can monitor changes of values in objects with ease. By either attaching observers to the object or passing observers with method calls, the client can observer and display certain events.</td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
         a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
         **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
@@ -90,8 +90,8 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
     <tr>
         <td><b>Intended use</b></td>
-        <td><b>I am bad with words</b></td>
-        <td></td>
+        <td>When a command is entered by the player, the *handleCommand(Command, Callback)* method is called on the current **View**. The current View then either handles this command, or finds the next **Interactable** that knows how to handle this command. (Again by calling *handleCommand()*). This Interactable can again pass the command over to the next one in the chain.</td>
+        <td>The **Game** object keeps track of attached **Client** instances, and sends them information about what is happening in the game. This method is applied in other areas as well.</td>
         <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
         non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
         is back to where they were in the game before engaging in combat. </td>
@@ -102,14 +102,14 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     <tr>
         <td><b>Constraints</b></td>
         <td>N/A</td>
-        <td></td>
+        <td>N/A</td>
         <td>N/A</td>
         <td>N/A</td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
         <td>N/A</td>
-        <td>N/A</td>
+        <td>The observable pattern is not fully implemented throughout our system.</td>
         <td>N/A</td>
         <td>N/A</td>
     </tr>
@@ -382,7 +382,7 @@ We quickly found a couple points of improvement, and went back to changing the d
 After implementing the changes, we went on to writing the actual methods.
 For Assignment 3, we cleaned up some of the code. Although there are always improvements to be made.
 Luckily, most methods have the same structure:
-Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
+Besides getters and setters, the `handleCommand(Command, Callback)` (previously `onCommand`) methods play an important role.
 These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
 For Assignment 2, a major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
