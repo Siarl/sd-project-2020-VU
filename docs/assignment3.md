@@ -87,7 +87,7 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         any number of objects in the game that need it.</td>
         <td>By using the Observable design pattern, we can monitor changes of values in objects with ease. By either attaching observers to the object or passing observers with method calls, the client can observer and display certain events.</td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
-        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class <b>View**. The classes
+        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class <b>View</b>. The classes
         <b>Scene</b> and <b>Battle</b> both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
         when there were no different environments, the <b>Scene</b> class implemented the <b>Interactable</b> interface directly, but with more environments added, there
         needed to be a "middle man", not only to have these multiple classes call similar methods but also to keep track of which environment the game is in, and how to
@@ -98,12 +98,12 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
     <tr>
         <td><b>Intended use</b></td>
-        <td>When a command is entered by the player, the *handleCommand(Command, Callback)* method is called on the current <b>View**. The current View then either handles this command, or finds the next <b>Interactable</b> that knows how to handle this command. (Again by calling *handleCommand()*). This Interactable can again pass the command over to the next one in the chain.</td>
+        <td>When a command is entered by the player, the *handleCommand(Command, Callback)* method is called on the current <b>View</b>. The current View then either handles this command, or finds the next <b>Interactable</b> that knows how to handle this command. (Again by calling *handleCommand()*). This Interactable can again pass the command over to the next one in the chain.</td>
         <td>The <b>Game</b> object keeps track of attached <b>Client</b> instances, and sends them information about what is happening in the game. This method is applied in other areas as well.</td>
         <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
         non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
         is back to where they were in the game before engaging in combat. </td>
-        <td>At run-time, when a player enters an action command, a method is called that returns a list of objects of class <b>Effect**. These objects have
+        <td>At run-time, when a player enters an action command, a method is called that returns a list of objects of class <b>Effect</b>. These objects have
         their own descriptions and a type. Then, the type is the only thing that is important, and the appropriate changes are made depending on the
         type of effect from the enum variables, and the appropriate output is made to the player on the CLI if it is appropriate.</td>
     </tr>
