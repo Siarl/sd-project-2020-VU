@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 2210
+Word Count: 2448
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -79,20 +79,20 @@ Author(s): Sofia Konovalova
 - [x] ActionStore
 - [x] ItemStore
 - [x] SceneStore
-- [ ] Actions
+- [x] Actions
 - [x] Battle
 - [x] Character
-- [x] CharacterStats
-- [x] Client
+- [ ] CharacterStats
+- [ ] Client
 - [x] Command
-- [x] Conversation
+- [ ] Conversation
 - [x] Effect
 - [x] Effects
 - [x] Enemy
 - [x] Friend
 - [x] Game
 - [x] Interactable
-- [ ] Item
+- [x] Item
 - [x] Player
 - [x] Scene
 - [ ] Stats
@@ -145,6 +145,10 @@ creates a hash map between the unique ID and the *Scene* object itself. The **Ac
 *toIntegerActionMap()*, which creates a hash map between a unique ID of the scene and the actions that are available in that scene. The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
 a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
 
+The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
+which determines which actions are available with this particular item. It has the functions *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
+use the **Interactable** interface as items are interactable within the game and need to be handled appropriately. \
+
 The **Character** abstract class defines everything in common between the different characters in the game. There are three kinds of Characters: the player, enemies
 and friendlies. Therefore, the **Player**, **Enemy** and **Friend** class are subclasses of **Character**. The class has the following attributes: *inventory*, which is a list
 of all the items that the character has in their inventory; *name*, which the name of the character; *description*, which a description of the character;
@@ -158,6 +162,8 @@ we need to remove multiple items from the Character's inventory. The methods mak
 deal with the handling of items being inserted and taken out of the inventories of certain characters.
 
 The **CharacterStats** class...
+
+The **Stats** class...
 
 The **Player**, **Enemy** and **Friend** class are very similar to each other, with some differences. All three of them have constructors: *Player(String)*, which creates
 a player with a certain name; *Enemy(String, String, int)* which creates an enemy with a name, description and inventory size; *Friend(String, String, int)*
@@ -185,6 +191,12 @@ explained further below. It also implements methods from the **Interactable** in
 method is the *challenge(String, Callback)*, which handles the actual battle happening, a.k.a. one character challenging another one,
 and then informing the player on the CLI of the result.
 
+The **Actions** class has the attributes *commands*, which is a Set of strings of actions commands, and *id*, which is a unique id of the scene that comes
+after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *onCommand(Command, Callback)*
+and *listCommands(Game, List<String>)* which handle the commands to decide what the game should do next should the player enter an action command, and which
+prints out the list of possible action commands in a scene respectively. It also has a function *getEffect(String)* which returns an object of the class *Effect*,
+which is preceisly what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
+*hasCommand(String)* function checks if the command that the player has type actually exists, and returns a boolean. \
 The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
 the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
 navigation through the world (the player moving from one place to another), on the inventory (picking up an object), or on the stats of the player (sleeping increasing health
@@ -200,7 +212,8 @@ Then, the *Effect* object is retrieved and applied. What exactly happens when an
 by having one command to apply multiple effect types. This is implemented using the **Effects** class. \
 The **Effects** class has two attributes: *effectList*, which is a list of *Effect* objects, and the method *apply(Game)*, to apply the effects to the game.
 Now, the **Effects** class contains a collection of effects, and the *apply(Game)* method applies all the effects at once. Instead of mapping a command to an
-*Effect* object, it is now mapped to an *Effects* object, which handles the application of the effects to the game.
+*Effect* object, it is now mapped to an *Effects* object, which handles the application of the effects to the game. The **Effects** and **Actions** class have a
+composition relationship, because an action has an effect, but the effect cannot exist without the action existing as well.
 
 The **Command** class can be thought of as a sort of "parser" for the commands that the player writes in the terminal when they are playing the game.
 The **Command** class has the following attributes: *action* and *receiver*, which are both of type *String*, and *game*, which is a *Game* object. The atrribute
@@ -216,7 +229,7 @@ with outgoing messages in the CLI during gameplay. The *listCommands(Game)* list
 game state.
 
 Maximum number of words for this section: 4000 \
-Word Count: 2210
+Word Count: 2448
 
 ## Object diagrams
 Author(s): Koen van den Burg
