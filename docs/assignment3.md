@@ -37,34 +37,41 @@ For each application of any design pattern you have to provide a table conformin
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td></td>
+        <td>A paragraph describing the problem you want to solve</td>
+        <td>A paragraph describing the problem you want to solve</td>
         <td>A paragraph describing the problem you want to solve</td>
         <td>A paragraph describing the problem you want to solve</td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
-        <td></td>
-        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
-        <td>A paragraph describing why with the application of the design pattern you solve the identified problem</td>
+        <td>The Chain of Responsibility pattern allows for data that can't be used by certain objects to be sent to a number of any other
+        object that can use it. In the command pattern, an object encapsulates and represents all information needed to call a method
+        at a later time. <b>to be continued</b></td>
+        <td>The Observer design pattern is used when multiple objects need to receive an update about another object's change. <b>to be continued</b></td>
+        <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
+        a method that contains a series of method calls that each subclass will call. <b>to be continued</b></td>
+        <td>The Decorator design pattern allows you to modify an object at run-time -- like inheritance. <b>to be continued</b></td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
         <td></td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
         <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+        <td></td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
-        <td>One of the constraints is that commands for each of the interactable features have to be quite similar to each other, with not a lot of room
-        for difference or creativity. This is not a big problem, but if the game were to be more complicated this could be a difficulty.</td>
+        <td></td>
         <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
         <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+        <td></td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
         <td>N/A</td>
         <td>Optional, only if needed</td>
         <td>Optional, only if needed</td>
+        <td></td>
     </tr>
 </table>
 
