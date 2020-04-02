@@ -273,7 +273,7 @@ Word Count: 2914
 Author(s): Koen van den Burg
 
 
-![](images/ObjectDiagramV3.png)
+![](images-assignment3/ObjectDiagramV4.png)
 
 This Object diagram captures the snapshot of the very beginning of the game.
 Everything shown in the object diagram is implemented into our system.
