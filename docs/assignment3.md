@@ -18,8 +18,6 @@ Maximum number of words for this section: 1000
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
 
-![](images-assignment3/ClassDiagramAnnotated.png)
-
 For each application of any design pattern you have to provide a table conforming to the template below.
 
 <table>
@@ -74,8 +72,6 @@ Maximum number of words for this section: 2000
 ## Class diagram
 Author(s): Sofia Konovalova
 
-**not the final class diagram, but needed for me to write this up for now**
-
 ![](images-assignment3/ClassDiagram.png)
 
 - [x] LocalFileTool
@@ -86,10 +82,10 @@ Author(s): Sofia Konovalova
 - [ ] Actions
 - [x] Battle
 - [x] Character
-- [ ] CharacterStats
+- [x] CharacterStats
 - [x] Client
 - [x] Command
-- [ ] Conversation
+- [x] Conversation
 - [x] Effect
 - [x] Effects
 - [x] Enemy
@@ -141,13 +137,13 @@ conversation with a friendly. *setCurrentSceneById(int, Callback)* has a public 
 two is that the private method sets the game state to another scene, using the ID of the next scene that the game needs to move to. The method *handleCommand(String)* handles the commands
 that the player inputs that are game-specific. It makes use of the Interactable interface's Callback interface to handle the commands.
 
+The **Client** interface...
+
 There are also three "store" classes: **ActionStore**, **ItemStore**, **SceneStore**.  These three classes store the actions in the game, the items in the game
 and the scenes in the game respectively. The **SceneStore** class stores the list of *Scene* objects *scenesList*, and the ID of the starting scene, *startSceneId*. The function *toIntegerSceneMap()*
 creates a hash map between the unique ID and the *Scene* object itself. The **ActionStore** acts similarly to the **SceneStore** class, containing only the *actionsList* attribute which is a List of *Actions* objects, and the function
 *toIntegerActionMap()*, which creates a hash map between a unique ID of the scene and the actions that are available in that scene. The **ItemStore** class acts as the same companion as **ActionStore** does to **Action** and **SceneStore** to **Scene**, containing a List of *Item* objects, and
 a function *toStringItemMap()* which creates a hash map of the name of the objects to the *Item* object.
-
-The **Client** interface...
 
 The **Character** abstract class defines everything in common between the different characters in the game. There are three kinds of Characters: the player, enemies
 and friendlies. Therefore, the **Player**, **Enemy** and **Friend** class are subclasses of **Character**. The class has the following attributes: *inventory*, which is a list
