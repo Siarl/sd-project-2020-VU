@@ -6,7 +6,12 @@ import java.util.List;
 public class Conversation implements Interactable {
 
     private List<String> lines;
-    private boolean hasTalked = false;
+    private boolean hasTalked;
+
+    public Conversation(List<String> lines) {
+        this.lines = lines;
+        this.hasTalked = false;
+    }
 
     @Override
     public boolean onCommand(Command command, Callback callback) {
@@ -16,10 +21,11 @@ public class Conversation implements Interactable {
             for (String line : lines) {
                 callback.onMessage(line);
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(1000);
                 } catch (Exception ignored) {
                 }
             }
+            this.hasTalked = true;
         }
         return true;
     }

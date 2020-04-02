@@ -5,12 +5,8 @@ import java.util.List;
 public class Player extends Character {
 
     public Player(String name) {
-        super(name, "", 12);
-        stats = new CharacterStats();
-        stats.setMaxHealthPoints(100);
-        stats.setHealthPoints(100);
-        stats.setBaseDamage(20);
-        stats.setBaseLuck(1);
+        super(name, "", 12, null); //TODO replace null
+        stats = new CharacterStats(100, 20, 1);
     }
 
     /*

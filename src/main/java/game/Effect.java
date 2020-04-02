@@ -18,6 +18,29 @@ public class Effect {
     private List<String> inventoryAddChange;
     private List<String> inventoryRemoveChange;
 
+    public Effect(String description) {
+        this.description = description;
+    }
+
+    public Effect(String description, int sceneIdChange) {
+        this(description);
+        this.type = Type.NAVIGATION;
+        this.sceneIdChange = sceneIdChange;
+    }
+
+    public Effect(String description, Stats statsChange) {
+        this(description);
+        this.type = Type.STATS;
+        this.statsChange = statsChange;
+    }
+
+    public Effect(String description, List<String> inventoryAddChange, List<String> inventoryRemoveChange) {
+        this(description);
+        this.type = Type.INVENTORY;
+        this.inventoryAddChange = inventoryAddChange;
+        this.inventoryRemoveChange = inventoryRemoveChange;
+    }
+
     /**
      * Applies the changes specified effect to the game.
      * @param game the Game object to apply this effect on

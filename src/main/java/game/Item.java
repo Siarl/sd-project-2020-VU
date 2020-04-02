@@ -7,8 +7,14 @@ public class Item implements Interactable {
 
     private String name;
     private String description;
-    private Actions actions;
     private int actionId;
+    private transient Actions actions;
+
+    public Item(String name, String description, int actionId) {
+        this.name = name;
+        this.description = description;
+        this.actionId = actionId;
+    }
 
     @Override
     public boolean onCommand(Command command, Callback callback) {

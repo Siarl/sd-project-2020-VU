@@ -7,8 +7,9 @@ public class Friend extends Character {
 
     private Conversation conversation;
 
-    public Friend(String name, String description, int inventorySize) {
-        super(name, description, inventorySize);
+    public Friend(String name, String description, int inventorySize, Conversation conversation) {
+        super(name, description, inventorySize, null);
+        this.conversation = conversation;
     }
 
     @Override
@@ -17,7 +18,10 @@ public class Friend extends Character {
             conversation.onCommand(command, callback);
             return true;
         } else if (command.getAction().equals("inspect")) {
-            callback.onMessage("inspect: friend " + name + ", " + conversation);
+            StringBuilder message = new StringBuilder("inspect: friend " + name + ", " + description + "\n");
+            listCommands(command.getGame(), new ArrayList<>()).forEach(s -> message.append("\t").append(s).append("\n"));
+            callback.onMessage(message.toString());
+
             return true;
         }
         return false;
@@ -25,9 +29,9 @@ public class Friend extends Character {
 
     @Override
     public List<String> listCommands(Game game, List<String> addToThisList) {
-        List<String> result = new ArrayList<>();
-        result.add("talk");
-        return result;
+        addToThisList.add("inspect");
+        addToThisList.add("talk");
+        return addToThisList;
     }
 
 }

@@ -6,6 +6,12 @@ public class Stats {
     protected int baseDamage;
     protected int baseLuck;
 
+    public Stats(int healthPoints, int baseDamage, int baseLuck) {
+        this.healthPoints = healthPoints;
+        this.baseDamage = baseDamage;
+        this.baseLuck = baseLuck;
+    }
+
     public int getHealthPoints() {
         return healthPoints;
     }
