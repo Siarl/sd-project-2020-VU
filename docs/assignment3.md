@@ -153,13 +153,24 @@ The **Character** abstract class defines everything in common between the differ
 and friendlies. Therefore, the **Player**, **Enemy** and **Friend** class are subclasses of **Character**. The class has the following attributes: *inventory*, which is a list
 of all the items that the character has in their inventory; *name*, which the name of the character; *description*, which a description of the character;
 *inventorySize*, which an integer describing how many objects can be held in the inventory of the character; and *characterStats*, which is an object of the class
-**CharacterStats**, which describes stats of the characters such as health points.
+**CharacterStats**, which describes stats of the characters such as health points. The constructor *Character(String, String, int)* creates the character
+with the name of the character, their description and their inventory size as parameters. The methods *setInventorySize(int, InventoryListener)*,
+*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection<String>, InventoryListener)*, *removeAllFromInventory(Collection<String>,
+InventoryListener)* are all methods that deal with the character's inventory. The method names speak for themselves, but a Collection data type is used when
+we need to remove multiple items from the Character's inventory. The methods make use of the class' inner InventoryListener interface, which has methods
+*onItemAdded(Character, String)*, *onItemAddFailed(Character, String)*, *onItemRemoved(Character, String)* and *onSizeChanged(Character, int, int)* which
+deal with the handling of items being inserted and taken out of the inventories of certain characters.
 
-The **Player** class...
+The **CharacterStats** class...
 
-The **Enemy** class...
+The **Player**, **Enemy** and **Friend** class are very similar to each other, with some differences. All three of them have constructors: *Player(String)*, which creates
+a player with a certain name; *Enemy(String, String, int)* which creates an enemy with a name, description and inventory size; *Friend(String, String, int)*
+which works the same name as the **Enemy** constructor. All three of them use the methods *onCommand(Command, Callback)* and *listCommands(Game, List<String>)* from the
+**Interactable** interface, for the game to handle commands that are specific to those three characters. The **Friend** class has an attribute *conversation* which is an object
+of the class **Conversation** -- this is to enable conversation between the player and friendlies, as you cannot engage in battle with them, but you can maybe
+extract some information from them during the game.
 
-The **Friend** class...
+The **Conversation** class...
 
 The **Scene** class defines the actions that are possible at a given time, the items that are in each scene, and the description of the scene itself.
 It handles commands that are scene-specific, such as "search" or "inspect". The class has the attributes *items*, which is a list of items available in the scene,
