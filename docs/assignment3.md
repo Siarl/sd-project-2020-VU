@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 3058
+Word Count: 3297
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -48,45 +48,65 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td>One of the problems that was found early in the planning of the game was how to implement the commands typed by the user during gameplay.
+        The game has multiple things that can be interacted with, such as items and other characters. Actions and scenes could be thought of as interactive
+        too, as you need to interact with a scene to achieve things in the game. We wanted to move the implementation of the command handling as far away
+        from the separate "interactive" classes as possible, while keeping all of the command handling that would possibly be needed all in the same place,
+        to be used by any class that could be "interacted" with by the user.</td>
+        <td></td>
+        <td>One of the problems that we had during the planning of the implementation of the game is that we had multiple classes that needed to implement
+        very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
+        different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
+        where the player has to directly interact with another character. Both of these environments are different, but similar in a way.</td>
+        <td></td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
         <td>The Chain of Responsibility pattern allows for data that can't be used by certain objects to be sent to a number of any other
         object that can use it. In the command pattern, an object encapsulates and represents all information needed to call a method
-        at a later time. <b>to be continued</b></td>
+        at a later time. The Command design pattern is used to represent and encapsulate all the information needed to call a method at a later time.
+        Our **Interactable** interface implements both of these design patterns. The **Interactable** interface also has an inner **Callback** class and a
+        dependency to the **Command** class, so the command handling is moved even further away from the client. Since the **Interactable** interface is implemented
+        by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
+        Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
+        any number of objects in the game that need it.</td>
         <td>The Observer design pattern is used when multiple objects need to receive an update about another object's change. <b>to be continued</b></td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
-        a method that contains a series of method calls that each subclass will call. <b>to be continued</b></td>
+        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
+        **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
+        when there were no different environments, the **Scene** class implemented the **Interactable** interface directly, but with more environments added, there
+        needed to be a "middle man", not only to have these multiple classes call similar methods but also to keep track of which environment the game is in, and how to
+        get back to the environment it was previously in.</td>
         <td>The Decorator design pattern allows you to modify an object at run-time -- like inheritance. <b>to be continued</b></td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
+        <td><b>I am bad with words</b></td>
         <td></td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
+        <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
+        non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
+        is back to where they were in the game before engaging in combat. </td>
         <td></td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
         <td></td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
+        <td></td>
+        <td>N/A</td>
         <td></td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
         <td>N/A</td>
-        <td>Optional, only if needed</td>
-        <td>Optional, only if needed</td>
-        <td></td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
     </tr>
 </table>
 
 Maximum number of words for this section: 2000
+Word Count: 329
+
 ## Class diagram
 Author(s): Sofia Konovalova
 
