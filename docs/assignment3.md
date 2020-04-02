@@ -352,7 +352,7 @@ The third alternate transition is when the command == action + item. Both action
 
 The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Item inspected" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
 
-
+Word count: 1050
 Maximum number of words for this section: 4000
 
 ## Sequence diagrams
