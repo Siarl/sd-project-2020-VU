@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 2808
+Word Count: 3058
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -24,6 +24,7 @@ the class is the plural **Actions** with multiplicity 1 as should be in a conven
 attribute *actionsList* is easier to understand what it is, as it is a list of Actions that are possible: List&lt;Actions>
 
 Maximum number of words for this section: 1000
+Word Count: 144
 
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
@@ -239,7 +240,7 @@ The **Interactable** interface defines two methods, which deal with command hand
 with outgoing messages in the CLI during gameplay. The *listHandledCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state. The *handleCommand(Command, Callback)* actually handles the command.
 
-Word Count: 2903
+Word Count: 2914
 
 ## Object diagrams
 Author(s): Koen van den Burg
