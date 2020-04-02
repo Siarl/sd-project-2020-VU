@@ -5,6 +5,7 @@ import game.Player;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,9 +21,11 @@ public class Main {
         List<File> saveFileList = LocalFileTool.listSaveFiles(Main.class.getClassLoader());
         System.out.println("Pick an option:");
         System.out.println("1.\tNew Game");
-        for (int i = 2; i < saveFileList.size(); i++) {
-            File file = saveFileList.get(i - 2);
+
+        int i = 2;
+        for (File file : saveFileList) {
             System.out.println(i + ".\t" + file.getName());
+            i++;
         }
 
         String choiceString = scanner.nextLine();
@@ -30,17 +33,16 @@ public class Main {
 
         Game game = null;
         if (choiceInt == 1) {
-//            try {
-//                game = LocalFileTool.makeNewGameFromFile(Main.class.getClassLoader());
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
             game = GameFactory.createExample();
+            System.out.println("Enter a name:");
+            choiceString = scanner.nextLine();
+            game.setPlayer(new Player(choiceString));
+
         } else {
             int foo = choiceInt - 2;
             if (foo >= 0 && foo < saveFileList.size()) {
                 try {
-                    game = LocalFileTool.makeGameFromSaveFile(Main.class.getClassLoader(), saveFileList.get(foo));
+                    game = LocalFileTool.fromFile(saveFileList.get(foo));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -51,14 +53,16 @@ public class Main {
             return;
         }
 
-        game.setPlayer(new Player("Bogdan"));
         game.start(System.out::println);
-
-
         while (true) {
             String command = scanner.nextLine();
 
             if (command.equals("quit")) {
+                try {
+                    LocalFileTool.toFile(game, Main.class.getClassLoader());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return;
             }
 
