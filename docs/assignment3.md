@@ -2,7 +2,7 @@
 
 Maximum number of words for this document: 18000
 
-Word Count: 3754
+Word Count: 4407
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
@@ -355,15 +355,15 @@ based game were:
 - Interface
 - Actions
 
-All three of these features were implemented using a **Interactable** interface. 
-Using an interface meant that the same "template" could be used for anything within the game that was interactable. 
-Actions are things we do with objects or to move around the environment, so therefore it was an interactable part of the game. 
-Commands are an interactable part of the game, so therefore they used the interface. 
+All three of these features were implemented using a **Interactable** interface.
+Using an interface meant that the same "template" could be used for anything within the game that was interactable.
+Actions are things we do with objects or to move around the environment, so therefore it was an interactable part of the game.
+Commands are an interactable part of the game, so therefore they used the interface.
 This interface did not exist in the first version of our class model, and with time we realized
 that this made our system and code easier to work with.
 
-The interface feature is a success. 
-Our program uses the command line interface of the user's computer. 
+The interface feature is a success.
+Our program uses the command line interface of the user's computer.
 The interface, in a way, even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
 This allows for the interface of the game to be independent from the actual game itself.
 
