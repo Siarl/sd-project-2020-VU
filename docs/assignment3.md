@@ -80,16 +80,16 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         <td>The Chain of Responsibility pattern allows for data that can't be used by certain objects to be sent to a number of any other
         object that can use it. In the command pattern, an object encapsulates and represents all information needed to call a method
         at a later time. The Command design pattern is used to represent and encapsulate all the information needed to call a method at a later time.
-        Our **Interactable** interface implements both of these design patterns. The **Interactable** interface also has an inner **Callback** class and a
-        dependency to the **Command** class, so the command handling is moved even further away from the client. Since the **Interactable** interface is implemented
-        by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
+        Our <b>Interactable</b> interface implements both of these design patterns. The <b>Interactable</b> interface also has an inner <b>Callback</b> class and a
+        dependency to the <b>Command</b> class, so the command handling is moved even further away from the client. Since the <b>Interactable</b> interface is implemented
+        by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class <b>Command</b> to be used at a later time.
         Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
         any number of objects in the game that need it.</td>
         <td>By using the Observable design pattern, we can monitor changes of values in objects with ease. By either attaching observers to the object or passing observers with method calls, the client can observer and display certain events.</td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
-        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
-        **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
-        when there were no different environments, the **Scene** class implemented the **Interactable** interface directly, but with more environments added, there
+        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class <b>View**. The classes
+        <b>Scene</b> and <b>Battle</b> both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
+        when there were no different environments, the <b>Scene</b> class implemented the <b>Interactable</b> interface directly, but with more environments added, there
         needed to be a "middle man", not only to have these multiple classes call similar methods but also to keep track of which environment the game is in, and how to
         get back to the environment it was previously in.</td>
         <td>The solution to this problem was the Decorator design pattern. This design pattern allows for objects to be modified at run time, a.k.a. having the
@@ -98,12 +98,12 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
     </tr>
     <tr>
         <td><b>Intended use</b></td>
-        <td>When a command is entered by the player, the *handleCommand(Command, Callback)* method is called on the current **View**. The current View then either handles this command, or finds the next **Interactable** that knows how to handle this command. (Again by calling *handleCommand()*). This Interactable can again pass the command over to the next one in the chain.</td>
-        <td>The **Game** object keeps track of attached **Client** instances, and sends them information about what is happening in the game. This method is applied in other areas as well.</td>
+        <td>When a command is entered by the player, the *handleCommand(Command, Callback)* method is called on the current <b>View**. The current View then either handles this command, or finds the next <b>Interactable</b> that knows how to handle this command. (Again by calling *handleCommand()*). This Interactable can again pass the command over to the next one in the chain.</td>
+        <td>The <b>Game</b> object keeps track of attached <b>Client</b> instances, and sends them information about what is happening in the game. This method is applied in other areas as well.</td>
         <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
         non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
         is back to where they were in the game before engaging in combat. </td>
-        <td>At run-time, when a player enters an action command, a method is called that returns a list of objects of class **Effect**. These objects have
+        <td>At run-time, when a player enters an action command, a method is called that returns a list of objects of class <b>Effect**. These objects have
         their own descriptions and a type. Then, the type is the only thing that is important, and the appropriate changes are made depending on the
         type of effect from the enum variables, and the appropriate output is made to the player on the CLI if it is appropriate.</td>
     </tr>
