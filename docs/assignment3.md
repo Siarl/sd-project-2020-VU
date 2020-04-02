@@ -33,7 +33,7 @@ attribute *actionsList* is easier to understand what it is, as it is a list of A
 From the feedback given by the TA, the biggest flaw that the state machine diagrams had, because of the naming of the states and other variables, these did not represent a state machine diagram anymore but an activity diagram. Upon reading, it became obvious that this is true and that this is a very common mistake within UML as the diagrams are fairly similar. Thus, the new diagrams tried to follow the state machine diagrams rules whereas the states should be represented by nouns. 
 
 Maximum number of words for this section: 1000
-Word Count: 144
+Word Count: 240
 
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
