@@ -7,10 +7,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Game {
 
-    private transient Map<Integer, Scene> sceneMap;
-    private transient Map<Integer, Actions> actionsMap;
-    private transient Map<String, Item> itemMap;
-    private transient Map<String, Character> characterMap;
+    private Map<Integer, Scene> sceneMap;
+    private Map<Integer, Actions> actionsMap;
+    private Map<String, Item> itemMap;
+    private Map<String, Character> characterMap;
     private transient Set<Client> clients = new CopyOnWriteArraySet<>();
     private Player player;
     private int currentSceneId;

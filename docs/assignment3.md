@@ -1,24 +1,35 @@
 # Assignment 3
 
-Maximum number of words for this document: 18000
+Max number of words for this document: 18000
 
-Word Count: 2808
+Word Count: 4407
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
 **Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
 
 ### Summary of changes of Assignment 2
-Author(s): Bogdan Cercel
+Author(s): Everyone
 
 Provide a bullet list summarizing all the changes you performed in Assignment 2 for addressing our feedback.
 
+**UML Class Diagram:** \
+From the feedback given by the TA, the following has been changed in the class diagram:
+- Compositions were fixed -- if there was a composition and the encapsulated class was shared, this was fixed and removed.
+This was mostly due to a misunderstanding of class diagrams and compositions in the beginning of the project, but now progress
+in both of those areas was made.
+- Missing features have been added: F6, F7, and F8 were added. The time mechanic feature (F9) was scrapped.
+- Naming conventions were kept, because the convention made the code easier to read in some cases; for example,
+the class is the plural **Actions** with multiplicity 1 as should be in a convention, but in the **ActionStore** class, the
+attribute *actionsList* is easier to understand what it is, as it is a list of Actions that are possible: List&lt;Actions>
+
 Maximum number of words for this section: 1000
+Word Count: 144
 
 ### Application of design patterns
 Author(s): Sofia Konovalova, Wilkin van Roosmalen
 
-For each application of any design pattern you have to provide a table conforming to the template below.
+![](images-assignment3/ClassDiagramAnnotated.png)
 
 <table>
     <tr>
@@ -37,45 +48,72 @@ For each application of any design pattern you have to provide a table conformin
     </tr>
     <tr>
         <td><b>Problem</b></td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
-        <td>A paragraph describing the problem you want to solve</td>
+        <td>One of the problems that was found early in the planning of the game was how to implement the commands typed by the user during gameplay.
+        The game has multiple things that can be interacted with, such as items and other characters. Actions and scenes could be thought of as interactive
+        too, as you need to interact with a scene to achieve things in the game. We wanted to move the implementation of the command handling as far away
+        from the separate "interactive" classes as possible, while keeping all of the command handling that would possibly be needed all in the same place,
+        to be used by any class that could be "interacted" with by the user.</td>
+        <td></td>
+        <td>One of the problems that we had during the planning of the implementation of the game is that we had multiple classes that needed to implement
+        very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
+        different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
+        where the player has to directly interact with another character. Both of these environments are different, but similar in a way.</td>
+        <td>In the game, all actions have consequences in the form of changing scene, stats changing or the inventory changing. The problem was
+        finding a way to be able to change the type of effect for every single action, without doing an operation that could be wasting time
+        such as mapping actions to a certain type and then looking for the action that was just entered by the user -- this would take too much time
+        and too much computational power. </td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
         <td>The Chain of Responsibility pattern allows for data that can't be used by certain objects to be sent to a number of any other
         object that can use it. In the command pattern, an object encapsulates and represents all information needed to call a method
-        at a later time. <b>to be continued</b></td>
-        <td>The Observer design pattern is used when multiple objects need to receive an update about another object's change. <b>to be continued</b></td>
+        at a later time. The Command design pattern is used to represent and encapsulate all the information needed to call a method at a later time.
+        Our **Interactable** interface implements both of these design patterns. The **Interactable** interface also has an inner **Callback** class and a
+        dependency to the **Command** class, so the command handling is moved even further away from the client. Since the **Interactable** interface is implemented
+        by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
+        Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
+        any number of objects in the game that need it.</td>
+        <td></td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
-        a method that contains a series of method calls that each subclass will call. <b>to be continued</b></td>
-        <td>The Decorator design pattern allows you to modify an object at run-time -- like inheritance. <b>to be continued</b></td>
+        a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
+        **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
+        when there were no different environments, the **Scene** class implemented the **Interactable** interface directly, but with more environments added, there
+        needed to be a "middle man", not only to have these multiple classes call similar methods but also to keep track of which environment the game is in, and how to
+        get back to the environment it was previously in.</td>
+        <td>The solution to this problem was the Decorator design pattern. This design pattern allows for objects to be modified at run time, a.k.a. having the
+        capabilities of inheritance at run-time. This was done in the implementation using an enumerator for the types of effects that can occur: a
+        navigation effect, a stats effect, and an inventory effect.</td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
+        <td><b>I am bad with words</b></td>
         <td></td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
-        <td>A paragraph describing how you instend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time)</td>
-        <td></td>
+        <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
+        non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
+        is back to where they were in the game before engaging in combat. </td>
+        <td>At run-time, when a player enters an action command, a method is called that returns a list of objects of class **Effect**. These objects have
+        their own descriptions and a type. Then, the type is the only thing that is important, and the appropriate changes are made depending on the
+        type of effect from the enum variables, and the appropriate output is made to the player on the CLI if it is appropriate.</td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
+        <td>N/A</td>
         <td></td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
-        <td>Any additional constraints that the application of the design pattern is imposing, if any </td>
-        <td></td>
+        <td>N/A</td>
+        <td>N/A</td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
         <td>N/A</td>
-        <td>Optional, only if needed</td>
-        <td>Optional, only if needed</td>
-        <td></td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
     </tr>
 </table>
 
 Maximum number of words for this section: 2000
+Word Count: 840
+
 ## Class diagram
 Author(s): Sofia Konovalova
 
@@ -111,8 +149,8 @@ The **Game** class is the most important class of the game. It has the following
 state; *sceneMap* which is a Map that associates the unique scene IDs with a *Scene* object; *itemMap*, which is a Map that associates a String name of an item
 with the *Item* object; and finally, *player*, which is an object of class **Player**, which is the player in the game. \
 There is usage of constructor overloading in this class, depending on what is available for the game to be made. The default constructor, *Game()*,
-initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map<Integer, Scene>,
-Map<Integer, Actions>, Map<String, Item>, Map<String, Character>, int)* and *Game(Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, Map<String, Character>, int)* create a game from
+initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map&lt;Integer, Scene>,
+Map&lt;Integer, Actions>, Map&lt;String, Item>, Map&lt;String, Character>, int)* and *Game(Map&lt;Integer, Scene>, Map&lt;Integer, Actions>, Map&lt;String, Item>, Map&lt;String, Character>, int)* create a game from
 the available information from the mapped actions, scenes and items, but they only differ in if the player name is available; otherwise the default name that is
 hardcoded is used. The method *start(Client)* creates a "client" for the game, a.k.a. the player of the game; *addClient(Client)* adds a new client to the game -- even though
 this method is not applicable at the current game version, it can be used to add a multiplayer function to the game. *removeClient(Client)* removes a client
@@ -131,7 +169,7 @@ a function *toStringItemMap()* which creates a hash map of the name of the objec
 **Character** in the game, and a method *toStringCharacterMap()* where each of the characters are mapped to their name.
 
 The **Item** class describes the items that are available in the scenes. It has the attributes *name*, *description*, and *actions*, which is an *Actions* object
-which determines which actions are available with this particular item. It has the functions *handleCommand(Command, Callback)* and *listCommands(Game, List<String>)* which
+which determines which actions are available with this particular item. It has the functions *handleCommand(Command, Callback)* and *listCommands(Game, List&lt;String>)* which
 use the **Interactable** interface as items are interactable within the game and need to be handled appropriately. \
 
 The **Character** abstract class defines everything in common between the different characters in the game. There are three kinds of Characters: the player, enemies
@@ -140,7 +178,7 @@ of all the items that the character has in their inventory; *name*, which the na
 *inventorySize*, which an integer describing how many objects can be held in the inventory of the character; and *characterStats*, which is an object of the class
 **CharacterStats**, which describes stats of the characters such as health points. The constructor *Character(String, String, int)* creates the character
 with the name of the character, their description and their inventory size as parameters. The methods *setInventorySize(int, InventoryListener)*,
-*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection<String>, InventoryListener)*, *removeAllFromInventory(Collection<String>,
+*addItemToInventory(String, InventoryListener)*, *addAllToInventory(Collection&lt;String>, InventoryListener)*, *removeAllFromInventory(Collection&lt;String>,
 InventoryListener)* are all methods that deal with the character's inventory. The method names speak for themselves, but a Collection data type is used when
 we need to remove multiple items from the Character's inventory. The methods make use of the class' inner InventoryListener interface, which has methods
 *onItemAdded(Character, String)*, *onItemAddFailed(Character, String)*, *onItemRemoved(Character, String)* and *onSizeChanged(Character, int, int)* which
@@ -193,7 +231,7 @@ The **Actions** class has the attributes *commands*, which is a Set of strings o
 after an action command is written to the console. Since the **Actions** is a realization of the interface **Interactable**, it has the functions *handleCommand(Command, Callback)*
 and *listHandledCommands(Game)* which handle the commands to decide what the game should do next should the player enter an action command, and which
 prints out the list of possible action commands in a scene respectively. It also has a function *getEffect(String)* which returns an object of the class *Effect*,
-which is preceisly what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
+which is precisely what determines the effect of an action on a player. For example, one action could increase health points and another one decrease them. The
 *hasCommand(String)* function checks if the command that the player has type actually exists, and returns a boolean. \
 The **Effect** class handles the effects of each of the action. One of the most important aspects of the class is that is has an enumerator named *Type*, which determines
 the type of effect that an action has -- the attributes of the enumerator are *NAVIGATION*, *INVENTORY*, *STATS*, which determine that an action can have an effect on the
@@ -229,7 +267,7 @@ The **Interactable** interface defines two methods, which deal with command hand
 with outgoing messages in the CLI during gameplay. The *listHandledCommands(Game)* lists the possible commands that can be written by the player at a particular
 game state. The *handleCommand(Command, Callback)* actually handles the command.
 
-Word Count: 2903
+Word Count: 2914
 
 ## Object diagrams
 Author(s): Koen van den Burg
@@ -288,17 +326,85 @@ Maximum number of words for this section: 4000
 ## Implementation
 Author(s): Wilkin van Roosmalen
 
-In this chapter you will describe the following aspects of your project:
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system (for example, how you implemented the syntax highlighting feature of your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+### Writing the Code
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
+After discussing and creating the first UML models, we started on the implementation.
+First, a skeleton was made.
+All classes were created and populated with the attributes and methods defined in the Class diagram.
+We quickly found a couple points of improvement, and went back to changing the diagrams.
 
-Maximum number of words for this section: 2000
+After implementing the changes, we went on to writing the actual methods.
+For Assignment 3, we cleaned up some of the code. Although there are always improvements to be made.
+Luckily, most methods have the same structure:
+Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
+These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
-## References
+For Assignment 2, a major issue we had to solve was storing the game info. The `Game` object refers to a lot of objects.
+Simply converting the `Game` object to JSON and back would not work.
+To solve this problem, three "Store" objects were created: `ActionStore`, `ItemStore`, `CharacterStore`, and `SceneStore`.
+These objects are populated using the GSON library in `LocalFileTool`.
+Then, their contents are given to the `Game` object.
+Implementing these "Store" objects allowed us to easily get a game going.
 
-References, if needed.
+In the resources folder, three files can be found:
+
+- main-game.actions.json (ActionStore)
+- main-game.items.json (ItemStore)
+- main-game.scenes.json (SceneStore)
+- main-game.characters.json (CharacterStore)
+
+These files contained the actual content of the game, but are now outdated and should either be replaced or removed.
+By adding and changing the values in these files, the game can be extended.
+
+For Assignment 3, the main game files are redundant. Instead, we chose to build an example Game in **GameFactory**.
+
+We also automatically save the game, using the methods in **LocalFileTool**.
+A lot of attributes throughout the code use the `transient` keyword, to avoid these attributes from being serialized by GSON when the Game is saved.
+
+### Implementing Features
+
+The three features that were important to implement as they were, as we believed, to be a crucial part of any text-
+based game were:
+- Commands
+- Interface
+- Actions
+
+All three of these features were implemented using a **Interactable** interface.
+Using an interface meant that the same "template" could be used for anything within the game that was interactable.
+Actions are things we do with objects or to move around the environment, so therefore it was an interactable part of the game.
+Commands are an interactable part of the game, so therefore they used the interface.
+This interface did not exist in the first version of our class model, and with time we realized
+that this made our system and code easier to work with.
+
+The interface feature is a success.
+Our program uses the command line interface of the user's computer.
+The interface, in a way, even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
+This allows for the interface of the game to be independent from the actual game itself.
+
+### Libraries
+This product uses the Google GSON library and the Apache Commons IO library. During the implementation of oour project, we realized that most of the libraries
+we researched were either not relevant, like TextIO and TinyLogger (TextIO would bloat the game too much, as it all worked perfectly fine with the default console,
+and TinyLogger being unnecessary during the second phase of class modeling), or it was not applicable to the features we wanted to implement but was still
+possible to be used in the future, such as KryoNet. GSON and Commons IO proved to be a good match for our product as of now, making our game work simply and
+smoothly.
+
+### Building and Running
+To execute this system, run the game.applicationBase.Main class.
+
+The system can be build using `gradle jar`. The resulting .jar file can be found in `build/libs/`.
+
+A pre-built .jar is located in the `out/` directory.
+
+Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
+You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
+
+**NOTE:** _Running the program will create a folder in your home directory: `.spork/`.
+This folder can be deleted afterwards and does not hold any important information (yet)._
+
+### Showcase
+
+This video shows a quick demo of our current implementation:
+
+[![Demo Video](http://img.youtube.com/vi/rFhZCaKsYSk/0.jpg)](http://www.youtube.com/watch?v=rFhZCaKsYSk)
+
+Wordt count: 653 words
