@@ -1,15 +1,15 @@
 # Assignment 3
 
-Maximum number of words for this document: 18000
+Max number of words for this document: 18000
 
-Word Count: 3297
+Word Count: 4407
 
 **IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.
 
 **Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
 
 ### Summary of changes of Assignment 2
-Author(s): Bogdan Cercel
+Author(s): Everyone
 
 Provide a bullet list summarizing all the changes you performed in Assignment 2 for addressing our feedback.
 
@@ -58,7 +58,10 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         very similar methods to each other, but the classes being inherently different in what they represented and how the functioned. For example, there are
         different environments a player can be in during the game: a scene where he is just exploring and interacting with items, or a combat situation
         where the player has to directly interact with another character. Both of these environments are different, but similar in a way.</td>
-        <td></td>
+        <td>In the game, all actions have consequences in the form of changing scene, stats changing or the inventory changing. The problem was
+        finding a way to be able to change the type of effect for every single action, without doing an operation that could be wasting time
+        such as mapping actions to a certain type and then looking for the action that was just entered by the user -- this would take too much time
+        and too much computational power. </td>
     </tr>
     <tr>
         <td><b>Solution</b></td>
@@ -70,14 +73,16 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         by all of the game objects that need their own, dedicated commands, this is all encapsulated within one object of the class **Command** to be used at a later time.
         Since not all objects need to be command handling at every single point of the game, all the necessary command handling can be sent to
         any number of objects in the game that need it.</td>
-        <td>The Observer design pattern is used when multiple objects need to receive an update about another object's change. <b>to be continued</b></td>
+        <td></td>
         <td>The Template Method design pattern is used when a group of subclasses need to implement a group of similar methods. This is done with an abstract class, and
         a method that contains a series of method calls that each subclass will call. In our case, this was done using the abstract class **View**. The classes
         **Scene** and **Battle** both inherit from this abstract class, as this class enables the player to exit and leave these different environments of the game. Previously,
         when there were no different environments, the **Scene** class implemented the **Interactable** interface directly, but with more environments added, there
         needed to be a "middle man", not only to have these multiple classes call similar methods but also to keep track of which environment the game is in, and how to
         get back to the environment it was previously in.</td>
-        <td>The Decorator design pattern allows you to modify an object at run-time -- like inheritance. <b>to be continued</b></td>
+        <td>The solution to this problem was the Decorator design pattern. This design pattern allows for objects to be modified at run time, a.k.a. having the
+        capabilities of inheritance at run-time. This was done in the implementation using an enumerator for the types of effects that can occur: a
+        navigation effect, a stats effect, and an inventory effect.</td>
     </tr>
     <tr>
         <td><b>Intended use</b></td>
@@ -86,14 +91,16 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
         <td>At run-time, the player would, for example, engage in combat with another character in the game. Once this happens, the method that controls entering the new "view" or environment is called and the combat scene begins, with the previous,
         non-combat scene being stored for later. Once the player exits combat, the method to exit the environment is called from the abstract class, and then the previous environment is replaced, so the player
         is back to where they were in the game before engaging in combat. </td>
-        <td></td>
+        <td>At run-time, when a player enters an action command, a method is called that returns a list of objects of class **Effect**. These objects have
+        their own descriptions and a type. Then, the type is the only thing that is important, and the appropriate changes are made depending on the
+        type of effect from the enum variables, and the appropriate output is made to the player on the CLI if it is appropriate.</td>
     </tr>
     <tr>
         <td><b>Constraints</b></td>
-        <td></td>
-        <td></td>
         <td>N/A</td>
         <td></td>
+        <td>N/A</td>
+        <td>N/A</td>
     </tr>
     <tr>
         <td><b>Additional remarks</b></td>
@@ -105,7 +112,7 @@ Author(s): Sofia Konovalova, Wilkin van Roosmalen
 </table>
 
 Maximum number of words for this section: 2000
-Word Count: 329
+Word Count: 840
 
 ## Class diagram
 Author(s): Sofia Konovalova
@@ -265,14 +272,28 @@ Word Count: 2914
 ## Object diagrams
 Author(s): Koen van den Burg
 
-This chapter contains the description of a "snapshot" of the status of your system during its execution.
-This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-`Figure representing the UML class diagram`
+![](images/ObjectDiagramV3.png)
 
-`Textual description`
+This Object diagram captures the snapshot of the very beginning of the game. 
+Everything shown in the object diagram is implemented into our system.
+The master object is the **Game** object which holds the *CurrentSceneId* which is 1.
+The **game** object is connected to the **Player** object and the **Scene** object.
+The **Player** object has one attribute, the *name* which is “Bogdan” and is connected with the **CharacterStats** objects which holds the current *HealthPoints* (at this time 50), the *MaxHealthPoints*(100), the *MinHealthPoints*(0), the *BaseDamage*(20) and the *BaseLuck* (7).
 
-Maximum number of words for this section: 1000
+The second object connected to the game object is the **Scene** object which is connected to the first scene of the game, the “Studio scene”. The **Scene** object is connected with the **SceneActions** object that holds the commands which can be carried out by the player. The available actions are: *Inspect<**item**>*(for interacting with items in the scene), *Inspect scene*(for giving the player more information about the current scene he is in) and the *Navigation* action for moving around in the scene.
+
+The **StudioScene** contains the following objects: The **Brother** of type **Friend**, The **Bully** of type **Enemy**, **OutsideDoor** and **Noodles** both of type **Item**. 
+The bully has its own **CharacterStats**, same as the player has, only with different values. 
+
+The **Bully** object is connected to an object called **BullyBattle** of type **Battle**, which, when a fight command is used, initiates a battle between the bully and the player, which has effect on the players’ **CharacterStats**, mainly the *HealthPoints*. 
+
+The **Brother** object is connected to an object **Conversation** with a few dialog options, stored in the *Lines* attribute* along with a Boolean *hasTalked* which is False at the start of the game.  
+
+The **door** item named “**OutsideDoor**” will lead to a chain of objects being used in order to progress into another scene. For this particular door, what happen is when the **OutsideDoorEffect** “open” is used on the item **OutsideDoor** the **OutsideDoorOpenEffect** object is created which leads to the object **OutsideNavigationEffect** of type **Effect**, this object has a *type* attribute which holds *NAVIGATION*, this will set the **Game** objects’ current **SceneId** to “3”. 
+The item **Noodles** is connected to an Action object called **NoodleActions**. With the command “eat” it will instantiate an object **NoodleEatEffect** of **Effects** type, which then will lead to an object **HealEffect** of type **Effect** with *Type* attribute *STATS*. This object is connected to the players’ **CharacterStats** object and will add HealthPoints to the players’ statistics. 
+
+Word count: 406
 
 ## State machine diagrams
 Author(s): Claudia Grigoras
@@ -348,15 +369,15 @@ based game were:
 - Interface
 - Actions
 
-All three of these features were implemented using a **Interactable** interface. 
-Using an interface meant that the same "template" could be used for anything within the game that was interactable. 
-Actions are things we do with objects or to move around the environment, so therefore it was an interactable part of the game. 
-Commands are an interactable part of the game, so therefore they used the interface. 
+All three of these features were implemented using a **Interactable** interface.
+Using an interface meant that the same "template" could be used for anything within the game that was interactable.
+Actions are things we do with objects or to move around the environment, so therefore it was an interactable part of the game.
+Commands are an interactable part of the game, so therefore they used the interface.
 This interface did not exist in the first version of our class model, and with time we realized
 that this made our system and code easier to work with.
 
-The interface feature is a success. 
-Our program uses the command line interface of the user's computer. 
+The interface feature is a success.
+Our program uses the command line interface of the user's computer.
 The interface, in a way, even goes further by using the file system of the user in order to keep local save files so that the player can choose to extend the game if they want.
 This allows for the interface of the game to be independent from the actual game itself.
 
