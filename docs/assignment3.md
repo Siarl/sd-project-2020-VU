@@ -111,7 +111,7 @@ state; *sceneMap* which is a Map that associates the unique scene IDs with a *Sc
 with the *Item* object; and finally, *player*, which is an object of class **Player**, which is the player in the game. \
 There is usage of constructor overloading in this class, depending on what is available for the game to be made. The default constructor, *Game()*,
 initialized the *viewBackStack* so the game can keep track of the environment views we are in. The constructors *Game(String, Map<Integer, Scene>,
-Map<Integer, Actions>, Map<String, Item>, int)* and *Game(Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, int)* create a game from
+Map<Integer, Actions>, Map<String, Item>, Map<String, Character>, int)* and *Game(Map<Integer, Scene>, Map<Integer, Actions>, Map<String, Item>, Map<String, Character>, int)* create a game from
 the available information from the mapped actions, scenes and items, but they only differ in if the player name is available; otherwise the default name that is
 hardcoded is used. The method *start(Client)* creates a "client" for the game, a.k.a. the player of the game; *addClient(Client)* adds a new client to the game -- even though
 this method is not applicable at the current game version, it can be used to add a multiplayer function to the game. *removeClient(Client)* removes a client
