@@ -18,23 +18,46 @@ public class Effect {
     private List<String> inventoryAddChange;
     private List<String> inventoryRemoveChange;
 
+    public Effect(String description) {
+        this.description = description;
+    }
+
+    public Effect(String description, int sceneIdChange) {
+        this(description);
+        this.type = Type.NAVIGATION;
+        this.sceneIdChange = sceneIdChange;
+    }
+
+    public Effect(String description, Stats statsChange) {
+        this(description);
+        this.type = Type.STATS;
+        this.statsChange = statsChange;
+    }
+
+    public Effect(String description, List<String> inventoryAddChange, List<String> inventoryRemoveChange) {
+        this(description);
+        this.type = Type.INVENTORY;
+        this.inventoryAddChange = inventoryAddChange;
+        this.inventoryRemoveChange = inventoryRemoveChange;
+    }
+
     /**
      * Applies the changes specified effect to the game.
      * @param game the Game object to apply this effect on
      */
-    public void apply(Game game) {
+    public void apply(Game game, Interactable.Callback callback) {
         if (game == null) throw new IllegalArgumentException("game is null");
 
         switch (type) {
             case NAVIGATION:
-                game.setCurrentSceneById(sceneIdChange);
+                game.setCurrentSceneById(sceneIdChange, callback);
                 break;
             case INVENTORY:
                 game.getPlayer().getInventory().addAll(inventoryAddChange);
                 game.getPlayer().getInventory().removeAll(inventoryRemoveChange);
                 break;
             case STATS:
-                game.getPlayer().getPlayerStats().applyChange(statsChange);
+                game.getPlayer().getCharacterStats().applyChange(statsChange);
                 break;
         }
     }

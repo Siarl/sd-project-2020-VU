@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -7,16 +8,21 @@ import java.util.Set;
 public class Actions implements Interactable {
 
     private int id;
-    private Map<String, Effect> effects;
+    private Map<String, Effects> commandEffectsMap;
+
+    public Actions(int id, Map<String, Effects> commandEffectsMap) {
+        this.id = id;
+        this.commandEffectsMap = commandEffectsMap;
+    }
 
     @Override
-    public boolean onCommand(Command command, Callback callback) {
+    public boolean handleCommand(Command command, Callback callback) {
         if (hasCommand(command.getAction())) {
-            Effect effect = getEffect(command.getAction());
-            if (effect != null) {
-                effect.apply(command.getGame());
+            Effects effects = getEffects(command.getAction());
+            if (effects != null) {
+                effects.apply(command.getGame(), callback);
 
-                callback.onMessage("Effect applied... " + effect.toString());
+                callback.onMessage("Effect applied... " + effects.toString());
             }
             return true;
         }
@@ -25,12 +31,13 @@ public class Actions implements Interactable {
     }
 
     @Override
-    public List<String> listCommands(Game game, List<String> addToThisList) {
-        Set<String> commands = getCommands();
+    public List<String> listHandledCommands(Game game) {
+        List<String> result = new ArrayList<>();
+        Set<String> commands = getCommandSet();
         if (commands != null) {
-            addToThisList.addAll(getCommands());
+            result.addAll(getCommandSet());
         }
-        return addToThisList;
+        return result;
     }
 
     /*
@@ -41,17 +48,17 @@ public class Actions implements Interactable {
         return id;
     }
 
-    public Effect getEffect(String command) {
-        if (effects == null) return null;
-        return effects.get(command);
+    public Effects getEffects(String command) {
+        if (commandEffectsMap == null) return null;
+        return commandEffectsMap.get(command);
     }
 
-    public Set<String> getCommands() {
-        if (effects == null) return null;
-        return effects.keySet();
+    public Set<String> getCommandSet() {
+        if (commandEffectsMap == null) return null;
+        return commandEffectsMap.keySet();
     }
 
     public boolean hasCommand(String command) {
-        return effects != null && effects.containsKey(command);
+        return commandEffectsMap != null && commandEffectsMap.containsKey(command);
     }
 }

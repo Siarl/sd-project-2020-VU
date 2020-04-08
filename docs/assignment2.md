@@ -55,7 +55,7 @@ Implementation: Intellij IDEA
 ## Class diagram
 Author(s): Sofia Konovalova
 
-![](images/ClassDiagramV2.png)
+![](images/ClassDiagramV3.png)
 
 This diagram represents the class diagram for this UML project.
 
@@ -160,7 +160,7 @@ Word Count: 1977
 Author(s): Koen van den Burg
 
 ![](images/ObjectDiagramV1.png)
-     
+
 This Object diagram captures the snapshot of the very beginning of the game. \
 The green color means that the object is implemented in the system and the red color means the object is not implemented yet. \
 The most fundamental objects are already implemented in the system: the *game*, *player*, *scene*, *inventory* and *player statistics*. \
@@ -185,41 +185,39 @@ Word count: 408
 Author(s): Claudia Grigoras
 
 <b> Game Class - State Machine Diagram </b>
-![State Machine Diagram - Game](images/SMDGame.jpeg)
+![State Machine Diagram - Game](images/gamestate2.jpeg)
 
-This diagram represents the finite number of states for the **game** class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run. 
+This diagram represents the finite number of states for the **game** class. This is the class that initializes the game and that ensures that the commands are being read, are valid and then run.
 
-The first state after the initial state within the state machine diagram is the "Initialize Game". Within this state, as it can be seen within the code as well, everything is initialized and thus creating objects of all other classes to be called later on within the other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Start Game". 
+The first state after the initial state within the state machine diagram is the "Game initialized". Within the system reaches this state, as it can be seen within the code as well, everything is initialized and thus an instance of the objects of all other classes have been created to be called later on when triggering other states. The main effect (activity) that will be transitioned through this state is the listener, as the listener is used within the next state "Game starting".
 
-"Start Game" is a composite state, whereas there are a few internal activities. First of all, at the entry the state gets the listener in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read. 
+"Game starting" is a composite state, whereas there are a few internal activities. First of all, when entering this state, the listener is being received in order to operate other activities. Then in order to actually start the game, the listener is being run (actively listening to changes inputted within the terminal), and the current scene id is set according to the first scene id of the game. Then at exiting this state, a command string has been read.
 
-This string is transitioned to the next state which is "Read Command". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Handle Command" state, again a composite state. 
+This string is received when entering the next state which is "Command reading". This, same as the previous state, is a composite state. At entry, the state gets the string command, and as an internal activity, checks this command to see whether it is valid or not. If the command is not valid, then the next state is the flow final. If it is valid, at exit, the command is evaluated as being valid. This command is then transitioned to the "Command handling" state, again, a composite state.
 
-The state "Handle Command" gets the valid command at entry, and then runs the scene for that command (for which the next state machine diagram is being provided below). Upon exiting this state, the scene will change to a new scene and new commands need to be read. Therefore, the state transitions back to "Read Command" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command. 
+The state "Command handling" receives the valid command when entering, and then runs the scene for that command, thus entering the states of that scene (for which the next state machine diagram is being provided below). The state exists when a new scene has been received from the last state of the run scene, and the user can write commands again. Therefore, the state transitions back to "Command reading" if there is an event e = listener where the guard (condition) is g = new command, so that e[g]/string command. These states will loop between themselves repeatedly, unless it reads an invalid command.
 
 
 <b> Scene Class - State Machine Diagram </b>
-![State Machine Diagram - Scene](images/SMDScene.png)
+![State Machine Diagram - Scene](images/scenestate3.png)
 
-The state machine diagram for the **scene class** is a bit more complex than the **game** class, as it has more states. 
+The state machine diagram for the **scene class** is a bit more complex than the **game** class, as it has more states.
 
-This class is being called by the previous class (game), and we could see within the previous diagram when it was called. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has the activity/effect "command". 
+This class is being called by the previous class (game) within the "Command handling" state. Therefore, after the pseudostate "initial state", this class starts directly with a transition that has an activity "get command" in order to enter the following state.
 
-The next state is to make sure to store/get this string command, therefore the name "Get Command", a simple state that makes sure the string is being received. This state transitions with the same string that has received/stored to the next state.
+Upon receiving/getting the command, the new state is entered, which is Command Checked. This state only has as an internal activity to check this string, and to then transition to a decision node in order to match it.
 
-The next state is the "Handle Command". This state only has as an internal activity to check this string, and to then transition to a decision node in order to match it.
+From the "Command checked" state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings.
 
-From the Handle Command state there are four alternate paths for the states transitions. All of these depends on reading the string command and comparing it to different strings. 
+The first alternate transition is when the condition command == "inspect" is met, and nothing else follows this string. Then, the following state is the "Items searched" composite state. The event "search items" triggers this state, which in turn performs this search as an internal activitiy. At exit, it writes these items to the terminal, and then it reaches its final state.
 
-The first alternate transition is when the condition command == "inspect" is met. Then, the following state is the "Inspect Command" composite state. Within this state, at entry, it gets the command, and as an activity it searches all the items within the scene it is in. At exit, it writes these items to the terminal, and then it reaches its final state.
+The second alternate transition is when the command == "search" is being met. Here, the activity "provide commands" triggers this state, which in turn it searches these commands as part of its internal activity. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
 
-The second alternate transition is when the command == "search" is being met. Here, the machinge transitions to the state "Static Command" where at entry it receives the command string. Then, as an internal activity within the state, it looks up all the possible commands for the current scene and retrieves them. At the exit of this state, the retrieved commands are written to the terminal and then the machine reaches the final state.
+The third alternate transition is when the command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Effect applied". The activity that triggers this state, is to apply effect. It performs this as an internal activity, and then at exit it then returns to the game machine with a new scene id as the effect changes the scene id, and then reaches the final state of the scene.
 
-The third alternate transition is when the command == action + item. Both action and items correspond to objects actions and items, that have specific effects. This state is called "Apply Effect". Here, at entry, it gets as well the command, and then it checks both the action and the item and applies the desired effect. It then returns to the game machine with a new scene id as the effect changes the scene id, reaching the final state of the scene.
+The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Item inspected" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
 
-The last alternate transition is when the command = "inspect" + item (item is a variable). When this string is being matched, then the diagram transitions to "Inspect Item" state. Here, at entry, it only retrieves the item from the string. Then, it searches for all the actions that are valid for that item within this scene. If the item was not found, then it goes into flow final state. If the item has been found along with all its possible actions, then these are written to the terminal and then it reaches its final state.
-
-Word count: 866
+Word count: 825
 
 ## Sequence diagrams
 Author(s): Bogdan-Petre Cercel
@@ -287,13 +285,13 @@ Author(s): Wilkin van Roosmalen
 ### Writing the Code
 
 After discussing and creating the first UML models, we started on the implementation.
-First, a skeleton was made. 
+First, a skeleton was made.
 All classes were created and populated with the attributes and methods defined in the Class diagram.
 We quickly found a couple points of improvement, and went back to changing the diagrams.
 
 After implementing the changes, we went on to writing the actual methods.
 The code is currently a bit messy, we plan on improving many parts for Assignment 3.
-Luckily, most methods have the same structure: 
+Luckily, most methods have the same structure:
 Besides getters and setters, the `onCommand(Command, Callback)` methods play an important role.
 These methods are implemented using a bunch of if-statements and for loops to check whether commands can be handled.
 
@@ -310,7 +308,7 @@ In the resources folder, three files can be found:
 - main-game.items.json (ItemStore)
 - main-game.scenes.json (SceneStore)
 
-These files contain the actual content of the game. 
+These files contain the actual content of the game.
 By adding and changing the values in these files, the game can be extended.
 
 ###Implementing Features
@@ -348,8 +346,8 @@ A pre-built .jar is located in the `out/` directory.
 Run the program by calling `java -jar out/sofware-design-vu-2020-1.0.jar`. Make sure to at least use java 11.
 You can always exit the program by entering `quit` or `ctrl+C` in the terminal.
 
-**NOTE:** _Running the program will create a folder in your home directory: `.spork/`. 
-This folder can be deleted afterwards and does not hold any important information (yet)._ 
+**NOTE:** _Running the program will create a folder in your home directory: `.spork/`.
+This folder can be deleted afterwards and does not hold any important information (yet)._
 
 ### Showcase
 
